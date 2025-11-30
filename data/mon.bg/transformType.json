@@ -1,0 +1,105 @@
+{
+    "status": 1,
+    "data": [
+        {
+            "code": 1,
+            "label": "закрита",
+            "isValid": true
+        },
+        {
+            "code": 2,
+            "label": "действаща",
+            "isValid": false
+        },
+        {
+            "code": 3,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 4,
+            "label": "действаща (не провежда учебен процес през текущата година)",
+            "isValid": true
+        },
+        {
+            "code": 5,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 6,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 7,
+            "label": "заличена",
+            "isValid": true
+        },
+        {
+            "code": 8,
+            "label": "отписана",
+            "isValid": true
+        },
+        {
+            "code": 9,
+            "label": "преобразувана (закрито)",
+            "isValid": false
+        },
+        {
+            "code": 10,
+            "label": "действаща",
+            "isValid": false
+        },
+        {
+            "code": 11,
+            "label": "преобразувана (закрита)",
+            "isValid": true
+        },
+        {
+            "code": 12,
+            "label": "преобразувана (закрита)",
+            "isValid": true
+        },
+        {
+            "code": 13,
+            "label": "преобразувана (действаща)",
+            "isValid": true
+        },
+        {
+            "code": 14,
+            "label": "преобразувана (закрита)",
+            "isValid": true
+        },
+        {
+            "code": 15,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 16,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 17,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 25,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 26,
+            "label": "действаща",
+            "isValid": true
+        },
+        {
+            "code": 99,
+            "label": "закрита",
+            "isValid": false
+        }
+    ]
+}

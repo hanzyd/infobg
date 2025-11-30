@@ -1,0 +1,715 @@
+{
+    "status": 1,
+    "data": [
+        {
+            "code": 1,
+            "label": "начално (І - ІV клас)",
+            "isValid": false
+        },
+        {
+            "code": 1,
+            "label": "начално (І - ІV клас)",
+            "isValid": false
+        },
+        {
+            "code": 1,
+            "label": "начално (І - ІV клас)",
+            "isValid": false
+        },
+        {
+            "code": 1,
+            "label": "начално (І - ІV клас)",
+            "isValid": false
+        },
+        {
+            "code": 2,
+            "label": "основно (І - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 2,
+            "label": "основно (І - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 2,
+            "label": "основно (І - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 2,
+            "label": "основно (І - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 3,
+            "label": "СОУ (І - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 3,
+            "label": "СОУ (І - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 3,
+            "label": "СОУ (І - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 3,
+            "label": "СОУ (І - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 4,
+            "label": "професионално училище",
+            "isValid": false
+        },
+        {
+            "code": 5,
+            "label": "начално с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 5,
+            "label": "начално с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 5,
+            "label": "начално с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 5,
+            "label": "начално с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 6,
+            "label": "основно с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 6,
+            "label": "основно с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 6,
+            "label": "основно с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 6,
+            "label": "основно с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 7,
+            "label": "СОУ с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 7,
+            "label": "СОУ с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 7,
+            "label": "СОУ с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 7,
+            "label": "СОУ с (присъединена) група в детска градина",
+            "isValid": false
+        },
+        {
+            "code": 8,
+            "label": "спортно",
+            "isValid": false
+        },
+        {
+            "code": 8,
+            "label": "спортно",
+            "isValid": false
+        },
+        {
+            "code": 9,
+            "label": "духовно",
+            "isValid": false
+        },
+        {
+            "code": 10,
+            "label": "ОУ с професионални паралелки",
+            "isValid": false
+        },
+        {
+            "code": 10,
+            "label": "ОУ с професионални паралелки",
+            "isValid": false
+        },
+        {
+            "code": 10,
+            "label": "ОУ с професионални паралелки",
+            "isValid": false
+        },
+        {
+            "code": 10,
+            "label": "ОУ с професионални паралелки",
+            "isValid": false
+        },
+        {
+            "code": 21,
+            "label": "прогимназия (V - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 21,
+            "label": "прогимназия (V - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 21,
+            "label": "прогимназия (V - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 21,
+            "label": "прогимназия (V - VІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 22,
+            "label": "профилирана гимназия",
+            "isValid": false
+        },
+        {
+            "code": 22,
+            "label": "профилирана гимназия",
+            "isValid": false
+        },
+        {
+            "code": 22,
+            "label": "профилирана гимназия",
+            "isValid": false
+        },
+        {
+            "code": 22,
+            "label": "профилирана гимназия",
+            "isValid": false
+        },
+        {
+            "code": 31,
+            "label": "гимназия (ІХ - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 31,
+            "label": "гимназия (ІХ - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 31,
+            "label": "гимназия (ІХ - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 31,
+            "label": "гимназия (ІХ - ХІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 32,
+            "label": "V - ХІІ клас",
+            "isValid": false
+        },
+        {
+            "code": 32,
+            "label": "V - ХІІ клас",
+            "isValid": false
+        },
+        {
+            "code": 32,
+            "label": "V - ХІІ клас",
+            "isValid": false
+        },
+        {
+            "code": 32,
+            "label": "V - ХІІ клас",
+            "isValid": false
+        },
+        {
+            "code": 33,
+            "label": "професионална гимназия",
+            "isValid": false
+        },
+        {
+            "code": 33,
+            "label": "професионална гимназия",
+            "isValid": false
+        },
+        {
+            "code": 33,
+            "label": "професионална гимназия",
+            "isValid": false
+        },
+        {
+            "code": 33,
+            "label": "професионална гимназия",
+            "isValid": false
+        },
+        {
+            "code": 34,
+            "label": "професионален колеж",
+            "isValid": false
+        },
+        {
+            "code": 34,
+            "label": "професионален колеж",
+            "isValid": false
+        },
+        {
+            "code": 40,
+            "label": "извънучилищни педагогически учреждения",
+            "isValid": false
+        },
+        {
+            "code": 41,
+            "label": "МУЦТПО",
+            "isValid": false
+        },
+        {
+            "code": 42,
+            "label": "самостоятелно общежитие / интернат",
+            "isValid": false
+        },
+        {
+            "code": 44,
+            "label": "логопедичен център",
+            "isValid": false
+        },
+        {
+            "code": 45,
+            "label": "ресурсен център",
+            "isValid": false
+        },
+        {
+            "code": 50,
+            "label": "помощно (за деца с умствена изостаналост)",
+            "isValid": false
+        },
+        {
+            "code": 50,
+            "label": "помощно (за деца с умствена изостаналост)",
+            "isValid": false
+        },
+        {
+            "code": 51,
+            "label": "оздравително",
+            "isValid": false
+        },
+        {
+            "code": 51,
+            "label": "оздравително",
+            "isValid": false
+        },
+        {
+            "code": 52,
+            "label": "болнично",
+            "isValid": false
+        },
+        {
+            "code": 52,
+            "label": "болнично",
+            "isValid": false
+        },
+        {
+            "code": 53,
+            "label": "за деца с увреден слух",
+            "isValid": false
+        },
+        {
+            "code": 53,
+            "label": "за деца с увреден слух",
+            "isValid": false
+        },
+        {
+            "code": 54,
+            "label": "за деца с нарушено зрение",
+            "isValid": false
+        },
+        {
+            "code": 54,
+            "label": "за деца с нарушено зрение",
+            "isValid": false
+        },
+        {
+            "code": 55,
+            "label": "логопедично",
+            "isValid": false
+        },
+        {
+            "code": 55,
+            "label": "логопедично",
+            "isValid": false
+        },
+        {
+            "code": 56,
+            "label": "социално-педагогически интернат",
+            "isValid": false
+        },
+        {
+            "code": 56,
+            "label": "социално-педагогически интернат",
+            "isValid": false
+        },
+        {
+            "code": 57,
+            "label": "възпитателно училище - интернат (ВУИ)",
+            "isValid": false
+        },
+        {
+            "code": 57,
+            "label": "възпитателно училище - интернат (ВУИ)",
+            "isValid": false
+        },
+        {
+            "code": 58,
+            "label": "към местата за лишаване от свобода",
+            "isValid": false
+        },
+        {
+            "code": 71,
+            "label": "по изкуствата",
+            "isValid": false
+        },
+        {
+            "code": 81,
+            "label": "ДОВДЛРГ за деца от предучилищна възраст",
+            "isValid": false
+        },
+        {
+            "code": 82,
+            "label": "ДОВДЛРГ за деца от І до ХІІ (ХІІІ клас)",
+            "isValid": false
+        },
+        {
+            "code": 91,
+            "label": "целодневна детска градина",
+            "isValid": false
+        },
+        {
+            "code": 91,
+            "label": "целодневна детска градина",
+            "isValid": false
+        },
+        {
+            "code": 91,
+            "label": "целодневна детска градина",
+            "isValid": false
+        },
+        {
+            "code": 92,
+            "label": "полудневна детска градина",
+            "isValid": false
+        },
+        {
+            "code": 92,
+            "label": "полудневна детска градина",
+            "isValid": false
+        },
+        {
+            "code": 92,
+            "label": "полудневна детска градина",
+            "isValid": false
+        },
+        {
+            "code": 93,
+            "label": "седмична детска градина",
+            "isValid": false
+        },
+        {
+            "code": 93,
+            "label": "седмична детска градина",
+            "isValid": false
+        },
+        {
+            "code": 93,
+            "label": "седмична детска градина",
+            "isValid": false
+        },
+        {
+            "code": 94,
+            "label": "специална детска градина",
+            "isValid": false
+        },
+        {
+            "code": 94,
+            "label": "специална детска градина",
+            "isValid": false
+        },
+        {
+            "code": 94,
+            "label": "специална детска градина",
+            "isValid": false
+        },
+        {
+            "code": 111,
+            "label": "духовно",
+            "isValid": true
+        },
+        {
+            "code": 112,
+            "label": "по изкуствата",
+            "isValid": true
+        },
+        {
+            "code": 113,
+            "label": "по културата",
+            "isValid": true
+        },
+        {
+            "code": 114,
+            "label": "спортно",
+            "isValid": true
+        },
+        {
+            "code": 114,
+            "label": "спортно",
+            "isValid": true
+        },
+        {
+            "code": 121,
+            "label": "начално",
+            "isValid": true
+        },
+        {
+            "code": 121,
+            "label": "начално",
+            "isValid": true
+        },
+        {
+            "code": 121,
+            "label": "начално",
+            "isValid": true
+        },
+        {
+            "code": 121,
+            "label": "начално",
+            "isValid": true
+        },
+        {
+            "code": 122,
+            "label": "основно",
+            "isValid": true
+        },
+        {
+            "code": 122,
+            "label": "основно",
+            "isValid": true
+        },
+        {
+            "code": 122,
+            "label": "основно",
+            "isValid": true
+        },
+        {
+            "code": 122,
+            "label": "основно",
+            "isValid": true
+        },
+        {
+            "code": 123,
+            "label": "обединено",
+            "isValid": true
+        },
+        {
+            "code": 123,
+            "label": "обединено",
+            "isValid": true
+        },
+        {
+            "code": 123,
+            "label": "обединено",
+            "isValid": true
+        },
+        {
+            "code": 123,
+            "label": "обединено",
+            "isValid": true
+        },
+        {
+            "code": 124,
+            "label": "средно",
+            "isValid": true
+        },
+        {
+            "code": 124,
+            "label": "средно",
+            "isValid": true
+        },
+        {
+            "code": 124,
+            "label": "средно",
+            "isValid": true
+        },
+        {
+            "code": 124,
+            "label": "средно",
+            "isValid": true
+        },
+        {
+            "code": 125,
+            "label": "профилирана гимназия",
+            "isValid": true
+        },
+        {
+            "code": 125,
+            "label": "профилирана гимназия",
+            "isValid": true
+        },
+        {
+            "code": 125,
+            "label": "профилирана гимназия",
+            "isValid": true
+        },
+        {
+            "code": 125,
+            "label": "профилирана гимназия",
+            "isValid": true
+        },
+        {
+            "code": 126,
+            "label": "професионална гимназия",
+            "isValid": true
+        },
+        {
+            "code": 126,
+            "label": "професионална гимназия",
+            "isValid": true
+        },
+        {
+            "code": 126,
+            "label": "професионална гимназия",
+            "isValid": true
+        },
+        {
+            "code": 126,
+            "label": "професионална гимназия",
+            "isValid": true
+        },
+        {
+            "code": 131,
+            "label": "за обучение и подкрепа на ученици с увреден слух",
+            "isValid": true
+        },
+        {
+            "code": 132,
+            "label": "за обучение и подкрепа на ученици с нарушено зрение",
+            "isValid": true
+        },
+        {
+            "code": 133,
+            "label": "възпитателно училище - интернат",
+            "isValid": true
+        },
+        {
+            "code": 134,
+            "label": "социално-педагогически интернат",
+            "isValid": true
+        },
+        {
+            "code": 135,
+            "label": "помощно (ЦСОП)",
+            "isValid": false
+        },
+        {
+            "code": 136,
+            "label": "болнично (ЦПЛР)",
+            "isValid": false
+        },
+        {
+            "code": 141,
+            "label": "към местата за лишаване от свобода",
+            "isValid": true
+        },
+        {
+            "code": 151,
+            "label": "детска градина",
+            "isValid": true
+        },
+        {
+            "code": 151,
+            "label": "детска градина",
+            "isValid": true
+        },
+        {
+            "code": 151,
+            "label": "детска градина",
+            "isValid": true
+        },
+        {
+            "code": 161,
+            "label": "център за подкрепа за личностно развитие",
+            "isValid": true
+        },
+        {
+            "code": 162,
+            "label": "център за специална образователна подкрепа",
+            "isValid": true
+        },
+        {
+            "code": 162,
+            "label": "център за специална образователна подкрепа",
+            "isValid": true
+        },
+        {
+            "code": 163,
+            "label": "ученическо общежитие",
+            "isValid": true
+        },
+        {
+            "code": 164,
+            "label": "астрономическа обсерватория и планетариум",
+            "isValid": true
+        },
+        {
+            "code": 165,
+            "label": "регионален център за подкрепа на процеса на приобщаващо образование",
+            "isValid": false
+        },
+        {
+            "code": 166,
+            "label": "център за кариерно ориентиране",
+            "isValid": true
+        },
+        {
+            "code": 171,
+            "label": "Национален дворец на децата",
+            "isValid": true
+        },
+        {
+            "code": 172,
+            "label": "Държавен логопедичен център",
+            "isValid": true
+        },
+        {
+            "code": 173,
+            "label": "специализирано обслужващо звено",
+            "isValid": true
+        },
+        {
+            "code": 174,
+            "label": "регионален център за подкрепа на процеса на приобщаващо образование",
+            "isValid": true
+        },
+        {
+            "code": 181,
+            "label": "училище, функциониращо по силата на международен договор",
+            "isValid": true
+        }
+    ]
+}

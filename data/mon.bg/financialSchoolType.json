@@ -1,0 +1,30 @@
+{
+    "status": 1,
+    "data": [
+        {
+            "code": 1,
+            "label": "Държавно",
+            "isValid": true
+        },
+        {
+            "code": 2,
+            "label": "Общинско",
+            "isValid": true
+        },
+        {
+            "code": 3,
+            "label": "Частно",
+            "isValid": true
+        },
+        {
+            "code": 11,
+            "label": "Духовно",
+            "isValid": true
+        },
+        {
+            "code": 12,
+            "label": "По силата на международен договор",
+            "isValid": true
+        }
+    ]
+}
