@@ -62,14 +62,14 @@ def main(dir):
 
         name = institution['name']
 
-        code = institution['municipality']
-        label = label_by_code(municipality, code)
+        mun_code = institution['municipality']
+        label = label_by_code(municipality, mun_code)
 
         if not label:
-            label = label_by_code(municipality_multiple, code)
+            label = label_by_code(municipality_multiple, mun_code)
 
         if not label:
-            print('{}: {}: no municipality label'.format(code, name))
+            print('{}: {}: no municipality label'.format(mun_code, name))
             continue
 
         if not valid_territorial_unit(ek_json, label):
@@ -87,11 +87,11 @@ def main(dir):
             print('Invalid area {}: {}'.format(label, name))
             continue
 
-        code = institution['town']
-        label = label_by_code(towns, code)
+        town_code = institution['town']
+        label = label_by_code(towns, town_code)
 
         if not label:
-            print('{}: {}: no town label'.format(code, name))
+            print('{}: {}: no town label'.format(town_code, name))
             continue
 
         if not valid_territorial_unit(ek_json, label):
@@ -122,6 +122,8 @@ def main(dir):
         public_institutions.append({
             'code': inst_id,
             'name': name,
+            'town': town_code,
+            'municipality': mun_code,
             'financial': fin_code,
             'details': details_code,
             'status': trans_code,
