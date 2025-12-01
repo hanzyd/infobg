@@ -83,6 +83,41 @@ def main(dir):
             'municipality': mun_code,
         })
 
+    for unit in mun_json[:-1]:
+
+        unit_name = unit['name']
+        unit_code = int(unit['ekatte'])
+        mun_name = unit['obshtina']
+        area_name = mun_name[:-2]
+
+        area_code = find_area_code(area_json, area_name)
+        if area_code == 0:
+            continue
+
+        merged_json.append({
+            'code': unit_code,
+            'name': unit_name,
+            'area': area_code,
+            'municipality': unit_code,
+        })
+
+    for unit in area_json[:-1]:
+
+        unit_name = unit['name']
+        unit_code = int(unit['ekatte'])
+        area_name = unit['oblast']
+
+        area_code = find_area_code(area_json, area_name)
+        if area_code == 0:
+            continue
+
+        merged_json.append({
+            'code': area_code,
+            'name': unit_name,
+            'area': area_code,
+            'municipality': unit_code,
+        })
+
     print('Territorial units count: {}'.format(len(merged_json)))
 
     # Merged information

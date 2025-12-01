@@ -42046,5 +42046,1763 @@
         "altitude": 4,
         "area": 10971,
         "municipality": 21097
+    },
+    {
+        "code": 84,
+        "name": "\u0410\u0432\u0440\u0435\u043d",
+        "area": 10135,
+        "municipality": 84
+    },
+    {
+        "code": 151,
+        "name": "\u0410\u0439\u0442\u043e\u0441",
+        "area": 7079,
+        "municipality": 151
+    },
+    {
+        "code": 182,
+        "name": "\u0410\u043a\u0441\u0430\u043a\u043e\u0432\u043e",
+        "area": 10135,
+        "municipality": 182
+    },
+    {
+        "code": 415,
+        "name": "\u0410\u043b\u0444\u0430\u0442\u0430\u0440",
+        "area": 66425,
+        "municipality": 415
+    },
+    {
+        "code": 504,
+        "name": "\u0410\u043d\u0442\u043e\u043d",
+        "area": 68134,
+        "municipality": 504
+    },
+    {
+        "code": 518,
+        "name": "\u0410\u043d\u0442\u043e\u043d\u043e\u0432\u043e",
+        "area": 73626,
+        "municipality": 518
+    },
+    {
+        "code": 52218,
+        "name": "\u0410\u043f\u0440\u0438\u043b\u0446\u0438",
+        "area": 43952,
+        "municipality": 52218
+    },
+    {
+        "code": 607,
+        "name": "\u0410\u0440\u0434\u0438\u043d\u043e",
+        "area": 40909,
+        "municipality": 607
+    },
+    {
+        "code": 702,
+        "name": "\u0410\u0441\u0435\u043d\u043e\u0432\u0433\u0440\u0430\u0434",
+        "area": 56784,
+        "municipality": 702
+    },
+    {
+        "code": 2508,
+        "name": "\u0411\u0430\u043b\u0447\u0438\u043a",
+        "area": 72624,
+        "municipality": 2508
+    },
+    {
+        "code": 44402,
+        "name": "\u0411\u0430\u043d\u0438\u0442\u0435",
+        "area": 67653,
+        "municipality": 44402
+    },
+    {
+        "code": 2676,
+        "name": "\u0411\u0430\u043d\u0441\u043a\u043e",
+        "area": 4279,
+        "municipality": 2676
+    },
+    {
+        "code": 2837,
+        "name": "\u0411\u0430\u0442\u0430\u043a",
+        "area": 55155,
+        "municipality": 2837
+    },
+    {
+        "code": 3366,
+        "name": "\u0411\u0435\u043b\u0435\u043d\u0435",
+        "area": 56722,
+        "municipality": 3366
+    },
+    {
+        "code": 3504,
+        "name": "\u0411\u0435\u043b\u0438\u0446\u0430",
+        "area": 4279,
+        "municipality": 3504
+    },
+    {
+        "code": 3592,
+        "name": "\u0411\u0435\u043b\u043e\u0432\u043e",
+        "area": 55155,
+        "municipality": 3592
+    },
+    {
+        "code": 3616,
+        "name": "\u0411\u0435\u043b\u043e\u0433\u0440\u0430\u0434\u0447\u0438\u043a",
+        "area": 10971,
+        "municipality": 3616
+    },
+    {
+        "code": 3719,
+        "name": "\u0411\u0435\u043b\u043e\u0441\u043b\u0430\u0432",
+        "area": 10135,
+        "municipality": 3719
+    },
+    {
+        "code": 3928,
+        "name": "\u0411\u0435\u0440\u043a\u043e\u0432\u0438\u0446\u0430",
+        "area": 48489,
+        "municipality": 3928
+    },
+    {
+        "code": 4279,
+        "name": "\u0411\u043b\u0430\u0433\u043e\u0435\u0432\u0433\u0440\u0430\u0434",
+        "area": 4279,
+        "municipality": 4279
+    },
+    {
+        "code": 4501,
+        "name": "\u0411\u043e\u0431\u043e\u0432 \u0434\u043e\u043b",
+        "area": 41112,
+        "municipality": 4501
+    },
+    {
+        "code": 4532,
+        "name": "\u0411\u043e\u0431\u043e\u0448\u0435\u0432\u043e",
+        "area": 41112,
+        "municipality": 4532
+    },
+    {
+        "code": 5027,
+        "name": "\u0411\u043e\u0436\u0443\u0440\u0438\u0449\u0435",
+        "area": 68134,
+        "municipality": 5027
+    },
+    {
+        "code": 5195,
+        "name": "\u0411\u043e\u0439\u043d\u0438\u0446\u0430",
+        "area": 10971,
+        "municipality": 5195
+    },
+    {
+        "code": 5236,
+        "name": "\u0411\u043e\u0439\u0447\u0438\u043d\u043e\u0432\u0446\u0438",
+        "area": 48489,
+        "municipality": 5236
+    },
+    {
+        "code": 5284,
+        "name": "\u0411\u043e\u043b\u044f\u0440\u043e\u0432\u043e",
+        "area": 87374,
+        "municipality": 5284
+    },
+    {
+        "code": 5462,
+        "name": "\u0411\u043e\u0440\u0438\u043d\u043e",
+        "area": 67653,
+        "municipality": 5462
+    },
+    {
+        "code": 5548,
+        "name": "\u0411\u043e\u0440\u043e\u0432\u0430\u043d",
+        "area": 12259,
+        "municipality": 5548
+    },
+    {
+        "code": 5611,
+        "name": "\u0411\u043e\u0440\u043e\u0432\u043e",
+        "area": 63427,
+        "municipality": 5611
+    },
+    {
+        "code": 5815,
+        "name": "\u0411\u043e\u0442\u0435\u0432\u0433\u0440\u0430\u0434",
+        "area": 68134,
+        "municipality": 5815
+    },
+    {
+        "code": 6183,
+        "name": "\u0411\u0440\u0430\u0442\u044f \u0414\u0430\u0441\u043a\u0430\u043b\u043e\u0432\u0438",
+        "area": 68850,
+        "municipality": 6183
+    },
+    {
+        "code": 6207,
+        "name": "\u0411\u0440\u0430\u0446\u0438\u0433\u043e\u0432\u043e",
+        "area": 55155,
+        "municipality": 6207
+    },
+    {
+        "code": 6224,
+        "name": "\u0411\u0440\u0435\u0433\u043e\u0432\u043e",
+        "area": 10971,
+        "municipality": 6224
+    },
+    {
+        "code": 6286,
+        "name": "\u0411\u0440\u0435\u0437\u043d\u0438\u043a",
+        "area": 55871,
+        "municipality": 6286
+    },
+    {
+        "code": 6361,
+        "name": "\u0411\u0440\u0435\u0437\u043e\u0432\u043e",
+        "area": 56784,
+        "municipality": 6361
+    },
+    {
+        "code": 6570,
+        "name": "\u0411\u0440\u0443\u0441\u0430\u0440\u0446\u0438",
+        "area": 48489,
+        "municipality": 6570
+    },
+    {
+        "code": 7079,
+        "name": "\u0411\u0443\u0440\u0433\u0430\u0441",
+        "area": 7079,
+        "municipality": 7079
+    },
+    {
+        "code": 7598,
+        "name": "\u0411\u044f\u043b\u0430",
+        "area": 10135,
+        "municipality": 7598
+    },
+    {
+        "code": 7603,
+        "name": "\u0411\u044f\u043b\u0430",
+        "area": 63427,
+        "municipality": 7603
+    },
+    {
+        "code": 7702,
+        "name": "\u0411\u044f\u043b\u0430 \u0421\u043b\u0430\u0442\u0438\u043d\u0430",
+        "area": 12259,
+        "municipality": 7702
+    },
+    {
+        "code": 10135,
+        "name": "\u0412\u0430\u0440\u043d\u0430",
+        "area": 10135,
+        "municipality": 10135
+    },
+    {
+        "code": 58222,
+        "name": "\u0412\u0435\u043b\u0438\u043a\u0438 \u041f\u0440\u0435\u0441\u043b\u0430\u0432",
+        "area": 83510,
+        "municipality": 58222
+    },
+    {
+        "code": 10447,
+        "name": "\u0412\u0435\u043b\u0438\u043a\u043e \u0422\u044a\u0440\u043d\u043e\u0432\u043e",
+        "area": 10447,
+        "municipality": 10447
+    },
+    {
+        "code": 10450,
+        "name": "\u0412\u0435\u043b\u0438\u043d\u0433\u0440\u0430\u0434",
+        "area": 55155,
+        "municipality": 10450
+    },
+    {
+        "code": 10642,
+        "name": "\u0412\u0435\u043d\u0435\u0446",
+        "area": 83510,
+        "municipality": 10642
+    },
+    {
+        "code": 10803,
+        "name": "\u0412\u0435\u0442\u043e\u0432\u043e",
+        "area": 63427,
+        "municipality": 10803
+    },
+    {
+        "code": 10865,
+        "name": "\u0412\u0435\u0442\u0440\u0438\u043d\u043e",
+        "area": 10135,
+        "municipality": 10865
+    },
+    {
+        "code": 10971,
+        "name": "\u0412\u0438\u0434\u0438\u043d",
+        "area": 10971,
+        "municipality": 10971
+    },
+    {
+        "code": 12259,
+        "name": "\u0412\u0440\u0430\u0446\u0430",
+        "area": 12259,
+        "municipality": 12259
+    },
+    {
+        "code": 12543,
+        "name": "\u0412\u044a\u043b\u0447\u0435\u0434\u0440\u044a\u043c",
+        "area": 48489,
+        "municipality": 12543
+    },
+    {
+        "code": 12574,
+        "name": "\u0412\u044a\u043b\u0447\u0438 \u0434\u043e\u043b",
+        "area": 10135,
+        "municipality": 12574
+    },
+    {
+        "code": 12766,
+        "name": "\u0412\u044a\u0440\u0431\u0438\u0446\u0430",
+        "area": 83510,
+        "municipality": 12766
+    },
+    {
+        "code": 12961,
+        "name": "\u0412\u044a\u0440\u0448\u0435\u0446",
+        "area": 48489,
+        "municipality": 12961
+    },
+    {
+        "code": 14218,
+        "name": "\u0413\u0430\u0431\u0440\u043e\u0432\u043e",
+        "area": 14218,
+        "municipality": 14218
+    },
+    {
+        "code": 14711,
+        "name": "\u0413\u0435\u043d\u0435\u0440\u0430\u043b \u0422\u043e\u0448\u0435\u0432\u043e",
+        "area": 72624,
+        "municipality": 14711
+    },
+    {
+        "code": 14773,
+        "name": "\u0413\u0435\u043e\u0440\u0433\u0438 \u0414\u0430\u043c\u044f\u043d\u043e\u0432\u043e",
+        "area": 48489,
+        "municipality": 14773
+    },
+    {
+        "code": 15031,
+        "name": "\u0413\u043b\u0430\u0432\u0438\u043d\u0438\u0446\u0430",
+        "area": 66425,
+        "municipality": 15031
+    },
+    {
+        "code": 15309,
+        "name": "\u0413\u043e\u0434\u0435\u0447",
+        "area": 68134,
+        "municipality": 15309
+    },
+    {
+        "code": 16314,
+        "name": "\u0413\u043e\u0440\u043d\u0430 \u041c\u0430\u043b\u0438\u043d\u0430",
+        "area": 68134,
+        "municipality": 16314
+    },
+    {
+        "code": 16359,
+        "name": "\u0413\u043e\u0440\u043d\u0430 \u041e\u0440\u044f\u0445\u043e\u0432\u0438\u0446\u0430",
+        "area": 10447,
+        "municipality": 16359
+    },
+    {
+        "code": 17395,
+        "name": "\u0413\u043e\u0446\u0435 \u0414\u0435\u043b\u0447\u0435\u0432",
+        "area": 4279,
+        "municipality": 17395
+    },
+    {
+        "code": 17645,
+        "name": "\u0413\u0440\u0430\u043c\u0430\u0434\u0430",
+        "area": 10971,
+        "municipality": 17645
+    },
+    {
+        "code": 18099,
+        "name": "\u0413\u0443\u043b\u044f\u043d\u0446\u0438",
+        "area": 56722,
+        "municipality": 18099
+    },
+    {
+        "code": 18157,
+        "name": "\u0413\u0443\u0440\u043a\u043e\u0432\u043e",
+        "area": 68850,
+        "municipality": 18157
+    },
+    {
+        "code": 18280,
+        "name": "\u0413\u044a\u043b\u044a\u0431\u043e\u0432\u043e",
+        "area": 68850,
+        "municipality": 18280
+    },
+    {
+        "code": 18366,
+        "name": "\u0413\u044a\u0440\u043c\u0435\u043d",
+        "area": 4279,
+        "municipality": 18366
+    },
+    {
+        "code": 20184,
+        "name": "\u0414\u0432\u0435 \u043c\u043e\u0433\u0438\u043b\u0438",
+        "area": 63427,
+        "municipality": 20184
+    },
+    {
+        "code": 20465,
+        "name": "\u0414\u0435\u0432\u0438\u043d",
+        "area": 67653,
+        "municipality": 20465
+    },
+    {
+        "code": 20482,
+        "name": "\u0414\u0435\u0432\u043d\u044f",
+        "area": 10135,
+        "municipality": 20482
+    },
+    {
+        "code": 20746,
+        "name": "\u0414\u0436\u0435\u0431\u0435\u043b",
+        "area": 40909,
+        "municipality": 20746
+    },
+    {
+        "code": 21052,
+        "name": "\u0414\u0438\u043c\u0438\u0442\u0440\u043e\u0432\u0433\u0440\u0430\u0434",
+        "area": 77195,
+        "municipality": 21052
+    },
+    {
+        "code": 21097,
+        "name": "\u0414\u0438\u043c\u043e\u0432\u043e",
+        "area": 10971,
+        "municipality": 21097
+    },
+    {
+        "code": 72624,
+        "name": "\u0414\u043e\u0431\u0440\u0438\u0447",
+        "area": 72624,
+        "municipality": 72624
+    },
+    {
+        "code": 72624,
+        "name": "\u0414\u043e\u0431\u0440\u0438\u0447-\u0441\u0435\u043b\u0441\u043a\u0430",
+        "area": 72624,
+        "municipality": 72624
+    },
+    {
+        "code": 22006,
+        "name": "\u0414\u043e\u043b\u043d\u0430 \u0431\u0430\u043d\u044f",
+        "area": 68134,
+        "municipality": 22006
+    },
+    {
+        "code": 22215,
+        "name": "\u0414\u043e\u043b\u043d\u0430 \u041c\u0438\u0442\u0440\u043e\u043f\u043e\u043b\u0438\u044f",
+        "area": 56722,
+        "municipality": 22215
+    },
+    {
+        "code": 22407,
+        "name": "\u0414\u043e\u043b\u043d\u0438 \u0414\u044a\u0431\u043d\u0438\u043a",
+        "area": 56722,
+        "municipality": 22407
+    },
+    {
+        "code": 21912,
+        "name": "\u0414\u043e\u043b\u043d\u0438 \u0447\u0438\u0444\u043b\u0438\u043a",
+        "area": 10135,
+        "municipality": 21912
+    },
+    {
+        "code": 23025,
+        "name": "\u0414\u043e\u0441\u043f\u0430\u0442",
+        "area": 67653,
+        "municipality": 23025
+    },
+    {
+        "code": 23409,
+        "name": "\u0414\u0440\u0430\u0433\u043e\u043c\u0430\u043d",
+        "area": 68134,
+        "municipality": 23409
+    },
+    {
+        "code": 23947,
+        "name": "\u0414\u0440\u044f\u043d\u043e\u0432\u043e",
+        "area": 14218,
+        "municipality": 23947
+    },
+    {
+        "code": 24030,
+        "name": "\u0414\u0443\u043b\u043e\u0432\u043e",
+        "area": 66425,
+        "municipality": 24030
+    },
+    {
+        "code": 68789,
+        "name": "\u0414\u0443\u043f\u043d\u0438\u0446\u0430",
+        "area": 41112,
+        "municipality": 68789
+    },
+    {
+        "code": 24565,
+        "name": "\u0414\u044a\u043b\u0433\u043e\u043f\u043e\u043b",
+        "area": 10135,
+        "municipality": 24565
+    },
+    {
+        "code": 27190,
+        "name": "\u0415\u043b\u0435\u043d\u0430",
+        "area": 10447,
+        "municipality": 27190
+    },
+    {
+        "code": 27303,
+        "name": "\u0415\u043b\u0438\u043d \u041f\u0435\u043b\u0438\u043d",
+        "area": 68134,
+        "municipality": 27303
+    },
+    {
+        "code": 27382,
+        "name": "\u0415\u043b\u0445\u043e\u0432\u043e",
+        "area": 87374,
+        "municipality": 27382
+    },
+    {
+        "code": 27632,
+        "name": "\u0415\u0442\u0440\u043e\u043f\u043e\u043b\u0435",
+        "area": 68134,
+        "municipality": 27632
+    },
+    {
+        "code": 30065,
+        "name": "\u0417\u0430\u0432\u0435\u0442",
+        "area": 61710,
+        "municipality": 30065
+    },
+    {
+        "code": 30778,
+        "name": "\u0417\u0435\u043c\u0435\u043d",
+        "area": 55871,
+        "municipality": 30778
+    },
+    {
+        "code": 30962,
+        "name": "\u0417\u043b\u0430\u0442\u0430\u0440\u0438\u0446\u0430",
+        "area": 10447,
+        "municipality": 30962
+    },
+    {
+        "code": 31044,
+        "name": "\u0417\u043b\u0430\u0442\u0438\u0446\u0430",
+        "area": 68134,
+        "municipality": 31044
+    },
+    {
+        "code": 31111,
+        "name": "\u0417\u043b\u0430\u0442\u043e\u0433\u0440\u0430\u0434",
+        "area": 67653,
+        "municipality": 31111
+    },
+    {
+        "code": 32024,
+        "name": "\u0418\u0432\u0430\u0439\u043b\u043e\u0432\u0433\u0440\u0430\u0434",
+        "area": 77195,
+        "municipality": 32024
+    },
+    {
+        "code": 32095,
+        "name": "\u0418\u0432\u0430\u043d\u043e\u0432\u043e",
+        "area": 63427,
+        "municipality": 32095
+    },
+    {
+        "code": 55782,
+        "name": "\u0418\u0441\u043a\u044a\u0440",
+        "area": 56722,
+        "municipality": 55782
+    },
+    {
+        "code": 32874,
+        "name": "\u0418\u0441\u043f\u0435\u0440\u0438\u0445",
+        "area": 61710,
+        "municipality": 32874
+    },
+    {
+        "code": 32901,
+        "name": "\u0418\u0445\u0442\u0438\u043c\u0430\u043d",
+        "area": 68134,
+        "municipality": 32901
+    },
+    {
+        "code": 35064,
+        "name": "\u041a\u0430\u0432\u0430\u0440\u043d\u0430",
+        "area": 72624,
+        "municipality": 35064
+    },
+    {
+        "code": 35167,
+        "name": "\u041a\u0430\u0437\u0430\u043d\u043b\u044a\u043a",
+        "area": 68850,
+        "municipality": 35167
+    },
+    {
+        "code": 35242,
+        "name": "\u041a\u0430\u0439\u043d\u0430\u0440\u0434\u0436\u0430",
+        "area": 66425,
+        "municipality": 35242
+    },
+    {
+        "code": 35523,
+        "name": "\u041a\u0430\u043b\u043e\u044f\u043d\u043e\u0432\u043e",
+        "area": 56784,
+        "municipality": 35523
+    },
+    {
+        "code": 35883,
+        "name": "\u041a\u0430\u043c\u0435\u043d\u043e",
+        "area": 7079,
+        "municipality": 35883
+    },
+    {
+        "code": 36079,
+        "name": "\u041a\u0430\u043e\u043b\u0438\u043d\u043e\u0432\u043e",
+        "area": 83510,
+        "municipality": 36079
+    },
+    {
+        "code": 36498,
+        "name": "\u041a\u0430\u0440\u043b\u043e\u0432\u043e",
+        "area": 56784,
+        "municipality": 36498
+    },
+    {
+        "code": 36525,
+        "name": "\u041a\u0430\u0440\u043d\u043e\u0431\u0430\u0442",
+        "area": 7079,
+        "municipality": 36525
+    },
+    {
+        "code": 36587,
+        "name": "\u041a\u0430\u0441\u043f\u0438\u0447\u0430\u043d",
+        "area": 83510,
+        "municipality": 36587
+    },
+    {
+        "code": 36926,
+        "name": "\u041a\u0438\u0440\u043a\u043e\u0432\u043e",
+        "area": 40909,
+        "municipality": 36926
+    },
+    {
+        "code": 37376,
+        "name": "\u041a\u043d\u0435\u0436\u0430",
+        "area": 56722,
+        "municipality": 37376
+    },
+    {
+        "code": 37513,
+        "name": "\u041a\u043e\u0432\u0430\u0447\u0435\u0432\u0446\u0438",
+        "area": 55871,
+        "municipality": 37513
+    },
+    {
+        "code": 37798,
+        "name": "\u041a\u043e\u0437\u043b\u043e\u0434\u0443\u0439",
+        "area": 12259,
+        "municipality": 37798
+    },
+    {
+        "code": 38558,
+        "name": "\u041a\u043e\u043f\u0440\u0438\u0432\u0449\u0438\u0446\u0430",
+        "area": 68134,
+        "municipality": 38558
+    },
+    {
+        "code": 38902,
+        "name": "\u041a\u043e\u0441\u0442\u0435\u043d\u0435\u0446",
+        "area": 68134,
+        "municipality": 38902
+    },
+    {
+        "code": 38978,
+        "name": "\u041a\u043e\u0441\u0442\u0438\u043d\u0431\u0440\u043e\u0434",
+        "area": 68134,
+        "municipality": 38978
+    },
+    {
+        "code": 39030,
+        "name": "\u041a\u043e\u0442\u0435\u043b",
+        "area": 67338,
+        "municipality": 39030
+    },
+    {
+        "code": 39116,
+        "name": "\u041a\u043e\u0447\u0435\u0440\u0438\u043d\u043e\u0432\u043e",
+        "area": 41112,
+        "municipality": 39116
+    },
+    {
+        "code": 14492,
+        "name": "\u041a\u0440\u0435\u0441\u043d\u0430",
+        "area": 4279,
+        "municipality": 14492
+    },
+    {
+        "code": 39846,
+        "name": "\u041a\u0440\u0438\u0432\u043e\u0434\u043e\u043b",
+        "area": 12259,
+        "municipality": 39846
+    },
+    {
+        "code": 39921,
+        "name": "\u041a\u0440\u0438\u0447\u0438\u043c",
+        "area": 56784,
+        "municipality": 39921
+    },
+    {
+        "code": 39970,
+        "name": "\u041a\u0440\u0443\u043c\u043e\u0432\u0433\u0440\u0430\u0434",
+        "area": 40909,
+        "municipality": 39970
+    },
+    {
+        "code": 40097,
+        "name": "\u041a\u0440\u0443\u0448\u0430\u0440\u0438",
+        "area": 72624,
+        "municipality": 40097
+    },
+    {
+        "code": 40422,
+        "name": "\u041a\u0443\u0431\u0440\u0430\u0442",
+        "area": 61710,
+        "municipality": 40422
+    },
+    {
+        "code": 40467,
+        "name": "\u041a\u0443\u043a\u043b\u0435\u043d",
+        "area": 56784,
+        "municipality": 40467
+    },
+    {
+        "code": 40525,
+        "name": "\u041a\u0443\u043b\u0430",
+        "area": 10971,
+        "municipality": 40525
+    },
+    {
+        "code": 40909,
+        "name": "\u041a\u044a\u0440\u0434\u0436\u0430\u043b\u0438",
+        "area": 40909,
+        "municipality": 40909
+    },
+    {
+        "code": 41112,
+        "name": "\u041a\u044e\u0441\u0442\u0435\u043d\u0434\u0438\u043b",
+        "area": 41112,
+        "municipality": 41112
+    },
+    {
+        "code": 43236,
+        "name": "\u041b\u0435\u0432\u0441\u043a\u0438",
+        "area": 56722,
+        "municipality": 43236
+    },
+    {
+        "code": 43369,
+        "name": "\u041b\u0435\u0441\u0438\u0447\u043e\u0432\u043e",
+        "area": 55155,
+        "municipality": 43369
+    },
+    {
+        "code": 43476,
+        "name": "\u041b\u0435\u0442\u043d\u0438\u0446\u0430",
+        "area": 43952,
+        "municipality": 43476
+    },
+    {
+        "code": 43952,
+        "name": "\u041b\u043e\u0432\u0435\u0447",
+        "area": 43952,
+        "municipality": 43952
+    },
+    {
+        "code": 44166,
+        "name": "\u041b\u043e\u0437\u043d\u0438\u0446\u0430",
+        "area": 61710,
+        "municipality": 44166
+    },
+    {
+        "code": 44238,
+        "name": "\u041b\u043e\u043c",
+        "area": 48489,
+        "municipality": 44238
+    },
+    {
+        "code": 44327,
+        "name": "\u041b\u0443\u043a\u043e\u0432\u0438\u0442",
+        "area": 43952,
+        "municipality": 44327
+    },
+    {
+        "code": 44478,
+        "name": "\u041b\u044a\u043a\u0438",
+        "area": 56784,
+        "municipality": 44478
+    },
+    {
+        "code": 44570,
+        "name": "\u041b\u044e\u0431\u0438\u043c\u0435\u0446",
+        "area": 77195,
+        "municipality": 44570
+    },
+    {
+        "code": 44793,
+        "name": "\u041b\u044f\u0441\u043a\u043e\u0432\u0435\u0446",
+        "area": 10447,
+        "municipality": 44793
+    },
+    {
+        "code": 46045,
+        "name": "\u041c\u0430\u0434\u0430\u043d",
+        "area": 67653,
+        "municipality": 46045
+    },
+    {
+        "code": 46084,
+        "name": "\u041c\u0430\u0434\u0436\u0430\u0440\u043e\u0432\u043e",
+        "area": 77195,
+        "municipality": 46084
+    },
+    {
+        "code": 46245,
+        "name": "\u041c\u0430\u043a\u0440\u0435\u0448",
+        "area": 10971,
+        "municipality": 46245
+    },
+    {
+        "code": 46663,
+        "name": "\u041c\u0430\u043b\u043a\u043e \u0422\u044a\u0440\u043d\u043e\u0432\u043e",
+        "area": 7079,
+        "municipality": 46663
+    },
+    {
+        "code": 56784,
+        "name": "\u041c\u0430\u0440\u0438\u0446\u0430",
+        "area": 56784,
+        "municipality": 56784
+    },
+    {
+        "code": 47593,
+        "name": "\u041c\u0435\u0434\u043a\u043e\u0432\u0435\u0446",
+        "area": 48489,
+        "municipality": 47593
+    },
+    {
+        "code": 47714,
+        "name": "\u041c\u0435\u0437\u0434\u0440\u0430",
+        "area": 12259,
+        "municipality": 47714
+    },
+    {
+        "code": 48043,
+        "name": "\u041c\u0438\u0437\u0438\u044f",
+        "area": 12259,
+        "municipality": 48043
+    },
+    {
+        "code": 48297,
+        "name": "\u041c\u0438\u043d\u0435\u0440\u0430\u043b\u043d\u0438 \u0431\u0430\u043d\u0438",
+        "area": 77195,
+        "municipality": 48297
+    },
+    {
+        "code": 48324,
+        "name": "\u041c\u0438\u0440\u043a\u043e\u0432\u043e",
+        "area": 68134,
+        "municipality": 48324
+    },
+    {
+        "code": 48996,
+        "name": "\u041c\u043e\u043c\u0447\u0438\u043b\u0433\u0440\u0430\u0434",
+        "area": 40909,
+        "municipality": 48996
+    },
+    {
+        "code": 48489,
+        "name": "\u041c\u043e\u043d\u0442\u0430\u043d\u0430",
+        "area": 48489,
+        "municipality": 48489
+    },
+    {
+        "code": 49494,
+        "name": "\u041c\u044a\u0433\u043b\u0438\u0436",
+        "area": 68850,
+        "municipality": 49494
+    },
+    {
+        "code": 51216,
+        "name": "\u041d\u0435\u0432\u0435\u0441\u0442\u0438\u043d\u043e",
+        "area": 41112,
+        "municipality": 51216
+    },
+    {
+        "code": 51319,
+        "name": "\u041d\u0435\u0434\u0435\u043b\u0438\u043d\u043e",
+        "area": 67653,
+        "municipality": 51319
+    },
+    {
+        "code": 51500,
+        "name": "\u041d\u0435\u0441\u0435\u0431\u044a\u0440",
+        "area": 7079,
+        "municipality": 51500
+    },
+    {
+        "code": 51648,
+        "name": "\u041d\u0438\u043a\u043e\u043b\u0430\u0435\u0432\u043e",
+        "area": 68850,
+        "municipality": 51648
+    },
+    {
+        "code": 51651,
+        "name": "\u041d\u0438\u043a\u043e\u043b\u0430 \u041a\u043e\u0437\u043b\u0435\u0432\u043e",
+        "area": 83510,
+        "municipality": 51651
+    },
+    {
+        "code": 51723,
+        "name": "\u041d\u0438\u043a\u043e\u043f\u043e\u043b",
+        "area": 56722,
+        "municipality": 51723
+    },
+    {
+        "code": 51809,
+        "name": "\u041d\u043e\u0432\u0430 \u0417\u0430\u0433\u043e\u0440\u0430",
+        "area": 67338,
+        "municipality": 51809
+    },
+    {
+        "code": 52009,
+        "name": "\u041d\u043e\u0432\u0438 \u043f\u0430\u0437\u0430\u0440",
+        "area": 83510,
+        "municipality": 52009
+    },
+    {
+        "code": 52180,
+        "name": "\u041d\u043e\u0432\u043e \u0441\u0435\u043b\u043e",
+        "area": 10971,
+        "municipality": 52180
+    },
+    {
+        "code": 53535,
+        "name": "\u041e\u043c\u0443\u0440\u0442\u0430\u0433",
+        "area": 73626,
+        "municipality": 53535
+    },
+    {
+        "code": 53552,
+        "name": "\u041e\u043f\u0430\u043a\u0430",
+        "area": 73626,
+        "municipality": 53552
+    },
+    {
+        "code": 53576,
+        "name": "\u041e\u043f\u0430\u043d",
+        "area": 68850,
+        "municipality": 53576
+    },
+    {
+        "code": 54020,
+        "name": "\u041e\u0440\u044f\u0445\u043e\u0432\u043e",
+        "area": 12259,
+        "municipality": 54020
+    },
+    {
+        "code": 55021,
+        "name": "\u041f\u0430\u0432\u0435\u043b \u0431\u0430\u043d\u044f",
+        "area": 68850,
+        "municipality": 55021
+    },
+    {
+        "code": 55052,
+        "name": "\u041f\u0430\u0432\u043b\u0438\u043a\u0435\u043d\u0438",
+        "area": 10447,
+        "municipality": 55052
+    },
+    {
+        "code": 55155,
+        "name": "\u041f\u0430\u0437\u0430\u0440\u0434\u0436\u0438\u043a",
+        "area": 55155,
+        "municipality": 55155
+    },
+    {
+        "code": 55302,
+        "name": "\u041f\u0430\u043d\u0430\u0433\u044e\u0440\u0438\u0449\u0435",
+        "area": 55155,
+        "municipality": 55302
+    },
+    {
+        "code": 55871,
+        "name": "\u041f\u0435\u0440\u043d\u0438\u043a",
+        "area": 55871,
+        "municipality": 55871
+    },
+    {
+        "code": 55909,
+        "name": "\u041f\u0435\u0440\u0443\u0449\u0438\u0446\u0430",
+        "area": 56784,
+        "municipality": 55909
+    },
+    {
+        "code": 56126,
+        "name": "\u041f\u0435\u0442\u0440\u0438\u0447",
+        "area": 4279,
+        "municipality": 56126
+    },
+    {
+        "code": 56277,
+        "name": "\u041f\u0435\u0449\u0435\u0440\u0430",
+        "area": 55155,
+        "municipality": 56277
+    },
+    {
+        "code": 56407,
+        "name": "\u041f\u0438\u0440\u0434\u043e\u043f",
+        "area": 68134,
+        "municipality": 56407
+    },
+    {
+        "code": 56722,
+        "name": "\u041f\u043b\u0435\u0432\u0435\u043d",
+        "area": 56722,
+        "municipality": 56722
+    },
+    {
+        "code": 56784,
+        "name": "\u041f\u043b\u043e\u0432\u0434\u0438\u0432",
+        "area": 56784,
+        "municipality": 56784
+    },
+    {
+        "code": 57354,
+        "name": "\u041f\u043e\u043b\u0441\u043a\u0438 \u0422\u0440\u044a\u043c\u0431\u0435\u0448",
+        "area": 10447,
+        "municipality": 57354
+    },
+    {
+        "code": 57491,
+        "name": "\u041f\u043e\u043c\u043e\u0440\u0438\u0435",
+        "area": 7079,
+        "municipality": 57491
+    },
+    {
+        "code": 57649,
+        "name": "\u041f\u043e\u043f\u043e\u0432\u043e",
+        "area": 73626,
+        "municipality": 57649
+    },
+    {
+        "code": 57772,
+        "name": "\u041f\u043e\u0440\u0434\u0438\u043c",
+        "area": 56722,
+        "municipality": 57772
+    },
+    {
+        "code": 58030,
+        "name": "\u041f\u0440\u0430\u0432\u0435\u0446",
+        "area": 68134,
+        "municipality": 58030
+    },
+    {
+        "code": 58356,
+        "name": "\u041f\u0440\u0438\u043c\u043e\u0440\u0441\u043a\u043e",
+        "area": 7079,
+        "municipality": 58356
+    },
+    {
+        "code": 58503,
+        "name": "\u041f\u0440\u043e\u0432\u0430\u0434\u0438\u044f",
+        "area": 10135,
+        "municipality": 58503
+    },
+    {
+        "code": 59080,
+        "name": "\u041f\u044a\u0440\u0432\u043e\u043c\u0430\u0439",
+        "area": 56784,
+        "municipality": 59080
+    },
+    {
+        "code": 61460,
+        "name": "\u0420\u0430\u0434\u043d\u0435\u0432\u043e",
+        "area": 68850,
+        "municipality": 61460
+    },
+    {
+        "code": 61577,
+        "name": "\u0420\u0430\u0434\u043e\u043c\u0438\u0440",
+        "area": 55871,
+        "municipality": 61577
+    },
+    {
+        "code": 61710,
+        "name": "\u0420\u0430\u0437\u0433\u0440\u0430\u0434",
+        "area": 61710,
+        "municipality": 61710
+    },
+    {
+        "code": 61813,
+        "name": "\u0420\u0430\u0437\u043b\u043e\u0433",
+        "area": 4279,
+        "municipality": 61813
+    },
+    {
+        "code": 62004,
+        "name": "\u0420\u0430\u043a\u0438\u0442\u043e\u0432\u043e",
+        "area": 55155,
+        "municipality": 62004
+    },
+    {
+        "code": 62075,
+        "name": "\u0420\u0430\u043a\u043e\u0432\u0441\u043a\u0438",
+        "area": 56784,
+        "municipality": 62075
+    },
+    {
+        "code": 62671,
+        "name": "\u0420\u0438\u043b\u0430",
+        "area": 41112,
+        "municipality": 62671
+    },
+    {
+        "code": 56784,
+        "name": "\u0420\u043e\u0434\u043e\u043f\u0438",
+        "area": 56784,
+        "municipality": 56784
+    },
+    {
+        "code": 62997,
+        "name": "\u0420\u043e\u043c\u0430\u043d",
+        "area": 12259,
+        "municipality": 62997
+    },
+    {
+        "code": 63207,
+        "name": "\u0420\u0443\u0434\u043e\u0437\u0435\u043c",
+        "area": 67653,
+        "municipality": 63207
+    },
+    {
+        "code": 63224,
+        "name": "\u0420\u0443\u0435\u043d",
+        "area": 7079,
+        "municipality": 63224
+    },
+    {
+        "code": 63255,
+        "name": "\u0420\u0443\u0436\u0438\u043d\u0446\u0438",
+        "area": 10971,
+        "municipality": 63255
+    },
+    {
+        "code": 63427,
+        "name": "\u0420\u0443\u0441\u0435",
+        "area": 63427,
+        "municipality": 63427
+    },
+    {
+        "code": 65139,
+        "name": "\u0421\u0430\u0434\u043e\u0432\u043e",
+        "area": 56784,
+        "municipality": 65139
+    },
+    {
+        "code": 65231,
+        "name": "\u0421\u0430\u043c\u043e\u043a\u043e\u0432",
+        "area": 68134,
+        "municipality": 65231
+    },
+    {
+        "code": 65276,
+        "name": "\u0421\u0430\u043c\u0443\u0438\u043b",
+        "area": 61710,
+        "municipality": 65276
+    },
+    {
+        "code": 65334,
+        "name": "\u0421\u0430\u043d\u0434\u0430\u043d\u0441\u043a\u0438",
+        "area": 4279,
+        "municipality": 65334
+    },
+    {
+        "code": 65365,
+        "name": "\u0421\u0430\u043f\u0430\u0440\u0435\u0432\u0430 \u0431\u0430\u043d\u044f",
+        "area": 41112,
+        "municipality": 65365
+    },
+    {
+        "code": 65440,
+        "name": "\u0421\u0430\u0442\u043e\u0432\u0447\u0430",
+        "area": 4279,
+        "municipality": 65440
+    },
+    {
+        "code": 65677,
+        "name": "\u0421\u0432\u0438\u043b\u0435\u043d\u0433\u0440\u0430\u0434",
+        "area": 77195,
+        "municipality": 65677
+    },
+    {
+        "code": 65766,
+        "name": "\u0421\u0432\u0438\u0449\u043e\u0432",
+        "area": 10447,
+        "municipality": 65766
+    },
+    {
+        "code": 65869,
+        "name": "\u0421\u0432\u043e\u0433\u0435",
+        "area": 68134,
+        "municipality": 65869
+    },
+    {
+        "code": 65927,
+        "name": "\u0421\u0435\u0432\u043b\u0438\u0435\u0432\u043e",
+        "area": 14218,
+        "municipality": 65927
+    },
+    {
+        "code": 66264,
+        "name": "\u0421\u0435\u043f\u0442\u0435\u043c\u0432\u0440\u0438",
+        "area": 55155,
+        "municipality": 66264
+    },
+    {
+        "code": 66425,
+        "name": "\u0421\u0438\u043b\u0438\u0441\u0442\u0440\u0430",
+        "area": 66425,
+        "municipality": 66425
+    },
+    {
+        "code": 47278,
+        "name": "\u0421\u0438\u043c\u0435\u043e\u043d\u043e\u0432\u0433\u0440\u0430\u0434",
+        "area": 77195,
+        "municipality": 47278
+    },
+    {
+        "code": 66460,
+        "name": "\u0421\u0438\u043c\u0438\u0442\u043b\u0438",
+        "area": 4279,
+        "municipality": 66460
+    },
+    {
+        "code": 66665,
+        "name": "\u0421\u0438\u0442\u043e\u0432\u043e",
+        "area": 66425,
+        "municipality": 66665
+    },
+    {
+        "code": 67338,
+        "name": "\u0421\u043b\u0438\u0432\u0435\u043d",
+        "area": 67338,
+        "municipality": 67338
+    },
+    {
+        "code": 67372,
+        "name": "\u0421\u043b\u0438\u0432\u043d\u0438\u0446\u0430",
+        "area": 68134,
+        "municipality": 67372
+    },
+    {
+        "code": 67444,
+        "name": "\u0421\u043b\u0438\u0432\u043e \u043f\u043e\u043b\u0435",
+        "area": 63427,
+        "municipality": 67444
+    },
+    {
+        "code": 67653,
+        "name": "\u0421\u043c\u043e\u043b\u044f\u043d",
+        "area": 67653,
+        "municipality": 67653
+    },
+    {
+        "code": 67708,
+        "name": "\u0421\u043c\u044f\u0434\u043e\u0432\u043e",
+        "area": 83510,
+        "municipality": 67708
+    },
+    {
+        "code": 67800,
+        "name": "\u0421\u043e\u0437\u043e\u043f\u043e\u043b",
+        "area": 7079,
+        "municipality": 67800
+    },
+    {
+        "code": 68080,
+        "name": "\u0421\u043e\u043f\u043e\u0442",
+        "area": 56784,
+        "municipality": 68080
+    },
+    {
+        "code": 17974,
+        "name": "\u0421\u0440\u0435\u0434\u0435\u0446",
+        "area": 7079,
+        "municipality": 17974
+    },
+    {
+        "code": 51980,
+        "name": "\u0421\u0442\u0430\u043c\u0431\u043e\u043b\u0438\u0439\u0441\u043a\u0438",
+        "area": 56784,
+        "municipality": 51980
+    },
+    {
+        "code": 68727,
+        "name": "\u0421\u0442\u0430\u043c\u0431\u043e\u043b\u043e\u0432\u043e",
+        "area": 77195,
+        "municipality": 68727
+    },
+    {
+        "code": 68850,
+        "name": "\u0421\u0442\u0430\u0440\u0430 \u0417\u0430\u0433\u043e\u0440\u0430",
+        "area": 68850,
+        "municipality": 68850
+    },
+    {
+        "code": 68134,
+        "name": "\u0421\u0442\u043e\u043b\u0438\u0447\u043d\u0430",
+        "area": 68134,
+        "municipality": 68134
+    },
+    {
+        "code": 69633,
+        "name": "\u0421\u0442\u0440\u0430\u0436\u0438\u0446\u0430",
+        "area": 10447,
+        "municipality": 69633
+    },
+    {
+        "code": 69660,
+        "name": "\u0421\u0442\u0440\u0430\u043b\u0434\u0436\u0430",
+        "area": 87374,
+        "municipality": 69660
+    },
+    {
+        "code": 69835,
+        "name": "\u0421\u0442\u0440\u0435\u043b\u0447\u0430",
+        "area": 55155,
+        "municipality": 69835
+    },
+    {
+        "code": 69969,
+        "name": "\u0421\u0442\u0440\u0443\u043c\u044f\u043d\u0438",
+        "area": 4279,
+        "municipality": 69969
+    },
+    {
+        "code": 70175,
+        "name": "\u0421\u0443\u0432\u043e\u0440\u043e\u0432\u043e",
+        "area": 10135,
+        "municipality": 70175
+    },
+    {
+        "code": 70247,
+        "name": "\u0421\u0443\u043d\u0433\u0443\u0440\u043b\u0430\u0440\u0435",
+        "area": 7079,
+        "municipality": 70247
+    },
+    {
+        "code": 70295,
+        "name": "\u0421\u0443\u0445\u0438\u043d\u0434\u043e\u043b",
+        "area": 10447,
+        "municipality": 70295
+    },
+    {
+        "code": 70528,
+        "name": "\u0421\u044a\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u0435",
+        "area": 56784,
+        "municipality": 70528
+    },
+    {
+        "code": 70648,
+        "name": "\u0421\u044a\u0440\u043d\u0438\u0446\u0430",
+        "area": 55155,
+        "municipality": 70648
+    },
+    {
+        "code": 72165,
+        "name": "\u0422\u0432\u044a\u0440\u0434\u0438\u0446\u0430",
+        "area": 67338,
+        "municipality": 72165
+    },
+    {
+        "code": 72271,
+        "name": "\u0422\u0435\u0440\u0432\u0435\u043b",
+        "area": 72624,
+        "municipality": 72271
+    },
+    {
+        "code": 72343,
+        "name": "\u0422\u0435\u0442\u0435\u0432\u0435\u043d",
+        "area": 43952,
+        "municipality": 72343
+    },
+    {
+        "code": 72761,
+        "name": "\u0422\u043e\u043f\u043e\u043b\u043e\u0432\u0433\u0440\u0430\u0434",
+        "area": 77195,
+        "municipality": 72761
+    },
+    {
+        "code": 73047,
+        "name": "\u0422\u0440\u0435\u043a\u043b\u044f\u043d\u043e",
+        "area": 41112,
+        "municipality": 73047
+    },
+    {
+        "code": 73198,
+        "name": "\u0422\u0440\u043e\u044f\u043d",
+        "area": 43952,
+        "municipality": 73198
+    },
+    {
+        "code": 73273,
+        "name": "\u0422\u0440\u044a\u043d",
+        "area": 55871,
+        "municipality": 73273
+    },
+    {
+        "code": 73403,
+        "name": "\u0422\u0440\u044f\u0432\u043d\u0430",
+        "area": 14218,
+        "municipality": 73403
+    },
+    {
+        "code": 87374,
+        "name": "\u0422\u0443\u043d\u0434\u0436\u0430",
+        "area": 87374,
+        "municipality": 87374
+    },
+    {
+        "code": 73496,
+        "name": "\u0422\u0443\u0442\u0440\u0430\u043a\u0430\u043d",
+        "area": 66425,
+        "municipality": 73496
+    },
+    {
+        "code": 73626,
+        "name": "\u0422\u044a\u0440\u0433\u043e\u0432\u0438\u0449\u0435",
+        "area": 73626,
+        "municipality": 73626
+    },
+    {
+        "code": 75054,
+        "name": "\u0423\u0433\u044a\u0440\u0447\u0438\u043d",
+        "area": 43952,
+        "municipality": 75054
+    },
+    {
+        "code": 77058,
+        "name": "\u0425\u0430\u0434\u0436\u0438\u0434\u0438\u043c\u043e\u0432\u043e",
+        "area": 4279,
+        "municipality": 77058
+    },
+    {
+        "code": 77102,
+        "name": "\u0425\u0430\u0439\u0440\u0435\u0434\u0438\u043d",
+        "area": 12259,
+        "municipality": 77102
+    },
+    {
+        "code": 77181,
+        "name": "\u0425\u0430\u0440\u043c\u0430\u043d\u043b\u0438",
+        "area": 77195,
+        "municipality": 77181
+    },
+    {
+        "code": 77195,
+        "name": "\u0425\u0430\u0441\u043a\u043e\u0432\u043e",
+        "area": 77195,
+        "municipality": 77195
+    },
+    {
+        "code": 77270,
+        "name": "\u0425\u0438\u0441\u0430\u0440\u044f",
+        "area": 56784,
+        "municipality": 77270
+    },
+    {
+        "code": 14516,
+        "name": "\u0425\u0438\u0442\u0440\u0438\u043d\u043e",
+        "area": 83510,
+        "municipality": 14516
+    },
+    {
+        "code": 48619,
+        "name": "\u0426\u0430\u0440\u0435\u0432\u043e",
+        "area": 7079,
+        "municipality": 48619
+    },
+    {
+        "code": 77308,
+        "name": "\u0426\u0430\u0440 \u041a\u0430\u043b\u043e\u044f\u043d",
+        "area": 61710,
+        "municipality": 77308
+    },
+    {
+        "code": 78361,
+        "name": "\u0426\u0435\u043d\u043e\u0432\u043e",
+        "area": 63427,
+        "municipality": 78361
+    },
+    {
+        "code": 80011,
+        "name": "\u0427\u0430\u0432\u0434\u0430\u0440",
+        "area": 68134,
+        "municipality": 80011
+    },
+    {
+        "code": 80323,
+        "name": "\u0427\u0435\u043b\u043e\u043f\u0435\u0447",
+        "area": 68134,
+        "municipality": 80323
+    },
+    {
+        "code": 80371,
+        "name": "\u0427\u0435\u043f\u0435\u043b\u0430\u0440\u0435",
+        "area": 67653,
+        "municipality": 80371
+    },
+    {
+        "code": 80501,
+        "name": "\u0427\u0435\u0440\u0432\u0435\u043d \u0431\u0440\u044f\u0433",
+        "area": 56722,
+        "municipality": 80501
+    },
+    {
+        "code": 81236,
+        "name": "\u0427\u0435\u0440\u043d\u043e\u043e\u0447\u0435\u043d\u0435",
+        "area": 40909,
+        "municipality": 81236
+    },
+    {
+        "code": 81390,
+        "name": "\u0427\u0438\u043f\u0440\u043e\u0432\u0446\u0438",
+        "area": 48489,
+        "municipality": 81390
+    },
+    {
+        "code": 81414,
+        "name": "\u0427\u0438\u0440\u043f\u0430\u043d",
+        "area": 68850,
+        "municipality": 81414
+    },
+    {
+        "code": 81757,
+        "name": "\u0427\u0443\u043f\u0440\u0435\u043d\u0435",
+        "area": 10971,
+        "municipality": 81757
+    },
+    {
+        "code": 83017,
+        "name": "\u0428\u0430\u0431\u043b\u0430",
+        "area": 72624,
+        "municipality": 83017
+    },
+    {
+        "code": 83510,
+        "name": "\u0428\u0443\u043c\u0435\u043d",
+        "area": 83510,
+        "municipality": 83510
+    },
+    {
+        "code": 87014,
+        "name": "\u042f\u0431\u043b\u0430\u043d\u0438\u0446\u0430",
+        "area": 43952,
+        "municipality": 87014
+    },
+    {
+        "code": 87299,
+        "name": "\u042f\u043a\u0438\u043c\u043e\u0432\u043e",
+        "area": 48489,
+        "municipality": 87299
+    },
+    {
+        "code": 87338,
+        "name": "\u042f\u043a\u043e\u0440\u0443\u0434\u0430",
+        "area": 4279,
+        "municipality": 87338
+    },
+    {
+        "code": 87374,
+        "name": "\u042f\u043c\u0431\u043e\u043b",
+        "area": 87374,
+        "municipality": 87374
+    },
+    {
+        "code": 4279,
+        "name": "\u0411\u043b\u0430\u0433\u043e\u0435\u0432\u0433\u0440\u0430\u0434",
+        "area": 4279,
+        "municipality": 4279
+    },
+    {
+        "code": 7079,
+        "name": "\u0411\u0443\u0440\u0433\u0430\u0441",
+        "area": 7079,
+        "municipality": 7079
+    },
+    {
+        "code": 10135,
+        "name": "\u0412\u0430\u0440\u043d\u0430",
+        "area": 10135,
+        "municipality": 10135
+    },
+    {
+        "code": 10447,
+        "name": "\u0412\u0435\u043b\u0438\u043a\u043e \u0422\u044a\u0440\u043d\u043e\u0432\u043e",
+        "area": 10447,
+        "municipality": 10447
+    },
+    {
+        "code": 10971,
+        "name": "\u0412\u0438\u0434\u0438\u043d",
+        "area": 10971,
+        "municipality": 10971
+    },
+    {
+        "code": 12259,
+        "name": "\u0412\u0440\u0430\u0446\u0430",
+        "area": 12259,
+        "municipality": 12259
+    },
+    {
+        "code": 14218,
+        "name": "\u0413\u0430\u0431\u0440\u043e\u0432\u043e",
+        "area": 14218,
+        "municipality": 14218
+    },
+    {
+        "code": 72624,
+        "name": "\u0414\u043e\u0431\u0440\u0438\u0447",
+        "area": 72624,
+        "municipality": 72624
+    },
+    {
+        "code": 40909,
+        "name": "\u041a\u044a\u0440\u0434\u0436\u0430\u043b\u0438",
+        "area": 40909,
+        "municipality": 40909
+    },
+    {
+        "code": 41112,
+        "name": "\u041a\u044e\u0441\u0442\u0435\u043d\u0434\u0438\u043b",
+        "area": 41112,
+        "municipality": 41112
+    },
+    {
+        "code": 43952,
+        "name": "\u041b\u043e\u0432\u0435\u0447",
+        "area": 43952,
+        "municipality": 43952
+    },
+    {
+        "code": 48489,
+        "name": "\u041c\u043e\u043d\u0442\u0430\u043d\u0430",
+        "area": 48489,
+        "municipality": 48489
+    },
+    {
+        "code": 55155,
+        "name": "\u041f\u0430\u0437\u0430\u0440\u0434\u0436\u0438\u043a",
+        "area": 55155,
+        "municipality": 55155
+    },
+    {
+        "code": 55871,
+        "name": "\u041f\u0435\u0440\u043d\u0438\u043a",
+        "area": 55871,
+        "municipality": 55871
+    },
+    {
+        "code": 56722,
+        "name": "\u041f\u043b\u0435\u0432\u0435\u043d",
+        "area": 56722,
+        "municipality": 56722
+    },
+    {
+        "code": 56784,
+        "name": "\u041f\u043b\u043e\u0432\u0434\u0438\u0432",
+        "area": 56784,
+        "municipality": 56784
+    },
+    {
+        "code": 61710,
+        "name": "\u0420\u0430\u0437\u0433\u0440\u0430\u0434",
+        "area": 61710,
+        "municipality": 61710
+    },
+    {
+        "code": 63427,
+        "name": "\u0420\u0443\u0441\u0435",
+        "area": 63427,
+        "municipality": 63427
+    },
+    {
+        "code": 66425,
+        "name": "\u0421\u0438\u043b\u0438\u0441\u0442\u0440\u0430",
+        "area": 66425,
+        "municipality": 66425
+    },
+    {
+        "code": 67338,
+        "name": "\u0421\u043b\u0438\u0432\u0435\u043d",
+        "area": 67338,
+        "municipality": 67338
+    },
+    {
+        "code": 67653,
+        "name": "\u0421\u043c\u043e\u043b\u044f\u043d",
+        "area": 67653,
+        "municipality": 67653
+    },
+    {
+        "code": 68134,
+        "name": "\u0421\u043e\u0444\u0438\u044f",
+        "area": 68134,
+        "municipality": 68134
+    },
+    {
+        "code": 68134,
+        "name": "\u0421\u043e\u0444\u0438\u044f (\u0441\u0442\u043e\u043b\u0438\u0446\u0430)",
+        "area": 68134,
+        "municipality": 68134
+    },
+    {
+        "code": 68850,
+        "name": "\u0421\u0442\u0430\u0440\u0430 \u0417\u0430\u0433\u043e\u0440\u0430",
+        "area": 68850,
+        "municipality": 68850
+    },
+    {
+        "code": 73626,
+        "name": "\u0422\u044a\u0440\u0433\u043e\u0432\u0438\u0449\u0435",
+        "area": 73626,
+        "municipality": 73626
+    },
+    {
+        "code": 77195,
+        "name": "\u0425\u0430\u0441\u043a\u043e\u0432\u043e",
+        "area": 77195,
+        "municipality": 77195
+    },
+    {
+        "code": 83510,
+        "name": "\u0428\u0443\u043c\u0435\u043d",
+        "area": 83510,
+        "municipality": 83510
+    },
+    {
+        "code": 87374,
+        "name": "\u042f\u043c\u0431\u043e\u043b",
+        "area": 87374,
+        "municipality": 87374
     }
 ]
