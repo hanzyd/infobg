@@ -22327,5 +22327,563 @@
         "financial": 3,
         "details": 122,
         "status": 26
+    },
+    {
+        "code": 104016,
+        "name": "\u041e\u0423 \"\u0415\u043a\u0437\u0430\u0440\u0445 \u0419\u043e\u0441\u0438\u0444\"",
+        "town": 48578,
+        "municipality": 56126,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 104020,
+        "name": "\u041e\u0423 \"\u0421\u0432.\u0421\u0432.\u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 40539,
+        "municipality": 56126,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 104022,
+        "name": "\u041e\u0423 \"\u0425\u0440.\u0411\u043e\u0442\u0435\u0432\"",
+        "town": 3294,
+        "municipality": 56126,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 104117,
+        "name": "\u041d\u0430\u0447\u0430\u043b\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0421\u0432. \u0421\u0432. \u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 57176,
+        "municipality": 65334,
+        "financial": 2,
+        "details": 121,
+        "status": 3
+    },
+    {
+        "code": 108021,
+        "name": "\u0412\u0435\u0447\u0435\u0440\u043d\u0430 \u043f\u0440\u043e\u0444\u0438\u043b\u0438\u0440\u0430\u043d\u0430 \u0433\u0438\u043c\u043d\u0430\u0437\u0438\u044f",
+        "town": 65334,
+        "municipality": 65334,
+        "financial": 2,
+        "details": 125,
+        "status": 3
+    },
+    {
+        "code": 200909,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \" \u0410\u043b\u0435\u043a\u043e \u041a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438\u043d\u043e\u0432\"",
+        "town": 21614,
+        "municipality": 63238,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 200924,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \" \u0419\u043e\u0440\u0434\u0430\u043d \u0419\u043e\u0432\u043a\u043e\u0432\"",
+        "town": 66716,
+        "municipality": 63238,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 200927,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0418\u0432\u0430\u043d \u0412\u0430\u0437\u043e\u0432\"",
+        "town": 69990,
+        "municipality": 63238,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 400124,
+        "name": "\u041e\u0423 \"\u0421\u0432.\u0441\u0432.\u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 20482,
+        "municipality": 20482,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 400164,
+        "name": "\u041e\u0423 \"\u0425\u0440.\u0411\u043e\u0442\u0435\u0432\"",
+        "town": 51584,
+        "municipality": 70175,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 500112,
+        "name": "\u041e\u0423 \"\u041e\u0442\u0435\u0446 \u041f\u0430\u0438\u0441\u0438\u0439\"",
+        "town": 10971,
+        "municipality": 10971,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 602094,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0412\u0430\u0441\u0438\u043b \u041a\u044a\u043d\u0447\u043e\u0432\"",
+        "town": 49031,
+        "municipality": 47714,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 700316,
+        "name": "\u041e\u0423 \"\u0415\u043c.\u0421\u0442\u0430\u043d\u0435\u0432\"-\u0421. \u0420\u044f\u0445\u043e\u0432\u0446\u0438\u0442\u0435",
+        "town": 63673,
+        "municipality": 65927,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 800004,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u041d\u0438\u043a\u043e\u043b\u0430 \u0419\u043e\u043d\u043a\u043e\u0432 \u0412\u0430\u043f\u0446\u0430\u0440\u043e\u0432\"",
+        "town": 72624,
+        "municipality": 72624,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 800072,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 36467,
+        "municipality": 14711,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 909126,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0423\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0413\u0435\u043e \u041c\u0438\u043b\u0435\u0432\"",
+        "town": 38296,
+        "municipality": 40909,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 909414,
+        "name": "\u041ec\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \" \u0423\u0441\u0442\u0440\u0435\u043c\"",
+        "town": 68953,
+        "municipality": 36926,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 909502,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u041c\u0438\u0445\u0430\u0438\u043b \u0425\u0440\u0438\u0441\u0442\u043e\u0432\"",
+        "town": 84,
+        "municipality": 39970,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 909708,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u041d\u0438\u043a\u043e\u043b\u0430 \u0419\u043e\u043d\u043a\u043e\u0432 \u0412\u0430\u043f\u0446\u0430\u0440\u043e\u0432\"",
+        "town": 55395,
+        "municipality": 81236,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1000053,
+        "name": "V \u041e\u0423 \"\u0425\u0440. \u0411\u043e\u0442\u0435\u0432\"- \u041a\u044e\u0441\u0442\u0435\u043d\u0434\u0438\u043b",
+        "town": 41112,
+        "municipality": 41112,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1000340,
+        "name": "\u041e\u0423 \"\u0418\u0432\u0430\u043d \u0412\u0430\u0437\u043e\u0432\"- \u041a\u044e\u0441\u0442\u0435\u043d\u0434\u0438\u043b",
+        "town": 41112,
+        "municipality": 41112,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1001590,
+        "name": "V\u0406\u0406 \u041e\u0423 \"\u0418\u043b\u044c\u043e \u0432\u043e\u0439\u0432\u043e\u0434\u0430\"- \u041a\u044e\u0441\u0442\u0435\u043d\u0434\u0438\u043b",
+        "town": 41112,
+        "municipality": 41112,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1001680,
+        "name": "\u041e\u0423 \"\u0414\u0430\u0441\u043a\u0430\u043b \u0414\u0438\u043c\u0438\u0442\u0440\u0438\"- \u041a\u044e\u0441\u0442\u0435\u043d\u0434\u0438\u043b",
+        "town": 41112,
+        "municipality": 41112,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1201016,
+        "name": "\u041e\u0423 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 21840,
+        "municipality": 48489,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1207004,
+        "name": "\u041e\u0423 \"\u0425\u0440. \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 31053,
+        "municipality": 12543,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1308553,
+        "name": "\u041e\u0423 \"\u041e\u0442\u0435\u0446 \u041f\u0430\u0438\u0441\u0438\u0439\"",
+        "town": 66319,
+        "municipality": 3592,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1500109,
+        "name": "\u041e\u0423 \"\u041d\u0438\u043a\u043e\u043b\u0430 \u0419. \u0412\u0430\u043f\u0446\u0430\u0440\u043e\u0432\"",
+        "town": 56722,
+        "municipality": 56722,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1602310,
+        "name": "\u041e\u0423 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 27125,
+        "municipality": 59080,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1602313,
+        "name": "\u041d\u0430\u0447\u0430\u043b\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435  \"\u041f\u0435\u0442\u043a\u043e \u0420\u0430\u0447\u0435\u0432 \u0421\u043b\u0430\u0432\u0435\u0439\u043a\u043e\u0432\"",
+        "town": 11658,
+        "municipality": 59080,
+        "financial": 2,
+        "details": 121,
+        "status": 3
+    },
+    {
+        "code": 1603301,
+        "name": "\u0421\u0440\u0435\u0434\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 70528,
+        "municipality": 70528,
+        "financial": 2,
+        "details": 124,
+        "status": 3
+    },
+    {
+        "code": 1603302,
+        "name": "\u041d\u0430\u0447\u0430\u043b\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435\"\u041b\u044e\u0431\u0435\u043d \u041a\u0430\u0440\u0430\u0432\u0435\u043b\u043e\u0432\"",
+        "town": 70528,
+        "municipality": 70528,
+        "financial": 2,
+        "details": 121,
+        "status": 3
+    },
+    {
+        "code": 1701103,
+        "name": "\u0412\u0423\u0418 \"\u041d.\u0419.\u0412\u0430\u043f\u0446\u0430\u0440\u043e\u0432\"",
+        "town": 30065,
+        "municipality": 30065,
+        "financial": 2,
+        "details": 133,
+        "status": 3
+    },
+    {
+        "code": 1701609,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u041d\u0438\u043a\u043e\u043b\u0430 \u0419\u043e\u043d\u043a\u043e\u0432 \u0412\u0430\u043f\u0446\u0430\u0440\u043e\u0432\"",
+        "town": 4131,
+        "municipality": 40422,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1701706,
+        "name": "\u041e\u0423 \"\u0418\u0432\u0430\u043d  \u0412\u0430\u0437\u043e\u0432\"",
+        "town": 10745,
+        "municipality": 44166,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1701710,
+        "name": "\u041e\u0423 \"\u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 73002,
+        "municipality": 44166,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1702623,
+        "name": "\u041e\u0423 \"\u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 37109,
+        "municipality": 61710,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1702904,
+        "name": "\u041e\u0423\"\u0421\u0432.\u041a\u043b\u0438\u043c\u0435\u043d\u0442 \u041e\u0445\u0440\u0438\u0434\u0441\u043a\u0438\"",
+        "town": 29218,
+        "municipality": 65276,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1801003,
+        "name": "\u041e\u0423 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 16674,
+        "municipality": 5611,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1802003,
+        "name": "\u041e\u0423 \"\u041d\u0438\u043a\u043e\u043b\u0430 \u0419\u043e\u043d\u043a\u043e\u0432 \u0412\u0430\u043f\u0446\u0430\u0440\u043e\u0432\"",
+        "town": 7598,
+        "municipality": 7598,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1805006,
+        "name": "\u041e\u0421\u041d\u041e\u0412\u041d\u041e \u0423\u0427\u0418\u041b\u0418\u0429\u0415 \" \u0421\u0412\u0415\u0422\u0418 \u041a\u041b\u0418\u041c\u0415\u041d\u0422 \u041e\u0425\u0420\u0418\u0414\u0421\u041a\u0418 \"",
+        "town": 65509,
+        "municipality": 32095,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1808003,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0410\u043b\u0435\u043a\u043e \u041a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438\u043d\u043e\u0432\"",
+        "town": 51977,
+        "municipality": 78361,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1900206,
+        "name": "\u041e\u0423 \"\u0421\u0432.\u0421\u0432.\u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 67828,
+        "municipality": 15031,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1900207,
+        "name": "\u041e\u0423 \"\u041e\u0442\u0435\u0446 \u041f\u0430\u0438\u0441\u0438\u0439\"",
+        "town": 69184,
+        "municipality": 15031,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 1900516,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0421\u0432. \u0441\u0432. \u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 6032,
+        "municipality": 66425,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2100407,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 43431,
+        "municipality": 20465,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2100502,
+        "name": "\u041e\u0423 \"\u0412.\u041b\u0435\u0432\u0441\u043a\u0438\"",
+        "town": 17974,
+        "municipality": 51319,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2100905,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0411\u0430\u0447\u043e \u041a\u0438\u0440\u043e\"",
+        "town": 30034,
+        "municipality": 80371,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2100920,
+        "name": "\u0421\u0423\"\u041e\u043b\u0438\u043c\u043f\u0438\u0439\u0441\u043a\u0438 \u043d\u0430\u0434\u0435\u0436\u0434\u0438\"",
+        "town": 80371,
+        "municipality": 80371,
+        "financial": 2,
+        "details": 124,
+        "status": 3
+    },
+    {
+        "code": 2201505,
+        "name": "\u0427\u0430\u0441\u0442\u043d\u043e \u043d\u0430\u0447\u0430\u043b\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0424\u043e\u0442\u0438\"",
+        "town": 2659,
+        "municipality": 68134,
+        "financial": 2,
+        "details": 121,
+        "status": 3
+    },
+    {
+        "code": 2204676,
+        "name": "\u0427\u0421\u0423 \u041a\u0420\u0410\u041b\u0418\u0426\u0410 \u0421\u041e\u0424\u0418\u042f \u0418\u0421\u041f\u0410\u041d\u0421\u041a\u0410",
+        "town": 68134,
+        "municipality": 68134,
+        "financial": 2,
+        "details": 124,
+        "status": 3
+    },
+    {
+        "code": 2309385,
+        "name": "\u041e\u0423 \"\u041e\u0442\u0435\u0446 \u041f\u0430\u0438\u0441\u0438\u0439\"",
+        "town": 22647,
+        "municipality": 16314,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2309454,
+        "name": "\u041e\u0423 \"\u0413. \u0411\u0435\u043d\u043a\u043e\u0432\u0441\u043a\u0438\"",
+        "town": 49641,
+        "municipality": 27632,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2400122,
+        "name": "\u0406 \u041e\u0423 \"\u0413\u0435\u043e\u0440\u0433\u0438 \u0411\u0430\u043a\u0430\u043b\u043e\u0432\",\u0421\u0417",
+        "town": 68850,
+        "municipality": 68850,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2403099,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u041f\u0435\u0439\u043e \u041a\u0440\u0430\u0447\u043e\u043b\u043e\u0432 \u042f\u0432\u043e\u0440\u043e\u0432\"",
+        "town": 17717,
+        "municipality": 6183,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2500102,
+        "name": "\u0412\u0442\u043e\u0440\u043e \u043e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u041d\u0438\u043a\u043e\u043b\u0430 \u0419\u043e\u043d\u043a\u043e\u0432 \u0412\u0430\u043f\u0446\u0430\u0440\u043e\u0432\"",
+        "town": 73626,
+        "municipality": 73626,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2500111,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0421\u0432.\u0421\u0432. \u041a\u0438\u0440\u0438\u043b \u0438 \u041c\u0435\u0442\u043e\u0434\u0438\u0439\"",
+        "town": 23087,
+        "municipality": 73626,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2520104,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 30692,
+        "municipality": 53535,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2540110,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 65067,
+        "municipality": 57649,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2605001,
+        "name": "\u041d\u0430\u0447\u0430\u043b\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0425\u0440\u0438\u0441\u0442\u043e \u041f\u043e\u043f\u043c\u0430\u0440\u043a\u043e\u0432\"",
+        "town": 65677,
+        "municipality": 65677,
+        "financial": 2,
+        "details": 121,
+        "status": 3
+    },
+    {
+        "code": 2609003,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \" \u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432 \"",
+        "town": 22575,
+        "municipality": 68708,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2700014,
+        "name": "\u041e\u0423 \"\u041f. \u0412\u043e\u043b\u043e\u0432\"",
+        "town": 29341,
+        "municipality": 14516,
+        "financial": 2,
+        "details": 2,
+        "status": 3
+    },
+    {
+        "code": 2700060,
+        "name": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e \u0443\u0447\u0438\u043b\u0438\u0449\u0435 \"\u0425\u0440\u0438\u0441\u0442\u043e \u0411\u043e\u0442\u0435\u0432\"",
+        "town": 55292,
+        "municipality": 52009,
+        "financial": 2,
+        "details": 2,
+        "status": 3
     }
 ]
