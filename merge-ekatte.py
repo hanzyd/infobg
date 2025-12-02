@@ -6,6 +6,8 @@ from os import path
 
 # https://www.nsi.bg/nrnm/ekatte/archive
 
+EK_UNITS = 'json/territorial_units.json'
+
 
 def find_municipality_code(municipalities: list, name: str) -> int:
 
@@ -121,7 +123,7 @@ def main(dir):
     print('Territorial units count: {}'.format(len(merged_json)))
 
     # Merged information
-    with open(path.join('json', 'territorial_units.json'), 'w', encoding='utf-8') as file:
+    with open(EK_UNITS, 'w', encoding='utf-8') as file:
         file.write(json.dumps(merged_json, indent=4))
 
 

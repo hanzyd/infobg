@@ -5,7 +5,7 @@ import sys
 from os import path
 
 EK_UNITS = 'json/territorial_units.json'
-
+MON_INSTITUTIONS = 'json/public_institutions.json'
 
 def valid_territorial_unit(ek_units: list, name: str) -> bool:
 
@@ -132,7 +132,7 @@ def main(dir):
     print('Public institutions count: {}'.format(len(public_institutions)))
 
     # Merged information
-    with open(path.join('json', 'public_institutions.json'), 'w', encoding='utf-8') as file:
+    with open(MON_INSTITUTIONS, 'w', encoding='utf-8') as file:
         file.write(json.dumps(public_institutions, indent=4))
 
 
