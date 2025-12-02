@@ -8,9 +8,9 @@ from datetime import date
 INTERNAL = 'matura-results.json'
 EXTERNAL = 'external-evaluation.json'
 
-EK_UNITS = 'json/ek_territorial_units.json'
+EK_UNITS = 'json/territorial_units.json'
 SUBJECTS = 'json/exam_subjects.json'
-MON_INSTITUTIONS = 'json/mon_public_institutions.json'
+MON_INSTITUTIONS = 'json/public_institutions.json'
 
 
 def find_subject_code(subjects: list, subject: str) -> int:
@@ -260,7 +260,7 @@ def main(dir):
     internal.extend(external)
 
     # Merged information
-    with open(path.join('json', 'school_scores.json'), 'w', encoding='utf-8') as file:
+    with open(path.join('json', 'schools_scores.json'), 'w', encoding='utf-8') as file:
         file.write(json.dumps(internal, indent=4))
 
 

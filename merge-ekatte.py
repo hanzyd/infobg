@@ -121,7 +121,7 @@ def main(dir):
     print('Territorial units count: {}'.format(len(merged_json)))
 
     # Merged information
-    with open(path.join('json', 'ek_territorial_units.json'), 'w', encoding='utf-8') as file:
+    with open(path.join('json', 'territorial_units.json'), 'w', encoding='utf-8') as file:
         file.write(json.dumps(merged_json, indent=4))
 
 
