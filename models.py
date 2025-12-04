@@ -26,6 +26,30 @@ town_institution = Table(
     Column("institution_code", Integer, ForeignKey("institution.code")),
 )
 
+# - Код на типа на териториалната единица:
+#   1  "гр. "  -  град
+#   3  "с.  "  -  село
+#   7  "ман."  -  манастир
+class EkKind(Base):
+    __tablename__ = "ek_kind"
+    code = Column(Integer, primary_key=True)
+    label = Column(String)
+
+# - Надморска височина
+#   Код  Групи (в метри)
+#   1    до 49 вкл.
+#   2    50 - 99 вкл.
+#   3    100 - 199 вкл.
+#   4    200 - 299 вкл.
+#   5    300 - 499 вкл.
+#   6    500 - 699 вкл.
+#   7    700 - 999 вкл.
+#   8    1000 и повече
+class EkAltitude(Base):
+    __tablename__ = "ek_altitude"
+    code = Column(Integer, primary_key=True)
+    label = Column(String)
+
 class Region(Base):
     __tablename__ = "region"
     code = Column(Integer, primary_key=True)
@@ -42,6 +66,8 @@ class Town(Base):
     __tablename__ = "town"
     code = Column(Integer, primary_key=True)
     name = Column(String)
+    municipality = Column(Integer, ForeignKey("municipality.code"))
+    region = Column(Integer, ForeignKey("region.code"))
     institutions = relationship("Institution", backref=backref("town"))
 
 class Financing(Base):

@@ -1,0 +1,11 @@
+{
+    "workbench.colorCustomizations": {
+        "editorOverviewRuler.infoForeground": "#0000",
+        "activityBar.background": "#501D1B",
+        "titleBar.activeBackground": "#702926",
+        "titleBar.activeForeground": "#FEFCFB"
+	},
+	"cSpell.words": [
+		"addionaly"
+	]
+}

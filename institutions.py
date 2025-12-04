@@ -4,29 +4,100 @@ import json
 import sys
 from os import path
 
-EK_UNITS = 'json/territorial_units.json'
-MON_INSTITUTIONS = 'json/public_institutions.json'
+from locations import Locations
+from finance import Finances
+from details import SchoolTypes
+from transform import Transforms
 
-def valid_territorial_unit(ek_units: list, name: str) -> bool:
+DATA_DIR = 'data/mon.bg'
+REGISTER = 'public-register.json'
+OUT_FILE = 'json/institutions.json'
 
-    if name.lower() == 'други':
-        return True
-
-    for unit in ek_units:
-        if unit['name'].lower() == name.lower():
-            return True
-
-    return False
+# https://nvoresults.com/matura_schools.json
 
 
-def label_by_code(data, code):
-    for element in data:
-        if int(element['code']) == int(code):
-            return element['label']
-    return None
+class Institution():
+    # 2 - Общинско
+    # 3 - действаща
+    def __init__(self, num_id: str, name: str, location: str, finance=2, details=0, status=3):
+        self.id = str(num_id)
+        self.name = str(name)
+        self.location = str(location)
+        self.finance = finance
+        self.details = details
+        self.status = status
+
+        if details != 0:
+            return
+
+        name = name.lower()
+        if 'частн' in name:
+            self.finance = 3
+
+        code = 122
+        if 'основно' in name:
+            code = 122
+        elif 'ОУ' in name:
+            code = 122
+        elif 'СУ' in name:
+            code = 124
+        elif 'профилирана' in name:
+            code = 125
+        elif 'начално' in name:
+            code = 121
+        elif 'средно' in name:
+            code = 124
+        elif 'вуи' in name:
+            code = 133
+        elif 'възпитателно' in name:
+            code = 133
+        elif 'спортно' in name:
+            code = 114
+        elif 'обединено' in name:
+            code = 123
+
+        self.details = code
+
+    def __str__(self):
+        return f'{self.id} {self.name}'
+
+    def __repr__(self):
+        return f'Институция <{self.id} {self.name} {self.location}>'
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, other):
+        if isinstance(other, Institution):
+            equal = self.id == other.id
+
+            if equal and self.name != other.name:
+                print(f'Внимание: {self.id}: {self.name} != {other.name}')
+
+            if equal and self.name != other.name:
+                print(f'Внимание: {self.id}: {self.location} != {other.location}')
+
+            return equal
+
+        return NotImplemented
 
 
-def load_data(dir, file_name):
+class Encoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+
+        return {
+            'id': obj.id,
+            'name': obj.name,
+            'location': obj.location,
+            'finance': obj.finance,
+            'details': obj.details,
+            'status': obj.status,
+        }
+
+
+def _load_data(dir, file_name):
 
     file_path = path.join(dir, file_name)
     with open(file_path, 'r', encoding='UTF-8') as file:
@@ -37,105 +108,104 @@ def load_data(dir, file_name):
             sys.exit(1)
 
 
-def main(dir):
+def _load():
+
+    if path.isfile(OUT_FILE):
+        try:
+            with open(OUT_FILE, 'r', encoding='utf-8') as file:
+                return json.load(file)
+        except Exception:
+            pass
+
+    dir = DATA_DIR
 
     # Territorial units
-    ek_json = None
-    with open(EK_UNITS, 'r', encoding='utf-8') as file:
-        ek_json = json.load(file)
-
-    if not ek_json:
+    locations = Locations()
+    if not locations:
         return
 
-    public_register = load_data(dir, 'public-register.json')['publicInstitutions']
-    detailed_type = load_data(dir, 'detailedSchoolType.json')
-    financial_type = load_data(dir, 'financialSchoolType.json')
-    municipality = load_data(dir, 'municipality.json')
-    municipality_multiple = load_data(dir, 'municipalityMultiple.json')
-    regions = load_data(dir, 'region.json')
-    towns = load_data(dir, 'town.json')
-    transform_type = load_data(dir, 'transformType.json')
+    details = SchoolTypes()
+    if not details:
+        return
 
-    public_institutions = []
+    finances = Finances()
+    if not finances:
+        return
 
-    for institution in public_register:
+    transforms = Transforms()
+    if not transforms:
+        return
 
-        name = institution['name']
+    register = _load_data(dir, REGISTER)['publicInstitutions']
 
-        mun_code = institution['municipality']
-        label = label_by_code(municipality, mun_code)
+    i_list = list()
+    i_set = set()
 
-        if not label:
-            label = label_by_code(municipality_multiple, mun_code)
+    for node in register:
 
-        if not label:
-            print('{}: {}: no municipality label'.format(mun_code, name))
+        name = node['name']
+        location_code = str(node['town']).zfill(5)
+
+        if not locations.find_name(location_code):
+            print(f'Невалидно селище {location_code}: {name}')
             continue
 
-        if not valid_territorial_unit(ek_json, label):
-            print('Invalid municipality {}: {}'.format(label, name))
+        inst_id = int(node['instid'])
+        num_id = int(node['id'])
+
+        if inst_id != num_id:
+            print(f'Разминаване в кода на институцията {inst_id} != {num_id}')
             continue
 
-        code = institution['region']
-        label = label_by_code(regions, code)
-
-        if not label:
-            print('{}: {}: no region label'.format(code, name))
+        f_code = int(node['financialSchoolType'])
+        f_label = finances.find_label(f_code)
+        if not f_label:
+            print(f'Невалиден финасов код {f_code}: {name}')
             continue
 
-        if not valid_territorial_unit(ek_json, label):
-            print('Invalid area {}: {}'.format(label, name))
+        d_code = int(node['detailedSchoolType'])
+        d_label = details.find_label(d_code)
+        if not d_label:
+            print(f'Невалиден детайлен код {d_code}: {name}')
             continue
 
-        town_code = institution['town']
-        label = label_by_code(towns, town_code)
-
-        if not label:
-            print('{}: {}: no town label'.format(town_code, name))
+        t_code = int(node['transformType'])
+        t_label = transforms.find_label(t_code)
+        if not t_label:
+            print(f'Невалиден код на състоянието {t_code}: {name}')
             continue
 
-        if not valid_territorial_unit(ek_json, label):
-            print('Invalid town {}: {}'.format(label, name))
-            continue
+        new_unit = Institution(inst_id, name, location_code,
+                               f_code, d_code, t_code)
 
-        inst_id = int(institution['instid'])
-        if inst_id != int(institution['id']):
-            print('Institution code mismatch {} != {}'.format(
-                inst_id, institution['id']))
-            continue
+        i_list.append(new_unit)
+        i_set.add(new_unit)
 
-        fin_code = int(institution['financialSchoolType'])
-        if not label_by_code(financial_type, fin_code):
-            print('Invalid financial code {}: {}'.format(fin_code, name))
-            continue
+    if len(i_set) != len(i_list):
+        print(f'Има повтарящи се институции във входния файл')
 
-        details_code = int(institution['detailedSchoolType'])
-        if not label_by_code(detailed_type, details_code):
-            print('Invalid detailed code {}: {}'.format(details_code, name))
-            continue
+    return i_set
 
-        trans_code = int(institution['transformType'])
-        if not label_by_code(transform_type, trans_code):
-            print('Invalid transform code {}: {}'.format(trans_code, name))
-            continue
 
-        public_institutions.append({
-            'code': inst_id,
-            'name': name,
-            'town': town_code,
-            'municipality': mun_code,
-            'financial': fin_code,
-            'details': details_code,
-            'status': trans_code,
-        })
+class Institutions():
+    def __init__(self):
+        self.nodes = _load()
 
-    print('Public institutions count: {}'.format(len(public_institutions)))
+    def is_valid(self, code: str) -> bool:
+        for inst in self.nodes:
+            if inst.id == code:
+                return True
+        return False
 
-    # Merged information
-    with open(MON_INSTITUTIONS, 'w', encoding='utf-8') as file:
-        file.write(json.dumps(public_institutions, indent=4))
+    def add(self, obj: Institution) -> None:
+        self.nodes.add(obj)
+
+    def toJSON(self):
+        with open(OUT_FILE, 'w', encoding='utf-8') as file:
+            file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
 
 
 if __name__ == "__main__":
-    main('./data/mon.bg/')
-    sys.exit(0)
+    nodes = Institutions()
+    nodes.toJSON()
+

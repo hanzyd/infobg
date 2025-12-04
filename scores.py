@@ -5,266 +5,287 @@ import sys
 from os import path
 from datetime import date
 
-INTERNAL = 'matura-results.json'
-EXTERNAL = 'external-evaluation.json'
-
-EK_UNITS = 'json/territorial_units.json'
-SUBJECTS = 'json/exam_subjects.json'
-MON_INSTITUTIONS = 'json/public_institutions.json'
-SCHOOL_SCORES = 'json/schools_scores.json'
-
-
-def find_subject_code(subjects: list, subject: str) -> int:
-
-    for node in subjects:
-        if node['subject'] == subject:
-            return node['code']
-
-    print('Can not find code for subject: {}'.format(subject))
-    return -1
+from locations import Locations
+from municipalities import Municipalities
+from subjects import Subjects
+from institutions import Institutions, Institution
+from details import SchoolTypes
+from finance import Finances
 
 
-def is_valid_institution(schools: list, code: int) -> bool:
+# https://nvoresults.com/matura_results.json
+# https://nvoresults.com/matura_schools.json
+# https://nvoresults.com/results.json
 
-    for inst in schools:
-        if inst['code'] == code:
-            return True
+DATA_DIR = 'data/nvoresults.com'
 
-    return False
+INTERNAL = 'matura_results.json'
+EXTERNAL = 'results.json'
+SCHOOLS = 'matura_schools.json'
+
+OUT_FILE = 'json/scores.json'
 
 
-def extract_exam_subjects(file_name):
+class Score():
 
-    exam_subjects = set()
-    dict_subjects = []
+    def __init__(self, school_id: str, date_str: str, grade: int, subject: int, score: int, students: int):
+        self.id = school_id
+        self.date = date_str
+        self.grade = grade
+        self.subject = subject
+        self.score = score
+        self.students = students
 
+    def __str__(self):
+        return f'{self.name}'
+
+    def __repr__(self):
+        return f'Резултат <{self.id} {self.date} {self.grade} {self.subject}>'
+
+    def __hash__(self):
+        return hash((self.id, self.date, self.grade, self.subject))
+
+    def __eq__(self, other):
+        if isinstance(other, Score):
+
+            equal = self.id == other.id and \
+                self.date == other.date and \
+                self.grade == other.grade and \
+                self.subject == other.subject
+
+            if equal and self.score != other.score:
+                print(f'Внимание: {self.id}: {self.score} != {other.score}')
+
+            if equal and self.students != other.students:
+                print(f'Внимание: {self.id}: {self.students} != {other.students}')
+
+            return equal
+
+        return NotImplemented
+
+
+class Encoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+
+        return {
+            'id': obj.id,
+            'date': obj.date,
+            'grade': obj.grade,
+            'subject': obj.subject,
+            'score': obj.score,
+            'students': obj.students
+        }
+
+
+def _process_internal_results(schools: Institutions, subjects: Subjects) -> list:
+
+    a_list = []
+
+    file_name = path.join(DATA_DIR, INTERNAL)
     with open(file_name, 'r', encoding='utf-8') as file:
         results = json.load(file)['results']
-        for school_str in results:
-            for date_str in results[school_str]:
-                for subject in results[school_str][date_str]:
-                    exam_subjects.add(subject)
 
-    exam_subjects.add('Български език и литература')
-    exam_subjects.add('Математика')
+        for school_id in results:
 
-    print('{} unique exam subjects'.format(len(exam_subjects)))
-
-    for num, subject in enumerate(exam_subjects):
-        dict_subjects.append({'code': num, 'subject': subject})
-
-    with open(SUBJECTS, 'w', encoding='utf-8') as file:
-        file.write(json.dumps(dict_subjects, indent=4))
-
-    return dict_subjects
-
-
-def process_internal_results(file_name: str, schools: list, subj_table: list) -> list:
-
-    dict_results = []
-
-    with open(file_name, 'r', encoding='utf-8') as file:
-        results = json.load(file)['results']
-
-        for school_str in results:
-
-            school_code = int(school_str)
-
-            if not is_valid_institution(schools, school_code):
-                print('Invalid school code: {}'.format(school_code))
+            if not schools.is_valid(school_id):
+                print(f'Невалиден код на училище "{school_id}"')
                 continue
 
-            for date_str in results[school_str]:
+            for date_str in results[school_id]:
 
                 tokens = date_str.replace('.', '_').split('_')
                 exam_date = date(int(tokens[0]), int(tokens[1]), 1)
 
-                for subject_str in results[school_str][date_str]:
+                for subj_str in results[school_id][date_str]:
+                    subj_code = subjects.find_code(subj_str)
+                    if not subj_code:
+                        print(f'Невалиден код на тема "{subj_str}" в училище "{school_id}"')
+                        continue
 
-                    subject_code = find_subject_code(subj_table, subject_str)
-                    score = results[school_str][date_str][subject_str]['score']
-                    students = results[school_str][date_str][subject_str]['numberOfStudents']
+                    score = results[school_id][date_str][subj_str]['score']
+                    students = results[school_id][date_str][subj_str]['numberOfStudents']
 
-                    exam = {
-                        'school': school_code,
-                        'date': exam_date.strftime('%Y-%m'),
-                        'subject': subject_code,
-                        'grade': 12,
-                        'score': score,
-                        'students': students
-                    }
+                    exam = Score(school_id,  exam_date.strftime('%Y-%m'),
+                                 subj_code, 12, score, students)
 
-                    dict_results.append(exam)
+                    a_list.append(exam)
 
-    return dict_results
+    return a_list
 
 
-def process_external_results(file_name: str, schools: list, subj_table: list) -> list:
+def _process_external_results(schools: Institutions, subjects: Subjects) -> list:
 
-    dict_results = []
+    a_list = []
 
+    math_code = subjects.find_code('Математика')
+    lang_code = subjects.find_code('Български език и литература')
+
+    file_name = path.join(DATA_DIR, EXTERNAL)
     with open(file_name, 'r', encoding='utf-8') as file:
         results = json.load(file)
 
-        for school_str in results:
+        for school_id in results:
 
-            school_code = int(school_str)
-
-            if not is_valid_institution(schools, school_code):
-                name = results[school_str]['name']
-                city = results[school_str]['city']
-                print('Invalid school code: {} {} {}'.format(school_code, name, city))
+            if not schools.is_valid(school_id):
+                school_name = results[school_id]['name']
+                city_name = results[school_id]['city']
+                print(f'Невалиден код на училище "{school_id}" "{school_name}" "{city_name}"')
                 continue
 
-            for date_str in results[school_str]['exam_results']:
+            for date_str in results[school_id]['exam_results']:
 
                 tokens = date_str.split('_')
                 exam_date = date(2000 + int(tokens[2]), 5, 1)
+                grade = int(results[school_id]['exam_results'][date_str]['grade'])
+                score = results[school_id]['exam_results'][date_str]['bel_score']
+                students = results[school_id]['exam_results'][date_str]['bel_students']
 
-                subject_code = find_subject_code(subj_table, 'Български език и литература')
-                grade = int(results[school_str]['exam_results'][date_str]['grade'])
+                exam = Score(school_id,  exam_date.strftime('%Y-%m'),
+                             lang_code, grade, score, students)
 
-                score = results[school_str]['exam_results'][date_str]['bel_score']
-                students = results[school_str]['exam_results'][date_str]['bel_students']
+                a_list.append(exam)
 
-                exam = {
-                    'school': school_code,
-                    'date': exam_date.strftime('%Y-%m'),
-                    'grade': grade,
-                    'subject': subject_code,
-                    'score': score,
-                    'students': students
-                }
+                score = results[school_id]['exam_results'][date_str]['math_score']
+                students = results[school_id]['exam_results'][date_str]['math_students']
 
-                dict_results.append(exam)
+                exam = Score(school_id,  exam_date.strftime('%Y-%m'),
+                             math_code, grade, score, students)
 
-                subject_code = find_subject_code(subj_table, 'Математика')
-                score = results[school_str]['exam_results'][date_str]['math_score']
-                students = results[school_str]['exam_results'][date_str]['math_students']
+                a_list.append(exam)
 
-                exam = {
-                    'school': school_code,
-                    'date': exam_date.strftime('%Y-%m'),
-                    'grade': grade,
-                    'subject': subject_code,
-                    'score': score,
-                    'students': students
-                }
-
-                dict_results.append(exam)
-
-    return dict_results
+    return a_list
 
 
-def find_territorial_unit_code(ek_units: list, name: str) -> int:
+def _strip_location(location: str) -> str:
 
-    name = name.lower().removeprefix('гр.').removeprefix('с.').strip()
+    location = location.lower()
+    location = location.removeprefix('гр.')
+    location = location.removeprefix('с.').strip()
 
-    for unit in ek_units:
-        if unit['name'].lower() == name:
-            return int(unit['code'])
+    return location
 
-    return None
 
-def extract_missing_schools(file_name: str, schools: list) -> list:
+def _fill_missing_schools(schools: Institutions) -> None:
 
-    public_institutions = []
-
-    # Territorial units
-    ek_json = None
-    with open(EK_UNITS, 'r', encoding='utf-8') as file:
-        ek_json = json.load(file)
-
-    if not ek_json:
+    locations = Locations()
+    if not locations:
         return
 
+    municipalities = Municipalities()
+    if not municipalities:
+        return
+
+    school_types = SchoolTypes()
+    if not school_types:
+        return
+
+    fin_types = Finances()
+    if not fin_types:
+        return
+
+    file_name = path.join(DATA_DIR, SCHOOLS)
     with open(file_name, 'r', encoding='utf-8') as file:
-        results = json.load(file)
+        datum = json.load(file)
 
-        for school_str in results:
-            school_code = int(school_str)
-            if is_valid_institution(schools, school_code):
+        for school_id in datum:
+
+            if schools.is_valid(school_id):
                 continue
 
-            town_str = results[school_str]['city']
-            town_code = find_territorial_unit_code(ek_json, town_str)
+            school_name = datum[school_id]['data']['school']
+            city_name = _strip_location(datum[school_id]['data']['city'])
+            mun_name = _strip_location(datum[school_id]['data']['obshtina'])
+
+            mun_nick = municipalities.find_nickname(mun_name)
+            if not mun_nick:
+                print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
+                continue
+
+            town_code = locations.find_code(city_name, mun_nick=mun_nick)
             if not town_code:
-                print('Can not find code for: {}'.format(town_str))
+                print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
                 continue
 
-            mun_str = results[school_str]['municipality']
-            mun_code = find_territorial_unit_code(ek_json, mun_str)
-            if not mun_code:
-                print('Can not find code for: {}'.format(mun_str))
+            f_code = fin_types.find_code(school_name)
+            d_code = school_types.find_code(school_name)
+            a_new = Institution(school_id, school_name, town_code, f_code, d_code)
+            print(f'Добавям ново училище {a_new}')
+            schools.add(a_new)
+
+        schools.toJSON()
+
+    file_name = path.join(DATA_DIR, EXTERNAL)
+    with open(file_name, 'r', encoding='utf-8') as file:
+        datum = json.load(file)
+
+        for school_id in datum:
+
+            if schools.is_valid(school_id):
                 continue
 
-            name_str = results[school_str]['name']
-            if 'основно' in name_str.lower():
-                details_code = 2
-            elif 'ОУ' in name_str:
-                details_code = 2
-            elif 'СУ' in name_str:
-                details_code = 124
-            elif 'профилирана гимназия' in name_str.lower():
-                details_code = 125
-            elif 'начално' in name_str.lower():
-                details_code = 121
-            elif 'средно' in name_str.lower():
-                details_code = 124
-            elif 'вуи' in name_str.lower():
-                details_code = 133
-            elif 'възпитателно' in name_str.lower():
-                details_code = 133
-            else:
-                print('{} details unknown'.format(name_str))
-                details_code = 2
+            school_name = datum[school_id]['name']
+            city_name = _strip_location(datum[school_id]['city'])
+            mun_name = _strip_location(datum[school_id]['municipality'])
 
-            public_institutions.append({
-                'code': int(school_code),
-                'name': name_str,
-                'town': town_code,
-                'municipality': mun_code,
-                'financial': 2, # Общинско
-                'details': details_code, # "основно (І - VІІІ клас)"
-                'status': 3 # действаща
-            })
+            mun_nick = municipalities.find_nickname(mun_name)
+            if not mun_nick:
+                print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
+                continue
 
-    return public_institutions
+            town_code = locations.find_code(city_name, mun_nick=mun_nick)
+            if not town_code:
+                print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
+                continue
+
+            f_code = fin_types.find_code(school_name)
+            d_code = school_types.find_code(school_name)
+            a_new = Institution(school_id, school_name, town_code, f_code, d_code)
+
+            print(f'Добавям ново училище {a_new}')
+            schools.add(a_new)
+
+        schools.toJSON()
 
 
-def main(dir):
+def _load():
 
-    file_path = path.join(dir, INTERNAL)
-    subjects = extract_exam_subjects(file_path)
+    if path.isfile(OUT_FILE):
+        try:
+            with open(OUT_FILE, 'r', encoding='utf-8') as file:
+                return json.load(file)
+        except Exception:
+            pass
 
-    # Territorial units
-    schools = None
-    with open(MON_INSTITUTIONS, 'r', encoding='utf-8') as file:
-        schools = json.load(file)
+    subjects = Subjects()
+    if not subjects:
+        return
 
+    schools = Institutions()
     if not schools:
         return
 
-    file_path = path.join(dir, EXTERNAL)
-    missing = extract_missing_schools(file_path, schools)
-    if len(missing):
-        schools.extend(missing)
-        # Merged information
-        with open(MON_INSTITUTIONS, 'w', encoding='utf-8') as file:
-            file.write(json.dumps(schools, indent=4))
+    _fill_missing_schools(schools)
 
-    external = process_external_results(file_path, schools, subjects)
+    external = _process_external_results(schools, subjects)
 
-    file_path = path.join(dir, INTERNAL)
-    internal = process_internal_results(file_path, schools, subjects)
+    internal = _process_internal_results(schools, subjects)
 
     internal.extend(external)
 
-    # Merged information
-    with open(SCHOOL_SCORES, 'w', encoding='utf-8') as file:
-        file.write(json.dumps(internal, indent=4))
+    return internal
+
+
+class Scores():
+    def __init__(self):
+        self.nodes = _load()
+
+    def toJSON(self):
+        with open(OUT_FILE, 'w', encoding='utf-8') as file:
+            file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
 
 
 if __name__ == "__main__":
-    main('./data/nvoresults.com/')
-    sys.exit(0)
+    nodes = Scores()
+    nodes.toJSON()
