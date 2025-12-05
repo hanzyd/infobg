@@ -14,6 +14,7 @@ from subjects import Subjects
 from scores import Scores
 from transform import Transforms
 from institutions import Institutions
+from census import Censuses
 
 Base = declarative_base()
 
@@ -238,7 +239,7 @@ if __name__ == "__main__":
         name='\u0422\u0443\u0442\u0440\u0430\u043a\u0430\u043d').first()
     print(e)
 
-    rows = []
+    rows.clear()
     nodes = Municipalities()
     for n in nodes:
         rows.append(Municipality(abbrev=n.abbrev, name=n.name))
@@ -249,7 +250,7 @@ if __name__ == "__main__":
     e = session.query(Municipality).filter_by(abbrev='BGS01').first()
     print(e)
 
-    rows = []
+    rows.clear()
     nodes = Districts()
     for n in nodes:
         rows.append(District(abbrev=n.abbrev, name=n.name))
@@ -260,7 +261,7 @@ if __name__ == "__main__":
     e = session.query(District).filter_by(abbrev='SHU').first()
     print(e)
 
-    rows = []
+    rows.clear()
     nodes = Finances()
     for n in nodes:
         rows.append(InstitutionFinancing(code=n.code, label=n.label))
@@ -271,7 +272,7 @@ if __name__ == "__main__":
     e = session.query(InstitutionFinancing).filter_by(label='Духовно').first()
     print(e)
 
-    rows = []
+    rows.clear()
     nodes = Transforms()
     for n in nodes:
         rows.append(InstitutionState(code=n.code, label=n.label))
@@ -282,7 +283,7 @@ if __name__ == "__main__":
     e = session.query(InstitutionState).filter_by(code=3).first()
     print(e)
 
-    rows = []
+    rows.clear()
     nodes = Institutions()
     for n in nodes:
         rows.append(Institution(code=n.id, name=n.name, settlement=n.location,
@@ -295,7 +296,7 @@ if __name__ == "__main__":
     for r in rows:
         print(r)
 
-    rows = []
+    rows.clear()
     nodes = SchoolTypes()
     for n in nodes:
         rows.append(InstitutionDetails(code=n.code, label=n.label))
@@ -306,7 +307,7 @@ if __name__ == "__main__":
     e = session.query(InstitutionDetails).filter_by(label='обединено').first()
     print(e)
 
-    rows = []
+    rows.clear()
     nodes = Subjects()
     for n in nodes:
         rows.append(ExaminationSubject(code=n.code, subject=n.title))
@@ -318,7 +319,7 @@ if __name__ == "__main__":
 
     print(e)
 
-    rows = []
+    rows.clear()
     nodes = Scores()
     for n in nodes:
         a_date = datetime.strptime(n.date, "%Y-%m")
@@ -330,6 +331,21 @@ if __name__ == "__main__":
     session.commit()
 
     rows = session.query(Examination).filter_by(institution='103503').all()
+    for r in rows:
+        print(r)
+
+    rows.clear()
+    nodes = Censuses()
+    for n in nodes:
+        a_date = datetime.strptime(n.date, "%d.%m.%Y")
+        rows.append(Census(code=n.code, municipality=n.municipality,
+                                date=a_date, permanent=n.permanent,
+                                current=n.current))
+
+    session.add_all(rows)
+    session.commit()
+
+    rows = session.query(Census).filter_by(code='12259').all()
     for r in rows:
         print(r)
 
