@@ -6,6 +6,7 @@ import json
 import glob
 import sys
 from os import path
+from datetime import datetime
 
 from districts import Districts
 from locations import Locations
@@ -159,8 +160,15 @@ def _process_one_year(file_name: str, locations: Locations, munis: Municipalitie
 
         if 'дата' in line:
             tokens = line.split()
-            if 'с.водата' != tokens[1]:
-                date_str = tokens[1]
+            if 'водата' in line or 'пирамидата' in line:
+                pass
+            else:
+                d_str = tokens[1]
+                try:
+                    datetime.strptime(d_str, "%d.%m.%Y")
+                    date_str = d_str
+                except ValueError:
+                    pass
 
         if 'таблица на населението' in line:
             dist_abbrev = None
