@@ -57,10 +57,10 @@ def _load():
         next(spam)
 
         for row in spam:
-            nick_and_name = row[0].split(' ', 1)
+            abbrev_and_name = row[0].split(' ', 1)
 
-            abbrev = str(nick_and_name[0])
-            name = str(nick_and_name[1])
+            abbrev = str(abbrev_and_name[0])
+            name = str(abbrev_and_name[1])
 
             total = int(row[1])
 

@@ -60,9 +60,9 @@ RENAMED = [('марикостеново', 'марикостиново'),
 
 class Census():
 
-    def __init__(self, code: str, mun_nick: str, _date: str, permanent: int, current: int):
+    def __init__(self, code: str, mun_abbrev: str, _date: str, permanent: int, current: int):
         self.code = str(code)
-        self.municipality = str(mun_nick)
+        self.municipality = str(mun_abbrev)
         self.date = str(_date)
         self.permanent = int(permanent)
         self.current = int(current)
@@ -149,8 +149,8 @@ def _process_one_year(file_name: str, locations: Locations, munis: Municipalitie
     no_code = set()
     population = []
 
-    dist_nick = None
-    mun_nick = None
+    dist_abbrev = None
+    mun_abbrev = None
     date_str = None
 
     for num, line in enumerate(lines):
@@ -163,12 +163,12 @@ def _process_one_year(file_name: str, locations: Locations, munis: Municipalitie
                 date_str = tokens[1]
 
         if 'таблица на населението' in line:
-            dist_nick = None
-            mun_nick = None
+            dist_abbrev = None
+            mun_abbrev = None
 
         if 'всичко за общината'.lower() in line:
-            dist_nick = None
-            mun_nick = None
+            dist_abbrev = None
+            mun_abbrev = None
             date_str = None
 
         # 1998
@@ -216,13 +216,13 @@ def _process_one_year(file_name: str, locations: Locations, munis: Municipalitie
             print(f'{file_name}:{num} липсва дата')
             continue
 
-        dist_nick = dists.find_nickname(dist_name)
-        if not dist_nick:
+        dist_abbrev = dists.find_abbrev(dist_name)
+        if not dist_abbrev:
             print(f'{file_name}:{num} Област: "{dist_name}" без псевдоним')
             sys.exit(1)
 
-        mun_nick = munis.find_nickname(mun_name)
-        if not mun_nick:
+        mun_abbrev = munis.find_abbrev(mun_name)
+        if not mun_abbrev:
             print(f'{file_name}:{num} Община: "{mun_name}" без псевдоним')
             sys.exit(1)
 
@@ -237,13 +237,13 @@ def _process_one_year(file_name: str, locations: Locations, munis: Municipalitie
         permanent = int(tokens[1])
         current = int(tokens[5])
 
-        town_code = locations.find_code(town_name, dist_nick, mun_nick)
+        town_code = locations.find_code(town_name, dist_abbrev, mun_abbrev)
         if not town_code:
             if strict:
                 no_code.add((dist_name, mun_name, town_name))
             continue
 
-        census = Census(town_code, mun_nick, date_str, permanent, current)
+        census = Census(town_code, mun_abbrev, date_str, permanent, current)
 
         population.append(census)
         pass

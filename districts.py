@@ -13,28 +13,28 @@ OUT_FILE = 'json/districts.json'
 class District():
     """
       name      Char 25  - Наименование на областта
-      nickname  Char 3   - Идентификационен код на областта (3 букви).
+      abbrev    Char 3   - Идентификационен код на областта (3 букви).
     """
 
-    def __init__(self, name: str, nickname: str):
+    def __init__(self, name: str, abbrev: str):
         self.name = str(name)
-        self.nickname = str(nickname)
+        self.abbrev = str(abbrev)
 
     def __str__(self):
         return f'{self.name:25}'
 
     def __repr__(self):
-        return f'Област <{self.name:25} {self.nickname:3}>'
+        return f'Област <{self.name:25} {self.abbrev:3}>'
 
     def __hash__(self):
-        return hash(self.nickname)
+        return hash(self.abbrev)
 
     def __eq__(self, other):
         if isinstance(other, District):
-            equal = self.nickname == other.nickname
+            equal = self.abbrev == other.abbrev
 
             if equal and self.name != other.name:
-                print(f'Внимание: {self.nickname}: {self.name} != {other.name}')
+                print(f'Внимание: {self.abbrev}: {self.name} != {other.name}')
 
             return equal
 
@@ -48,7 +48,7 @@ class Encoder(json.JSONEncoder):
 
         return {
             'name': obj.name,
-            'nickname': obj.nickname,
+            'abbrev': obj.abbrev,
         }
 
 
@@ -102,11 +102,11 @@ class Districts():
         for node in self.nodes:
             yield node
 
-    def find_nickname(self, name: str) -> str:
+    def find_abbrev(self, name: str) -> str:
 
         for m in self.nodes:
             if m.name.lower() == name.lower():
-                return m.nickname
+                return m.abbrev
         return None
 
     def toJSON(self):

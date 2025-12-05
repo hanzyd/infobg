@@ -198,12 +198,12 @@ def _fill_missing_schools(schools: Institutions) -> None:
             city_name = _strip_location(datum[school_id]['data']['city'])
             mun_name = _strip_location(datum[school_id]['data']['obshtina'])
 
-            mun_nick = municipalities.find_nickname(mun_name)
-            if not mun_nick:
+            mun_abbrev = municipalities.find_abbrev(mun_name)
+            if not mun_abbrev:
                 print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
                 continue
 
-            town_code = locations.find_code(city_name, mun_nick=mun_nick)
+            town_code = locations.find_code(city_name, mun_abbrev=mun_abbrev)
             if not town_code:
                 print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
                 continue
@@ -229,12 +229,12 @@ def _fill_missing_schools(schools: Institutions) -> None:
             city_name = _strip_location(datum[school_id]['city'])
             mun_name = _strip_location(datum[school_id]['municipality'])
 
-            mun_nick = municipalities.find_nickname(mun_name)
-            if not mun_nick:
+            mun_abbrev = municipalities.find_abbrev(mun_name)
+            if not mun_abbrev:
                 print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
                 continue
 
-            town_code = locations.find_code(city_name, mun_nick=mun_nick)
+            town_code = locations.find_code(city_name, mun_abbrev=mun_abbrev)
             if not town_code:
                 print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
                 continue

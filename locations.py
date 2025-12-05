@@ -169,13 +169,13 @@ class Locations():
         for node in self.nodes:
             yield node
 
-    def find_code(self, name: str, dist_nick='', mun_nick='') -> str:
+    def find_code(self, name: str, dist_abbrev='', mun_abbrev='') -> str:
         small = name.lower()
         for m in self.nodes:
             if m.name.lower() == small:
-                if mun_nick and m.municipality == mun_nick:
+                if mun_abbrev and m.municipality == mun_abbrev:
                     return m.code
-                if dist_nick and m.municipality[:-2] == dist_nick:
+                if dist_abbrev and m.municipality[:-2] == dist_abbrev:
                     return m.code
         return None
 
