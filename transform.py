@@ -87,6 +87,10 @@ class Transforms():
     def __init__(self):
         self.nodes = _load()
 
+    def __iter__(self):
+        for node in self.nodes:
+            yield node
+
     def find_label(self, code: int) -> str:
         for n in self.nodes:
             if n.code == code:
