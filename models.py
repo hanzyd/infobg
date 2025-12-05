@@ -49,8 +49,10 @@ class SettlementType(Base):
     code = Column(Integer, primary_key=True)
     label = Column(String)
 
+    settlement = relationship('Settlement', back_populates='kind', uselist=True)
+
     def __repr__(self) -> str:
-        return f"SettlementType({self.code!r}, {self.label!r})"
+        return f"SettlementType<{self.code}, {self.label}>"
 
 
 # - Надморска височина
@@ -68,29 +70,43 @@ class SettlementAltitude(Base):
     code = Column(Integer, primary_key=True)
     label = Column(String, nullable=False)
 
+    settlement = relationship('Settlement', back_populates='altitude', uselist=True)
+
     def __repr__(self) -> str:
-        return f"SettlementAltitude({self.code!r}, {self.label!r})"
+        return f"SettlementAltitude<{self.code}, {self.label}>"
 
 
 class Settlement(Base):
     __tablename__ = "settlement"
     code = Column(String(5), primary_key=True)
     name = Column(String, nullable=False)
-    municipality = Column(Integer, ForeignKey("municipality.abbrev"))
-    kind = Column(Integer, ForeignKey('settlement_type.code'))
-    altitude = Column(Integer, ForeignKey('settlement_altitude.code'))
+    municipality_abbrev = Column(Integer, ForeignKey("municipality.abbrev"))
+    kind_code = Column(Integer, ForeignKey('settlement_type.code'))
+    altitude_code = Column(Integer, ForeignKey('settlement_altitude.code'))
+
+    municipality = relationship('Municipality', back_populates='settlement')
+    altitude = relationship('SettlementAltitude', back_populates='settlement')
+    kind = relationship('SettlementType', back_populates='settlement')
+
+    institution = relationship('Institution', back_populates='settlement', uselist=True)
+    census = relationship('Census', back_populates='settlement', uselist=True)
 
     def __repr__(self) -> str:
-        return f"Settlement({self.code!r}, {self.name!r})"
+        return f"Settlement<{self.code}, {self.name}>"
 
 
 class Municipality(Base):
     __tablename__ = "municipality"
     abbrev = Column(String(5), primary_key=True)
     name = Column(String, nullable=False)
+    district_abbrev = Column(Integer, ForeignKey("district.abbrev"))
+
+    district = relationship('District', back_populates='municipality')
+    settlement = relationship('Settlement', back_populates='municipality', uselist=True)
+    census = relationship('Census', back_populates='municipality', uselist=True)
 
     def __repr__(self) -> str:
-        return f"Municipality({self.abbrev!r}, {self.name!r})"
+        return f"Municipality<{self.abbrev}, {self.name}>"
 
 
 class District(Base):
@@ -98,8 +114,10 @@ class District(Base):
     abbrev = Column(String(3), primary_key=True)
     name = Column(String, nullable=False)
 
+    municipality = relationship('Municipality', back_populates='district', uselist=True)
+
     def __repr__(self) -> str:
-        return f"District({self.abbrev!r}, {self.name!r})"
+        return f"District<{self.abbrev}, {self.name}>"
 
 
 class InstitutionFinancing(Base):
@@ -107,8 +125,10 @@ class InstitutionFinancing(Base):
     code = Column(Integer, primary_key=True)
     label = Column(String, nullable=False)
 
+    institution = relationship('Institution', back_populates='financing', uselist=True)
+
     def __repr__(self) -> str:
-        return f"InstitutionFinancing({self.code!r}, {self.label!r})"
+        return f"InstitutionFinancing<{self.code}, {self.label}>"
 
 
 class InstitutionDetails(Base):
@@ -116,8 +136,10 @@ class InstitutionDetails(Base):
     code = Column(Integer, primary_key=True)
     label = Column(String, nullable=False)
 
+    institution = relationship('Institution', back_populates='details', uselist=True)
+
     def __repr__(self) -> str:
-        return f"InstitutionDetails({self.code!r}, {self.label!r})"
+        return f"InstitutionDetails<{self.code}, {self.label}>"
 
 
 class InstitutionState(Base):
@@ -125,32 +147,30 @@ class InstitutionState(Base):
     code = Column(Integer, primary_key=True)
     label = Column(String, nullable=False)
 
+    institution = relationship('Institution', back_populates='state', uselist=True)
+
     def __repr__(self) -> str:
-        return f"InstitutionState({self.code!r}, {self.label!r})"
+        return f"InstitutionState<{self.code}, {self.label}>"
 
 
 class Institution(Base):
     __tablename__ = "institution"
     code = Column(String(7), primary_key=True)
     name = Column(String, nullable=False)
-    settlement = Column(String, ForeignKey("settlement.code"))
-    details = Column(Integer, ForeignKey("institution_details.code"))
-    financing = Column(Integer, ForeignKey("institution_financing.code"))
-    state = Column(Integer, ForeignKey("institution_state.code"))
+    settlement_code = Column(String, ForeignKey("settlement.code"))
+    details_code = Column(Integer, ForeignKey("institution_details.code"))
+    financing_code = Column(Integer, ForeignKey("institution_financing.code"))
+    state_code = Column(Integer, ForeignKey("institution_state.code"))
+
+    financing = relationship('InstitutionFinancing', back_populates='institution')
+    details = relationship('InstitutionDetails', back_populates='institution')
+    state = relationship('InstitutionState', back_populates='institution')
+    settlement = relationship('Settlement', back_populates='institution')
+
+    examination = relationship('Examination', back_populates='institution', uselist=True)
 
     def __repr__(self) -> str:
-        return f"Institution({self.code!r}, {self.name!r})"
-
-
-class SettlementPopulation(Base):
-    __tablename__ = "settlement_population"
-    year = Column(Date, primary_key=True)
-    settlement = Column(String, ForeignKey("settlement.code"))
-    permanent = Column(Integer, nullable=False)
-    current = Column(Integer, nullable=False)
-
-    def __repr__(self) -> str:
-        return f"SettlementPopulation({self.year!r}, {self.settlement!r})"
+        return f"Institution<{self.code}, {self.name}>"
 
 
 class ExaminationSubject(Base):
@@ -158,35 +178,43 @@ class ExaminationSubject(Base):
     code = Column(Integer, primary_key=True)
     subject = Column(String, primary_key=True)
 
+    examination = relationship('Examination', back_populates='subject', uselist=True)
+
     def __repr__(self) -> str:
-        return f"ExaminationSubject({self.code!r}, {self.subject!r})"
+        return f"ExaminationSubject<{self.code}, {self.subject}>"
 
 
 class Examination(Base):
     __tablename__ = "examination"
     index = Column(Integer, primary_key=True)
-    institution = Column(Integer, ForeignKey("institution.code"))
+    institution_code = Column(Integer, ForeignKey("institution.code"))
     date = Column(Date)
     grade = Column(Integer)
     score = Column(Numeric)
     students = Column(Integer)
-    subject = Column(Integer, ForeignKey("examination_subject.subject"))
+    subject_code = Column(Integer, ForeignKey("examination_subject.code"))
+
+    institution = relationship('Institution', back_populates='examination')
+    subject = relationship('ExaminationSubject', back_populates='examination')
 
     def __repr__(self) -> str:
-        return f"Examination({self.institution!r}, {self.date!r})"
+        return f"Examination<{self.institution_code}, {self.date}>"
 
 
 class Census(Base):
     __tablename__ = "census"
     index = Column(Integer, primary_key=True)
-    code = Column(String, ForeignKey("settlement.code"))
-    municipality = Column(String, ForeignKey("municipality.abbrev"))
+    settlement_code = Column(String, ForeignKey("settlement.code"))
+    municipality_abbrev = Column(String, ForeignKey("municipality.abbrev"))
     date = Column(Date)
     permanent = Column(Integer)
     current = Column(Integer)
 
+    settlement = relationship('Settlement', back_populates='census')
+    municipality = relationship('Municipality', back_populates='census')
+
     def __repr__(self) -> str:
-        return f"Census({self.code!r}, {self.date!r})"
+        return f"Census<{self.settlement_code}, {self.date}>"
 
 
 if __name__ == "__main__":
@@ -208,6 +236,11 @@ if __name__ == "__main__":
         SettlementAltitude(code=1, label='до 49 вкл.'),
         SettlementAltitude(code=2, label='50 - 99 вкл.'),
         SettlementAltitude(code=3, label='100 - 199 вкл.'),
+        SettlementAltitude(code=4, label='200 - 299 вкл.'),
+        SettlementAltitude(code=5, label='300 - 499 вкл.'),
+        SettlementAltitude(code=6, label='500 - 699 вкл.'),
+        SettlementAltitude(code=7, label='700 - 999 вкл.'),
+        SettlementAltitude(code=8, label='1000 и повече'),
 
         SettlementType(code=1, label='гр.'),
         SettlementType(code=2, label='с.'),
@@ -227,8 +260,8 @@ if __name__ == "__main__":
     nodes = Locations()
     for n in nodes:
         rows.append(Settlement(code=n.code, name=n.name,
-                               municipality=n.municipality,
-                               kind=n.kind, altitude=n.altitude))
+                               municipality_abbrev=n.municipality,
+                               kind_code=n.kind, altitude_code=n.altitude))
     session.add_all(rows)
     session.commit()
 
@@ -242,7 +275,8 @@ if __name__ == "__main__":
     rows.clear()
     nodes = Municipalities()
     for n in nodes:
-        rows.append(Municipality(abbrev=n.abbrev, name=n.name))
+        rows.append(Municipality(abbrev=n.abbrev, name=n.name,
+                    district_abbrev=n.abbrev[:3]))
 
     session.add_all(rows)
     session.commit()
@@ -286,9 +320,9 @@ if __name__ == "__main__":
     rows.clear()
     nodes = Institutions()
     for n in nodes:
-        rows.append(Institution(code=n.id, name=n.name, settlement=n.location,
-                                details=n.details, financing=n.finance,
-                                state=n.status))
+        rows.append(Institution(code=n.id, name=n.name, settlement_code=n.location,
+                                details_code=n.details, financing_code=n.finance,
+                                state_code=n.status))
     session.add_all(rows)
     session.commit()
 
@@ -323,14 +357,15 @@ if __name__ == "__main__":
     nodes = Scores()
     for n in nodes:
         a_date = datetime.strptime(n.date, "%Y-%m")
-        rows.append(Examination(institution=n.id, date=a_date, grade=n.grade,
-                                subject=n.subject, score=n.score,
+        rows.append(Examination(institution_code=n.id, date=a_date, grade=n.grade,
+                                subject_code=n.subject, score=n.score,
                                 students=n.students))
 
     session.add_all(rows)
     session.commit()
 
-    rows = session.query(Examination).filter_by(institution='103503').all()
+    rows = session.query(Examination).filter_by(
+        institution_code='103503').all()
     for r in rows:
         print(r)
 
@@ -338,14 +373,14 @@ if __name__ == "__main__":
     nodes = Censuses()
     for n in nodes:
         a_date = datetime.strptime(n.date, "%d.%m.%Y")
-        rows.append(Census(code=n.code, municipality=n.municipality,
-                                date=a_date, permanent=n.permanent,
-                                current=n.current))
+        rows.append(Census(settlement_code=n.code, municipality_abbrev=n.municipality,
+                           date=a_date, permanent=n.permanent,
+                           current=n.current))
 
     session.add_all(rows)
     session.commit()
 
-    rows = session.query(Census).filter_by(code='12259').all()
+    rows = session.query(Census).filter_by(settlement_code='12259').all()
     for r in rows:
         print(r)
 
