@@ -191,6 +191,10 @@ class Institutions():
     def __init__(self):
         self.nodes = _load()
 
+    def __iter__(self):
+        for node in self.nodes:
+            yield node
+
     def is_valid(self, code: str) -> bool:
         for inst in self.nodes:
             if inst.id == code:

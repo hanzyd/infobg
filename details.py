@@ -85,6 +85,10 @@ class SchoolTypes():
     def __init__(self):
         self.nodes = _load()
 
+    def __iter__(self):
+        for node in self.nodes:
+            yield node
+
     @staticmethod
     def find_code(school_name: str) -> int:
         name = school_name.lower()

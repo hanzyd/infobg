@@ -81,6 +81,10 @@ class Subjects():
     def __init__(self):
         self.nodes = _load_subjects()
 
+    def __iter__(self):
+        for node in self.nodes:
+            yield node
+
     def find_subject(self, code: int) -> str:
         for n in self.nodes:
             if n.code == code:

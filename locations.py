@@ -165,6 +165,10 @@ class Locations():
     def __init__(self):
         self.nodes = _load()
 
+    def __iter__(self):
+        for node in self.nodes:
+            yield node
+
     def find_code(self, name: str, dist_nick='', mun_nick='') -> str:
         small = name.lower()
         for m in self.nodes:

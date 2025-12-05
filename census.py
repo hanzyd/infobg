@@ -287,6 +287,10 @@ class Censuses():
     def __init__(self):
         self.nodes = _load()
 
+    def __iter__(self):
+        for node in self.nodes:
+            yield node
+
     def toJSON(self):
         with open(CENSUS, 'w', encoding='utf-8') as file:
             file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
