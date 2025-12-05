@@ -21,10 +21,8 @@ DATA_DIR = 'data/nvoresults.com'
 
 INTERNAL = 'matura_results.json'
 EXTERNAL = 'results.json'
-SCHOOLS = 'matura_schools.json'
 
 OUT_FILE = 'json/scores.json'
-
 
 class Score():
 
@@ -158,97 +156,6 @@ def _process_external_results(schools: Institutions, subjects: Subjects) -> list
     return a_list
 
 
-def _strip_location(location: str) -> str:
-
-    location = location.lower()
-    location = location.removeprefix('гр.')
-    location = location.removeprefix('с.').strip()
-
-    return location
-
-
-def _fill_missing_schools(schools: Institutions) -> None:
-
-    locations = Locations()
-    if not locations:
-        return
-
-    municipalities = Municipalities()
-    if not municipalities:
-        return
-
-    school_types = SchoolTypes()
-    if not school_types:
-        return
-
-    fin_types = Finances()
-    if not fin_types:
-        return
-
-    file_name = path.join(DATA_DIR, SCHOOLS)
-    with open(file_name, 'r', encoding='utf-8') as file:
-        datum = json.load(file)
-
-        for school_id in datum:
-
-            if schools.is_valid(school_id):
-                continue
-
-            school_name = datum[school_id]['data']['school']
-            city_name = _strip_location(datum[school_id]['data']['city'])
-            mun_name = _strip_location(datum[school_id]['data']['obshtina'])
-
-            mun_abbrev = municipalities.find_abbrev(mun_name)
-            if not mun_abbrev:
-                print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
-                continue
-
-            town_code = locations.find_code(city_name, mun_abbrev=mun_abbrev)
-            if not town_code:
-                print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
-                continue
-
-            f_code = fin_types.find_code(school_name)
-            d_code = school_types.find_code(school_name)
-            a_new = Institution(school_id, school_name, town_code, f_code, d_code)
-            print(f'Добавям ново училище {a_new}')
-            schools.add(a_new)
-
-        schools.toJSON()
-
-    file_name = path.join(DATA_DIR, EXTERNAL)
-    with open(file_name, 'r', encoding='utf-8') as file:
-        datum = json.load(file)
-
-        for school_id in datum:
-
-            if schools.is_valid(school_id):
-                continue
-
-            school_name = datum[school_id]['name']
-            city_name = _strip_location(datum[school_id]['city'])
-            mun_name = _strip_location(datum[school_id]['municipality'])
-
-            mun_abbrev = municipalities.find_abbrev(mun_name)
-            if not mun_abbrev:
-                print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
-                continue
-
-            town_code = locations.find_code(city_name, mun_abbrev=mun_abbrev)
-            if not town_code:
-                print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
-                continue
-
-            f_code = fin_types.find_code(school_name)
-            d_code = school_types.find_code(school_name)
-            a_new = Institution(school_id, school_name, town_code, f_code, d_code)
-
-            print(f'Добавям ново училище {a_new}')
-            schools.add(a_new)
-
-        schools.toJSON()
-
-
 def _load():
 
     if path.isfile(OUT_FILE):
@@ -266,12 +173,8 @@ def _load():
     if not schools:
         return
 
-    _fill_missing_schools(schools)
-
     external = _process_external_results(schools, subjects)
-
     internal = _process_internal_results(schools, subjects)
-
     internal.extend(external)
 
     return internal

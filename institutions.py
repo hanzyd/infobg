@@ -8,10 +8,17 @@ from locations import Locations
 from finance import Finances
 from details import SchoolTypes
 from transform import Transforms
+from municipalities import Municipalities
 
-DATA_DIR = 'data/mon.bg'
+
+MON_DIR = 'data/mon.bg'
 REGISTER = 'public-register.json'
 OUT_FILE = 'json/institutions.json'
+
+RES_DIR = 'data/nvoresults.com'
+INTERNAL = 'matura_results.json'
+EXTERNAL = 'results.json'
+SCHOOLS = 'matura_schools.json'
 
 # https://nvoresults.com/matura_schools.json
 
@@ -97,7 +104,7 @@ class Encoder(json.JSONEncoder):
         }
 
 
-def _load_data(dir, file_name):
+def _load_mon_data(dir, file_name):
 
     file_path = path.join(dir, file_name)
     with open(file_path, 'r', encoding='UTF-8') as file:
@@ -108,7 +115,10 @@ def _load_data(dir, file_name):
             sys.exit(1)
 
 
-def _load():
+def _load_mon():
+
+    i_list = list()
+    i_set = set()
 
     if path.isfile(OUT_FILE):
         try:
@@ -117,29 +127,26 @@ def _load():
         except Exception:
             pass
 
-    dir = DATA_DIR
+    dir = MON_DIR
 
     # Territorial units
     locations = Locations()
     if not locations:
-        return
+        return i_set
 
     details = SchoolTypes()
     if not details:
-        return
+        return i_set
 
     finances = Finances()
     if not finances:
-        return
+        return i_set
 
     transforms = Transforms()
     if not transforms:
-        return
+        return i_set
 
-    register = _load_data(dir, REGISTER)['publicInstitutions']
-
-    i_list = list()
-    i_set = set()
+    register = _load_mon_data(dir, REGISTER)['publicInstitutions']
 
     for node in register:
 
@@ -187,9 +194,104 @@ def _load():
     return i_set
 
 
+def _strip_location(location: str) -> str:
+
+    location = location.lower()
+    location = location.removeprefix('гр.')
+    location = location.removeprefix('с.').strip()
+
+    return location
+
+
+def _school_is_valid(schools: set, code: str) -> bool:
+    for inst in schools:
+        if inst.id == code:
+            return True
+    return False
+
+def _load_rest(schools: Institutions) -> None:
+
+    locations = Locations()
+    if not locations:
+        return schools
+
+    municipalities = Municipalities()
+    if not municipalities:
+        return schools
+
+    school_types = SchoolTypes()
+    if not school_types:
+        return schools
+
+    fin_types = Finances()
+    if not fin_types:
+        return schools
+
+    file_name = path.join(RES_DIR, SCHOOLS)
+    with open(file_name, 'r', encoding='utf-8') as file:
+        datum = json.load(file)
+
+        for school_id in datum:
+
+            if _school_is_valid(schools, school_id):
+                continue
+
+            school_name = datum[school_id]['data']['school']
+            city_name = _strip_location(datum[school_id]['data']['city'])
+            mun_name = _strip_location(datum[school_id]['data']['obshtina'])
+
+            mun_abbrev = municipalities.find_abbrev(mun_name)
+            if not mun_abbrev:
+                print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
+                continue
+
+            town_code = locations.find_code(city_name, mun_abbrev=mun_abbrev)
+            if not town_code:
+                print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
+                continue
+
+            f_code = fin_types.find_code(school_name)
+            d_code = school_types.find_code(school_name)
+            a_new = Institution(school_id, school_name, town_code, f_code, d_code)
+            print(f'Добавям ново училище {a_new}')
+            schools.add(a_new)
+
+    file_name = path.join(RES_DIR, EXTERNAL)
+    with open(file_name, 'r', encoding='utf-8') as file:
+        datum = json.load(file)
+
+        for school_id in datum:
+
+            if _school_is_valid(schools, school_id):
+                continue
+
+            school_name = datum[school_id]['name']
+            city_name = _strip_location(datum[school_id]['city'])
+            mun_name = _strip_location(datum[school_id]['municipality'])
+
+            mun_abbrev = municipalities.find_abbrev(mun_name)
+            if not mun_abbrev:
+                print(f'Не намирам кода на община "{mun_name}" "{school_name}"')
+                continue
+
+            town_code = locations.find_code(city_name, mun_abbrev=mun_abbrev)
+            if not town_code:
+                print(f'Не намирам кода за населено място "{city_name}" "{school_name}"')
+                continue
+
+            f_code = fin_types.find_code(school_name)
+            d_code = school_types.find_code(school_name)
+            a_new = Institution(school_id, school_name, town_code, f_code, d_code)
+
+            print(f'Добавям ново училище {a_new}')
+            schools.add(a_new)
+
+    return schools
+
+
 class Institutions():
     def __init__(self):
-        self.nodes = _load()
+        self.nodes = _load_rest(_load_mon())
 
     def __iter__(self):
         for node in self.nodes:
@@ -200,9 +302,6 @@ class Institutions():
             if inst.id == code:
                 return True
         return False
-
-    def add(self, obj: Institution) -> None:
-        self.nodes.add(obj)
 
     def toJSON(self):
         with open(OUT_FILE, 'w', encoding='utf-8') as file:
