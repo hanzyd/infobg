@@ -301,7 +301,7 @@ if __name__ == "__main__":
     session.add_all(rows)
     session.commit()
 
-    e = session.query(InstitutionFinancing).filter_by(label='Духовно').first()
+    e = session.query(InstitutionFinancing).filter_by(label='Частно').first()
     print(e)
 
     rows.clear()
