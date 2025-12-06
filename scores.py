@@ -12,6 +12,7 @@ from institutions import Institutions, Institution
 from details import SchoolTypes
 from finance import Finances
 
+from decimal import Decimal
 
 # https://nvoresults.com/matura_results.json
 # https://nvoresults.com/matura_schools.json
@@ -26,7 +27,7 @@ OUT_FILE = 'json/scores.json'
 
 class Score():
 
-    def __init__(self, school_id: str, date_str: str, grade: int, subject: int, score: int, students: int):
+    def __init__(self, school_id: str, date_str: str, grade: int, subject: int, score: Decimal, students: int):
         self.id = school_id
         self.date = date_str
         self.grade = grade
