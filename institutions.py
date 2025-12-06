@@ -253,7 +253,6 @@ def _load_rest(schools: Institutions) -> None:
             f_code = fin_types.find_code(school_name)
             d_code = school_types.find_code(school_name)
             a_new = Institution(school_id, school_name, town_code, f_code, d_code)
-            print(f'Добавям ново училище {a_new}')
             schools.add(a_new)
 
     file_name = path.join(RES_DIR, EXTERNAL)
@@ -282,8 +281,6 @@ def _load_rest(schools: Institutions) -> None:
             f_code = fin_types.find_code(school_name)
             d_code = school_types.find_code(school_name)
             a_new = Institution(school_id, school_name, town_code, f_code, d_code)
-
-            print(f'Добавям ново училище {a_new}')
             schools.add(a_new)
 
     return schools
