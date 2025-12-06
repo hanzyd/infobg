@@ -18,28 +18,6 @@ from census import Censuses
 
 Base = declarative_base()
 
-district_municipality = Table(
-    "district_municipality",
-    Base.metadata,
-    Column("district_abbrev", Integer, ForeignKey("district.abbrev")),
-    Column("municipality_abbrev", Integer, ForeignKey("municipality.abbrev")),
-)
-
-municipality_settlement = Table(
-    "municipality_settlement",
-    Base.metadata,
-    Column("municipality_abbrev", Integer, ForeignKey("municipality.abbrev")),
-    Column("settlement_code", Integer, ForeignKey("settlement.code")),
-)
-
-settlement_institution = Table(
-    "settlement_institution",
-    Base.metadata,
-    Column("settlement_code", Integer, ForeignKey("settlement.code")),
-    Column("institution_code", Integer, ForeignKey("institution.code")),
-)
-
-
 # - Код на типа на териториалната единица:
 #   1  "гр. "  -  град
 #   3  "с.  "  -  село
