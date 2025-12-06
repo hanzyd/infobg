@@ -279,8 +279,9 @@ if __name__ == "__main__":
     rows.clear()
     nodes = Locations()
     for n in nodes:
+        m_index = session.query(Municipality.index).filter_by(abbrev=n.municipality).one()[0]
         rows.append(Settlement(code=n.code, name=n.name,
-                               municipality_index=n.municipality,
+                               municipality_index=m_index,
                                kind_code=n.kind, altitude_code=n.altitude))
     session.add_all(rows)
     session.commit()
@@ -317,7 +318,8 @@ if __name__ == "__main__":
     rows.clear()
     nodes = Institutions()
     for n in nodes:
-        rows.append(Institution(code=n.id, name=n.name, settlement_index=n.location,
+        s_index = session.query(Settlement.index).filter_by(code=n.location).one()[0]
+        rows.append(Institution(code=n.id, name=n.name, settlement_index=s_index,
                                 details_code=n.details, financing_code=n.finance,
                                 status_code=n.status))
     session.add_all(rows)
@@ -388,9 +390,10 @@ if __name__ == "__main__":
     nodes = censuses
     for n in nodes:
         a_date = date.strptime(n.date, '%d.%m.%Y')
-        index = session.query(Moment.index).filter_by(date=a_date).one()[0]
-        rows.append(Census(settlement_index=n.code, municipality_index=n.municipality,
-                           date_index=index, permanent=n.permanent,
+        d_index = session.query(Moment.index).filter_by(date=a_date).one()[0]
+        m_index = session.query(Municipality.index).filter_by(abbrev=n.municipality).one()[0]
+        rows.append(Census(settlement_index=n.code, municipality_index=m_index,
+                           date_index=d_index, permanent=n.permanent,
                            current=n.current))
 
     session.add_all(rows)
