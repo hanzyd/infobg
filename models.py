@@ -30,7 +30,7 @@ class SettlementType(Base):
     settlement = relationship('Settlement', back_populates='kind', uselist=True)
 
     def __repr__(self) -> str:
-        return f"SettlementType<{self.code}, {self.label}>"
+        return f"SettlementType<{self.label}>"
 
 
 # - Надморска височина
@@ -51,7 +51,7 @@ class SettlementAltitude(Base):
     settlement = relationship('Settlement', back_populates='altitude', uselist=True)
 
     def __repr__(self) -> str:
-        return f"SettlementAltitude<{self.code}, {self.label}>"
+        return f"SettlementAltitude<{self.label}>"
 
 
 class Settlement(Base):
@@ -71,7 +71,7 @@ class Settlement(Base):
     census = relationship('Census', back_populates='settlement', uselist=True)
 
     def __repr__(self) -> str:
-        return f"Settlement<{self.code}, {self.name}>"
+        return f"Settlement<{self.name}>"
 
 
 class Municipality(Base):
@@ -109,7 +109,7 @@ class InstitutionFinancing(Base):
     institution = relationship('Institution', back_populates='financing', uselist=True)
 
     def __repr__(self) -> str:
-        return f"InstitutionFinancing<{self.code}, {self.label}>"
+        return f"InstitutionFinancing<{self.label}>"
 
 
 class InstitutionDetails(Base):
@@ -120,7 +120,7 @@ class InstitutionDetails(Base):
     institution = relationship('Institution', back_populates='details', uselist=True)
 
     def __repr__(self) -> str:
-        return f"InstitutionDetails<{self.code}, {self.label}>"
+        return f"InstitutionDetails<{self.label}>"
 
 
 class InstitutionStatus(Base):
@@ -131,7 +131,7 @@ class InstitutionStatus(Base):
     institution = relationship('Institution', back_populates='status', uselist=True)
 
     def __repr__(self) -> str:
-        return f"InstitutionStatus<{self.code}, {self.label}>"
+        return f"InstitutionStatus<{self.label}>"
 
 
 class Institution(Base):
@@ -163,7 +163,7 @@ class ExaminationSubject(Base):
     examination = relationship('Examination', back_populates='subject', uselist=True)
 
     def __repr__(self) -> str:
-        return f"ExaminationSubject<{self.code}, {self.subject}>"
+        return f"ExaminationSubject<{self.subject}>"
 
 
 class Examination(Base):
@@ -181,7 +181,7 @@ class Examination(Base):
     moment = relationship('Moment', back_populates='examination')
 
     def __repr__(self) -> str:
-        return f"Examination<{self.institution_index}, {self.date_index}>"
+        return f"Examination<{self.institution_index}, {self.date_index} {self.score}>"
 
 class Moment(Base):
     __tablename__ = "moment"
@@ -192,7 +192,7 @@ class Moment(Base):
     examination = relationship('Examination', back_populates='moment', uselist=True)
 
     def __repr__(self) -> str:
-        return f"Moment<{self.index}, {self.date}>"
+        return f"Moment<{self.date}>"
 
 
 class Census(Base):
