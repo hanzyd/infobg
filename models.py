@@ -392,7 +392,8 @@ if __name__ == "__main__":
         a_date = date.strptime(n.date, '%d.%m.%Y')
         d_index = session.query(Moment.index).filter_by(date=a_date).one()[0]
         m_index = session.query(Municipality.index).filter_by(abbrev=n.municipality).one()[0]
-        rows.append(Census(settlement_index=n.code, municipality_index=m_index,
+        s_index = session.query(Settlement.index).filter_by(code=n.code).one()[0]
+        rows.append(Census(settlement_index=s_index, municipality_index=m_index,
                            date_index=d_index, permanent=n.permanent,
                            current=n.current))
 
