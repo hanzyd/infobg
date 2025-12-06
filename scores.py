@@ -106,7 +106,7 @@ def _process_internal_results(schools: Institutions, subjects: Subjects) -> list
                     students = results[school_id][date_str][subj_str]['numberOfStudents']
 
                     exam = Score(school_id,  exam_date.strftime('%d.%m.%Y'),
-                                 subj_code, 12, score, students)
+                                 12, subj_code, score, students)
 
                     a_list.append(exam)
 
@@ -141,7 +141,7 @@ def _process_external_results(schools: Institutions, subjects: Subjects) -> list
                 students = results[school_id]['exam_results'][date_str]['bel_students']
 
                 exam = Score(school_id,  exam_date.strftime('%d.%m.%Y'),
-                             lang_code, grade, score, students)
+                             grade, lang_code, score, students)
 
                 a_list.append(exam)
 
@@ -149,7 +149,7 @@ def _process_external_results(schools: Institutions, subjects: Subjects) -> list
                 students = results[school_id]['exam_results'][date_str]['math_students']
 
                 exam = Score(school_id,  exam_date.strftime('%d.%m.%Y'),
-                             math_code, grade, score, students)
+                             grade, math_code, score, students)
 
                 a_list.append(exam)
 
