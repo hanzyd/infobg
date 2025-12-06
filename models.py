@@ -139,7 +139,7 @@ class Institution(Base):
     index = Column(Integer, primary_key=True, autoincrement=True)
     code = Column(String(7), unique=True)
     name = Column(String, nullable=False)
-    settlement_index = Column(String, ForeignKey("settlement.index"))
+    settlement_index = Column(Integer, ForeignKey("settlement.index"))
     details_code = Column(Integer, ForeignKey("institution_details.code"))
     financing_code = Column(Integer, ForeignKey("institution_financing.code"))
     status_code = Column(Integer, ForeignKey("institution_status.code"))
