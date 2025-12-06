@@ -265,8 +265,7 @@ if __name__ == "__main__":
     rows.clear()
     nodes = Municipalities()
     for n in nodes:
-        query = session.query(District.index).filter_by(abbrev=n.abbrev[:3])
-        index = session.scalar(query)
+        index = session.query(District.index).filter_by(abbrev=n.abbrev[:3]).one()[0]
         new_row = Municipality(abbrev=n.abbrev, name=n.name, district_index=index)
         rows.append(new_row)
 
