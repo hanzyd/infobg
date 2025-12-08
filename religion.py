@@ -110,15 +110,6 @@ def _load(session: Session):
     return rows
 
 
-class Religions():
-    def __init__(self):
-        self.nodes = _load()
-
-    def __iter__(self):
-        for node in self.nodes:
-            yield node
-
-
 if __name__ == "__main__":
 
     engine = create_engine('sqlite:///models.sqlite')
