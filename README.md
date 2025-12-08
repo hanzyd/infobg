@@ -1,3 +1,8 @@
+## Collection and organisation of information about Bulgarian schools
+
+[openSUSE Hack Week 25 project](https://hackweek.opensuse.org/projects/collection-and-organisation-of-information-about-bulgarian-schools)
+
+
 ## Description
 
 To achieve this it will be necessary:
