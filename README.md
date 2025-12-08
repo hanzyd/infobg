@@ -31,3 +31,31 @@ Some of these are available only in bulgarian.
 - https://nvoresults.com/index.html
 - https://ri.mon.bg/active-institutions
 - https://www.nsi.bg/nrnm/ekatte/archive
+
+## Results
+
+- Not fully ready.
+- Information about _all_ Bulgarian schools with their scores during recent years cleaned and organised into SQL tables
+- Information about _all_ Bulgarian villages, cities, municipalities and districts cleaned and organised into SQL tables
+- Information about _all_ Bulgarian villages and cities census since beginning of this century  cleaned and organised into SQL tables.
+- Information about _all_ Bulgarian municipalities about religion, ethnicity cleaned and organised into SQL tables.
+- Data successfully loaded to locally running Ollama with help to Vanna.AI
+
+## TODO
+- Seems that tables columns have to have better description to allow LLM to do its magic
+- Add comments to column names. This will require switch from SQLite to ... PostgreSQL which supports COMMENTS
+- Add more statistical information about municipalities and ....
+
+## HOWTO
+
+- Install [ollama](https://ollama.com) and gpt-oss model
+- Install requirements
+- Fill in SQLite tables
+```console
+ $ bash build.sh
+```
+- Start Vanna.AI
+```console
+ $ ./vannaai.py
+```
+- Open http://localhost:8000
