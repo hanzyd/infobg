@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# coding: cp1251
 
 # grao.bg
 
@@ -6,113 +7,75 @@ import json
 import glob
 import sys
 from os import path
-from datetime import datetime
+from datetime import date
 
-from districts import Districts
-from locations import Locations
-from municipalities import Municipalities
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from models import Census, Moment, District, Municipality, Settlement
+
 
 DATA_DIR = 'data/grao.bg'
-CENSUS = 'json/census.json'
 
 
-RENAMED = [('–º–∞—Ä–∏–∫–æ—Å—Ç–µ–Ω–æ–≤–æ', '–º–∞—Ä–∏–∫–æ—Å—Ç–∏–Ω–æ–≤–æ'),
-           ('–ø–∞–ª–∞—Ç–Ω–∏–∫', '–ø–∞–ª–∞—Ç–∏–∫'),
-           ('–≤—ä–ª—á–∏–¥–æ–ª', '–≤—ä–ª—á–∏ –¥–æ–ª'),
-           ('–º–æ—Å–æ–º–∏—âa', '–º–æ—Å–æ–º–∏—â–µ'),
-           ('–º—É—Å–æ–º–∏—âa', '–º–æ—Å–æ–º–∏—â–µ'),
-           ('–º—É—Å–æ–º–∏—â–∞', '–º–æ—Å–æ–º–∏—â–µ'),
-           ('—Å–∞–Ω—Å—Ç–µ—Ñ–∞–Ω–æ', '—Å–∞–Ω-—Å—Ç–µ—Ñ–∞–Ω–æ'),
-           ('–µ–∫–∑–∞—Ä—Ö-–∞–Ω—Ç–∏–º–æ–≤–æ', '–µ–∫–∑–∞—Ä—Ö –∞–Ω—Ç–∏–º–æ–≤–æ'),
-           ('–¥–æ–±—Ä–∏—á-–≥—Ä–∞–¥', '–¥–æ–±—Ä–∏—á'),
-           ('–±–æ–±–æ–≤–¥–æ–ª', '–±–æ–±–æ–≤ –¥–æ–ª'),
-           ('–≤.—Ç—ä—Ä–Ω–æ–≤–æ', '–≤–µ–ª–∏–∫–æ —Ç—ä—Ä–Ω–æ–≤–æ'),
-           ('–≥–µ–Ω–µ—Ä–∞–ª-—Ç–æ—à–µ–≤–æ', '–≥–µ–Ω–µ—Ä–∞–ª —Ç–æ—à–µ–≤–æ'),
-           ('–≥–µ–æ—Ä–≥–∏-–¥–∞–º—è–Ω–æ–≤–æ', '–≥–µ–æ—Ä–≥–∏ –¥–∞–º—è–Ω–æ–≤–æ'),
-           ('—Å–æ—Ñ–∏–π—Å–∫–∞', '—Å–æ—Ñ–∏—è'),
-           ('–Ω–∏–∫–æ–ª–∞-–∫–æ–∑–ª–µ–≤–æ', '–Ω–∏–∫–æ–ª–∞ –∫–æ–∑–ª–µ–≤–æ'),
-           ('–¥–æ–±—Ä–∏—á–∫–∞', '–¥–æ–±—Ä–∏—á-—Å–µ–ª—Å–∫–∞'),
-           ('–≥–µ–Ω–µ—Ä–∞–ª —Ç–æ—à–æ–≤–æ', '–≥–µ–Ω–µ—Ä–∞–ª —Ç–æ—à–µ–≤–æ'),
-           ('—Å—Ç–µ—Ñ–∞–Ω-–∫–∞—Ä–∞–¥–∂–æ–≤–æ', '—Å—Ç–µ—Ñ–∞–Ω –∫–∞—Ä–∞–¥–∂–æ–≤–æ'),
-           ('–ø–∞–Ω–∞–π–æ—Ç-–≤–æ–ª–æ–≤–æ', '–ø–∞–Ω–∞–π–æ—Ç –≤–æ–ª–æ–≤–æ'),
-           ('–∫–∞–ø–∏—Ç–∞–Ω –ø–µ—Ç–∫–æ –≤–æ–π–≤–æ', '–∫–∞–ø–∏—Ç–∞–Ω –ø–µ—Ç–∫–æ –≤–æ–π–≤–æ–¥–∞'),
-           ('–≥–µ–æ—Ä–≥–∏-–¥–æ–±—Ä–µ–≤–æ', '–≥–µ–æ—Ä–≥–∏ –¥–æ–±—Ä–µ–≤–æ'),
-           ('–∫–æ–ª—é-–º–∞—Ä–∏–Ω–æ–≤–æ', '–∫–æ–ª—é –º–∞—Ä–∏–Ω–æ–≤–æ'),
-           ('–ø–æ–ª–∫–æ–≤–Ω–∏–∫ —Å–µ—Ä–∞—Ñ–∏–º–æ–≤', '–ø–æ–ª–∫–æ–≤–Ω–∏–∫ —Å–µ—Ä–∞—Ñ–∏–º–æ–≤–æ'),
-           ('–ø–æ–ª–∫–æ–≤–Ω–∏–∫ –ª–∞–º–±—Ä–∏–Ω–æ–≤', '–ø–æ–ª–∫–æ–≤–Ω–∏–∫ –ª–∞–º–±—Ä–∏–Ω–æ–≤–æ'),
-           ('–ø–æ–ª—Å–∫–æ –∫–æ—Å–æ–≤–æ', '–ø–æ–ª—Å–∫–æ –∫–æ—Å–æ–≤–æ'),
-           ('–≥–µ–Ω–µ—Ä–∞–ª-–∫–∞–Ω—Ç–∞—Ä–¥–∂–∏–µ–≤', '–≥–µ–Ω–µ—Ä–∞–ª –∫–∞–Ω—Ç–∞—Ä–¥–∂–∏–µ–≤–æ'),
-           ('–ª—é–±–µ–Ω-–∫–∞—Ä–∞–≤–µ–ª–æ–≤–æ', '–ª—é–±–µ–Ω –∫–∞—Ä–∞–≤–µ–ª–æ–≤–æ'),
-           ('–ø–æ–ª–∏–∫—Ä–∞–π—â–µ', '–ø–æ–ª–∏–∫—Ä–∞–∏—â–µ'),
-           ('–µ—Ñ—Ä–µ–π—Ç–æ—Ä-–±–∞–∫–∞–ª–æ–≤–æ', '–µ—Ñ—Ä–µ–π—Ç–æ—Ä –±–∞–∫–∞–ª–æ–≤–æ'),
-           ('–≥–µ–Ω–µ—Ä–∞–ª-–∫–∏—Å–µ–ª–æ–≤–æ', '–≥–µ–Ω–µ—Ä–∞–ª –∫–∏—Å–µ–ª–æ–≤–æ'),
-           ('—Ñ–µ–ª–¥—Ñ–µ–±–µ–ª-–¥—è–Ω–∫–æ–≤–æ', '—Ñ–µ–ª–¥—Ñ–µ–±–µ–ª –¥–µ–Ω–∫–æ–≤–æ'),
-           ('–∑–∞—Ö–∞—Ä–∏-—Å—Ç–æ—è–Ω–æ–≤–æ', '–∑–∞—Ö–∞—Ä–∏ —Å—Ç–æ—è–Ω–æ–≤–æ'),
-           ('—É—Ä—É—á–æ–≤—Ü–∏', '—É—Ä—É—á–µ–≤—Ü–∏'),
-           ('–ø–æ—Ä—É—á–∏–∫-–∫—ä—Ä–¥–∂–∏–µ–≤–æ', '–ø–æ—Ä—É—á–∏–∫ –∫—ä—Ä–¥–∂–∏–µ–≤–æ'),
-           ('–ø–æ–ª–∫–æ–≤–Ω–∏–∫-—Å–≤–µ—â–∞—Ä–æ–≤–æ', '–ø–æ–ª–∫–æ–≤–Ω–∏–∫ —Å–≤–µ—â–∞—Ä–æ–≤–æ'),
-           ('–≥–µ–Ω–µ—Ä–∞–ª-–∫–æ–ª–µ–≤–æ', '–≥–µ–Ω–µ—Ä–∞–ª –∫–æ–ª–µ–≤–æ'),
-           ('–∞–ª–µ–∫—Å–∞–Ω–¥—ä—Ä —Å—Ç–∞–º–±–æ–ª–∏', '–∞–ª–µ–∫—Å–∞–Ω–¥—ä—Ä —Å—Ç–∞–º–±–æ–ª–∏–π—Å–∫–∏'),
-           ('–∫–∏—Å–µ–ª–∏—á–µ–≤–æ', '–∫–∏—Å–µ–ª—á–æ–≤–æ'),
-           ('–∏–≤–∞–Ω-—à–∏—à–º–∞–Ω–æ–≤–æ', '–∏–≤–∞–Ω —à–∏—à–º–∞–Ω–æ–≤–æ'),
-           ]
-
-
-
-class Census():
-
-    def __init__(self, code: str, mun_abbrev: str, _date: str, permanent: int, current: int):
-        self.code = str(code)
-        self.municipality = str(mun_abbrev)
-        self.date = str(_date)
-        self.permanent = int(permanent)
-        self.current = int(current)
-
-    def __str__(self):
-        return f'{self.code} {self.date} {self.current}'
-
-    def __repr__(self):
-        return f'–ü—Ä–µ–±—Ä–æ—è–≤–∞–Ω–µ <{self.code} {self.date} {self.permanent} {self.current}>'
-
-    def __hash__(self):
-        return hash((self.code, self.date, self.municipality))
-
-    def __eq__(self, other):
-        if isinstance(other, Census):
-            equal = self.code == other.code and self.date == other.date and \
-                self.municipality == other.municipality
-
-            if equal and self.permanent != other.permanent:
-                print(f'–°–µ–ª–∏—â–µ: {self.code} –¥–∞—Ç–∞: {self.date} —Ä–∞–∑–ª–∏–∫–∞ –≤ –ø–æ—Å—Ç–æ—è–Ω–Ω—Ç–µ –∂–∏—Ç–µ–ª–∏ {self.permanent} != {other.permanent}')
-
-            if equal and self.current != other.current:
-                print(f'–°–µ–ª–∏—â–µ: {self.code} –¥–∞—Ç–∞: {self.date} —Ä–∞–∑–ª–∏–∫–∞ –≤ –Ω–∞—Å—Ç–æ—è—â–∏—Ç–µ –∂–∏—Ç–µ–ª–∏ {self.current} != {other.current}')
-
-            return equal
-
-        return NotImplemented
-
-
-class Encoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-
-        return {
-            'code': obj.code,
-            'municipality': obj.municipality,
-            'date': obj.date,
-            'permanent': obj.permanent,
-            'current': obj.current,
-        }
+RENAMED = [('Ï‡ËÍÓÒÚÂÌÓ‚Ó', 'Ï‡ËÍÓÒÚËÌÓ‚Ó'),
+           ('Ô‡Î‡ÚÌËÍ', 'Ô‡Î‡ÚËÍ'),
+           ('‚˙Î˜Ë‰ÓÎ', '‚˙Î˜Ë ‰ÓÎ'),
+           ('ÏÓÒÓÏË˘a', 'ÏÓÒÓÏË˘Â'),
+           ('ÏÛÒÓÏË˘a', 'ÏÓÒÓÏË˘Â'),
+           ('ÏÛÒÓÏË˘‡', 'ÏÓÒÓÏË˘Â'),
+           ('Ò‡ÌÒÚÂÙ‡ÌÓ', 'Ò‡Ì-ÒÚÂÙ‡ÌÓ'),
+           ('ÂÍÁ‡ı-‡ÌÚËÏÓ‚Ó', 'ÂÍÁ‡ı ‡ÌÚËÏÓ‚Ó'),
+           ('·Ó·Ó‚‰ÓÎ', '·Ó·Ó‚ ‰ÓÎ'),
+           ('‚.Ú˙ÌÓ‚Ó', '‚ÂÎËÍÓ Ú˙ÌÓ‚Ó'),
+           ('„ÂÌÂ‡Î-ÚÓ¯Â‚Ó', '„ÂÌÂ‡Î ÚÓ¯Â‚Ó'),
+           ('„ÂÓ„Ë-‰‡ÏˇÌÓ‚Ó', '„ÂÓ„Ë ‰‡ÏˇÌÓ‚Ó'),
+           ('ÒÓÙËÈÒÍ‡', 'ÒÓÙËˇ'),
+           ('ÌËÍÓÎ‡-ÍÓÁÎÂ‚Ó', 'ÌËÍÓÎ‡ ÍÓÁÎÂ‚Ó'),
+           ('‰Ó·Ë˜Í‡', '‰Ó·Ë˜-ÒÂÎÒÍ‡'),
+           ('„ÂÌÂ‡Î ÚÓ¯Ó‚Ó', '„ÂÌÂ‡Î ÚÓ¯Â‚Ó'),
+           ('ÒÚÂÙ‡Ì-Í‡‡‰ÊÓ‚Ó', 'ÒÚÂÙ‡Ì Í‡‡‰ÊÓ‚Ó'),
+           ('Ô‡Ì‡ÈÓÚ-‚ÓÎÓ‚Ó', 'Ô‡Ì‡ÈÓÚ ‚ÓÎÓ‚Ó'),
+           ('Í‡ÔËÚ‡Ì ÔÂÚÍÓ ‚ÓÈ‚Ó', 'Í‡ÔËÚ‡Ì ÔÂÚÍÓ ‚ÓÈ‚Ó‰‡'),
+           ('„ÂÓ„Ë-‰Ó·Â‚Ó', '„ÂÓ„Ë ‰Ó·Â‚Ó'),
+           ('ÍÓÎ˛-Ï‡ËÌÓ‚Ó', 'ÍÓÎ˛ Ï‡ËÌÓ‚Ó'),
+           ('ÔÓÎÍÓ‚ÌËÍ ÒÂ‡ÙËÏÓ‚', 'ÔÓÎÍÓ‚ÌËÍ ÒÂ‡ÙËÏÓ‚Ó'),
+           ('ÔÓÎÍÓ‚ÌËÍ Î‡Ï·ËÌÓ‚', 'ÔÓÎÍÓ‚ÌËÍ Î‡Ï·ËÌÓ‚Ó'),
+           ('ÔÓÎÒÍÓ ÍÓÒÓ‚Ó', 'ÔÓÎÒÍÓ ÍÓÒÓ‚Ó'),
+           ('„ÂÌÂ‡Î-Í‡ÌÚ‡‰ÊËÂ‚', '„ÂÌÂ‡Î Í‡ÌÚ‡‰ÊËÂ‚Ó'),
+           ('Î˛·ÂÌ-Í‡‡‚ÂÎÓ‚Ó', 'Î˛·ÂÌ Í‡‡‚ÂÎÓ‚Ó'),
+           ('ÔÓÎËÍ‡È˘Â', 'ÔÓÎËÍ‡Ë˘Â'),
+           ('ÂÙÂÈÚÓ-·‡Í‡ÎÓ‚Ó', 'ÂÙÂÈÚÓ ·‡Í‡ÎÓ‚Ó'),
+           ('„ÂÌÂ‡Î-ÍËÒÂÎÓ‚Ó', '„ÂÌÂ‡Î ÍËÒÂÎÓ‚Ó'),
+           ('ÙÂÎ‰ÙÂ·ÂÎ-‰ˇÌÍÓ‚Ó', 'ÙÂÎ‰ÙÂ·ÂÎ ‰ÂÌÍÓ‚Ó'),
+           ('Á‡ı‡Ë-ÒÚÓˇÌÓ‚Ó', 'Á‡ı‡Ë ÒÚÓˇÌÓ‚Ó'),
+           ('ÛÛ˜Ó‚ˆË', 'ÛÛ˜Â‚ˆË'),
+           ('ÔÓÛ˜ËÍ-Í˙‰ÊËÂ‚Ó', 'ÔÓÛ˜ËÍ Í˙‰ÊËÂ‚Ó'),
+           ('ÔÓÎÍÓ‚ÌËÍ-Ò‚Â˘‡Ó‚Ó', 'ÔÓÎÍÓ‚ÌËÍ Ò‚Â˘‡Ó‚Ó'),
+           ('„ÂÌÂ‡Î-ÍÓÎÂ‚Ó', '„ÂÌÂ‡Î ÍÓÎÂ‚Ó'),
+           ('‡ÎÂÍÒ‡Ì‰˙ ÒÚ‡Ï·ÓÎË', '‡ÎÂÍÒ‡Ì‰˙ ÒÚ‡Ï·ÓÎËÈÒÍË'),
+           ('ÍËÒÂÎË˜Â‚Ó', 'ÍËÒÂÎ˜Ó‚Ó'),
+           ('Ë‚‡Ì-¯Ë¯Ï‡ÌÓ‚Ó', 'Ë‚‡Ì ¯Ë¯Ï‡ÌÓ‚Ó'),
+           ('ÒÎ‡‚ÂËÌÓ', 'ÒÎ‡‚ÂÈÌÓ'),
+           ('‡‚ÌËÌ‡Ú‡', 'Ó‚ËÌ‡'),
+           ('ÔÓÎÍÓ‚ÌËÍ-ÒÂ‡ÙËÏÓ‚', 'ÔÓÎÍÓ‚ÌËÍ ÒÂ‡ÙËÏÓ‚Ó'),
+           ('ÓÂ¯Ëˆ‡', 'ÓÂ¯Âˆ'),
+           ('ÍÓÍÓÍÓ‚Ó', 'ÍÓÍÓÓ‚Ó'),
+           ('‚˙Î˜‡Ì‰ÓÎ', '‚˙Î˜‡Ì ‰ÓÎ'),
+           ('„‡ÙËÚÓ‚Ó', '„‡ÙËÚÓ‚Ó'),
+           ('ÔÓÙÂÒÓ-Ë¯ËÍÓ‚Ó', 'ÔÓÙÂÒÓ Ë¯ËÍÓ‚Ó'),
+           ('ÔÓÎÍÓ‚ÌËÍ-Î‡Ï·ËÌÓ‚', 'ÔÓÎÍÓ‚ÌËÍ Î‡Ï·ËÌÓ‚Ó'),
+           ('ÔÓÎÍÓ‚ÌËÍ-˜ÓÎ‡ÍÓ‚Ó', 'ÔÓÎÍÓ‚ÌËÍ ˜ÓÎ‡ÍÓ‚Ó'),
+           ('ÔÓÎÍÓ‚ÌËÍ-Ú‡ÒÎ‡ÍÓ‚Ó', 'ÔÓÎÍÓ‚ÌËÍ Ú‡ÒÎ‡ÍÓ‚Ó'),
+]
 
 
 def _name_check(name: str) -> str:
     for tup in RENAMED:
         if name == tup[0]:
-            return tup[1]
+            name = tup[1]
 
-    return name
+    return name.lower().capitalize()
 
 
 
@@ -131,112 +94,138 @@ def _cleanup_lines(file_name: str):
     new_lines = []
     for num, line in enumerate(old_lines):
 
-        if '–¨–û' in line:
+        if '‹Œ' in line:
             new_lines.append(line)
             continue
 
-        if '–¨' in line:
-            line = line.replace('–¨', '–™')
+        if '‹' in line:
+            line = line.replace('‹', '⁄')
 
         new_lines.append(line)
 
     return new_lines
 
 
-def _process_one_year(file_name: str, locations: Locations, munis: Municipalities, dists: Districts, strict=False) -> list:
+def _find_date_index(exam_date: date, session: Session) -> int:
+
+    d_index = session.query(Moment.index).filter_by(date=exam_date).first()
+    if not d_index:
+        m = Moment(date=exam_date)
+        session.add(m)
+        session.commit()
+        d_index = session.query(Moment.index).filter_by(date=exam_date).first()
+
+    return d_index[0]
+
+
+def _process_one_year(file_name: str, session: Session, strict=False) -> list:
 
     lines = _cleanup_lines(file_name)
 
-    no_code = set()
     population = []
-
-    dist_abbrev = None
-    mun_abbrev = None
-    date_str = None
 
     for num, line in enumerate(lines):
 
         line = line.lower().strip()
 
-        if '–¥–∞—Ç–∞' in line:
+        if '‰‡Ú‡' in line:
             tokens = line.split()
-            if '–≤–æ–¥–∞—Ç–∞' in line or '–ø–∏—Ä–∞–º–∏–¥–∞—Ç–∞' in line:
+            if '‚Ó‰‡Ú‡' in line or 'ÔË‡ÏË‰‡Ú‡' in line:
                 pass
             else:
                 d_str = tokens[1]
                 try:
-                    datetime.strptime(d_str, "%d.%m.%Y")
-                    date_str = d_str
+                    census_date = date.strptime(d_str, "%d.%m.%Y")
+                    dist_name = None
+                    mun_name = None
                 except ValueError:
                     pass
 
-        if '—Ç–∞–±–ª–∏—Ü–∞ –Ω–∞ –Ω–∞—Å–µ–ª–µ–Ω–∏–µ—Ç–æ' in line:
-            dist_abbrev = None
-            mun_abbrev = None
-
-        if '–≤—Å–∏—á–∫–æ –∑–∞ –æ–±—â–∏–Ω–∞—Ç–∞'.lower() in line:
-            dist_abbrev = None
-            mun_abbrev = None
-            date_str = None
+        if '‚ÒË˜ÍÓ Á‡ Ó·˘ËÌ‡Ú‡'.lower() in line:
+            census_date = None
 
         # 1998
-        if '–æ–±–ª–∞—Å—Ç:' in line:
-            line = line.removesuffix('–¢ –ê –ë –õ –ò –¶ –ê'.lower()).strip()
+        if 'Ó·Î‡ÒÚ:' in line:
+            line = line.removesuffix('“ ¿ ¡ À » ÷ ¿'.lower()).strip()
             tokens = line.split(':')
             tokens = [t.strip() for t in tokens]
             dist_name = _name_check(tokens[1])
 
         # 1998
-        if '–æ–±—â–∏–Ω–∞:' in line:
-            line = line.removesuffix('–Ω–∞ –Ω–∞—Å–µ–ª–µ–Ω–∏–µ—Ç–æ –ø–æ –ø–æ—Å—Ç–æ—è–Ω–µ–Ω –∏ –Ω–∞—Å—Ç–æ—è—â –∞–¥—Ä–µ—Å').strip()
-            line = line.removesuffix('–Ω–∞ –Ω–∞—Å–µ–ª–µ–Ω–∏–µ—Ç–æ –ø–æ –∞–¥—Ä–µ—Å –∏ –º–µ—Å—Ç–æ–∂–∏—Ç–µ–ª—Å—Ç–≤–æ').strip()
+        if 'Ó·˘ËÌ‡:' in line:
+            line = line.removesuffix('Ì‡ Ì‡ÒÂÎÂÌËÂÚÓ ÔÓ ÔÓÒÚÓˇÌÂÌ Ë Ì‡ÒÚÓˇ˘ ‡‰ÂÒ').strip()
+            line = line.removesuffix('Ì‡ Ì‡ÒÂÎÂÌËÂÚÓ ÔÓ ‡‰ÂÒ Ë ÏÂÒÚÓÊËÚÂÎÒÚ‚Ó').strip()
             tokens = line.split(':')
             tokens = [t.strip() for t in tokens]
             mun_name = _name_check(tokens[1])
 
-        if '–æ–±–ª–∞—Å—Ç' in line and '–æ–±—â–∏–Ω–∞' in line:
+        if 'Ó·Î‡ÒÚ' in line and 'Ó·˘ËÌ‡' in line:
 
-            d_index = line.index('–æ–±–ª–∞—Å—Ç')
-            m_index = line.index('–æ–±—â–∏–Ω–∞')
+            d_offs = line.index('Ó·Î‡ÒÚ')
+            m_offs = line.index('Ó·˘ËÌ‡')
 
-            dist_name = line[d_index + len('–æ–±–ª–∞—Å—Ç'):m_index].strip()
-            mun_name = line[m_index + len('–æ–±—â–∏–Ω–∞'):].strip()
+            dist_name = line[d_offs + len('Ó·Î‡ÒÚ'):m_offs].strip()
+            mun_name = line[m_offs + len('Ó·˘ËÌ‡'):].strip()
 
             dist_name = _name_check(dist_name)
             mun_name = _name_check(mun_name)
 
-        if line.startswith('|–≥—Ä') or line.startswith('|—Å'):
+        if line.startswith('|„') or line.startswith('|Ò'):
             # Remove start and end '|' character
             line = line.strip()[1:-1]
             tokens = line.split('|')
-        elif line.startswith('| –≥—Ä') or line.startswith('| —Å'):
+        elif line.startswith('| „') or line.startswith('| Ò'):
             # Remove start and end '|' character
             line = line.strip()[1:-1]
             tokens = line.split('|')
-        elif line.startswith('! –≥—Ä') or line.startswith('! —Å'):
+        elif line.startswith('! „') or line.startswith('! Ò'):
             # Remove start and end '|' character
             line = line.strip()[1:-1]
             tokens = line.split('!')
         else:
             continue
 
-        if not date_str:
-            print(f'{file_name}:{num} –ª–∏–ø—Å–≤–∞ –¥–∞—Ç–∞')
+        if not census_date:
+            print(f'{file_name}:{num} ÎËÔÒ‚‡ ‰‡Ú‡')
             continue
 
-        dist_abbrev = dists.find_abbrev(dist_name)
-        if not dist_abbrev:
-            print(f'{file_name}:{num} –û–±–ª–∞—Å—Ç: "{dist_name}" –±–µ–∑ –ø—Å–µ–≤–¥–æ–Ω–∏–º')
-            sys.exit(1)
-
-        mun_abbrev = munis.find_abbrev(mun_name)
-        if not mun_abbrev:
-            print(f'{file_name}:{num} –û–±—â–∏–Ω–∞: "{mun_name}" –±–µ–∑ –ø—Å–µ–≤–¥–æ–Ω–∏–º')
-            sys.exit(1)
+        time_index = _find_date_index(census_date, session)
 
         tokens = [t.strip() for t in tokens]
-        town_name = tokens[0].removeprefix('—Å.').removeprefix('–≥—Ä.').strip()
+        town_name = tokens[0].removeprefix('Ò.').removeprefix('„.').strip()
         town_name = _name_check(town_name)
+
+        if mun_name == '—ÚÓÎË˜Ì‡' and dist_name == '—ÓÙËˇ':
+            dist_name = '—ÓÙËˇ (ÒÚÓÎËˆ‡)'
+        if mun_name == '—ÚÓÎË˜Ì‡' and dist_name == '—ÓÙËˇ':
+            dist_name = '—ÓÙËˇ (ÒÚÓÎËˆ‡)'
+        elif mun_name == 'ƒÓ·Ë˜' and dist_name == 'ƒÓ·Ë˜':
+            mun_name = 'ƒÓ·Ë˜-ÒÂÎÒÍ‡'
+        elif mun_name == 'ƒÓ·Ë˜-„‡‰' and dist_name == 'ƒÓ·Ë˜':
+            mun_name = 'ƒÓ·Ë˜'
+        elif mun_name == 'À˙ÍË' and dist_name == '—ÏÓÎˇÌ':
+            dist_name = 'œÎÓ‚‰Ë‚'
+        elif town_name == '“ÓÔ˜ËË' and dist_name == '–ÛÒÂ' and mun_name == '¬ÂÚÓ‚Ó':
+            dist_name = '–‡Á„‡‰'
+            mun_name = '–‡Á„‡‰'
+        elif mun_name == ' ÌÂÊ‡' and dist_name == '¬‡ˆ‡':
+            dist_name = 'œÎÂ‚ÂÌ'
+        elif town_name == '◊Û·ËÍ‡' and not dist_name and not mun_name:
+            mun_name = '¿‰ËÌÓ'
+            dist_name = ' ˙‰Ê‡ÎË'
+        elif town_name == 'ﬂ·˙ÎÍÓ‚Âˆ' and not dist_name and not mun_name:
+            mun_name = '¿‰ËÌÓ'
+            dist_name = ' ˙‰Ê‡ÎË'
+
+        d_index = session.query(District.index).filter_by(name=dist_name).first()
+        if not d_index:
+            print(f'{file_name}:{num} ÕÂ Ì‡ÏË‡Ï Ó·Î‡ÒÚ {dist_name} Ó·˘ËÌ‡ {mun_name} ÒÂÎË˘Â {town_name}')
+            continue
+
+        m_index = session.query(Municipality.index).filter_by(district_index=d_index[0]).filter_by(name=mun_name).first()
+        if not m_index:
+            print(f'{file_name}:{num} ÕÂ Ì‡ÏË‡Ï Ó·˘ËÌ‡ {mun_name} ‚ Ó·Î‡ÒÚ {dist_name}')
+            continue
 
         if 0 == int(tokens[1]) or 0 == int(tokens[2]) or 0 == int(tokens[3])  or \
                 0 == int(tokens[5]) or 0 == int(tokens[6]) or 0 == int(tokens[7]):
@@ -245,67 +234,52 @@ def _process_one_year(file_name: str, locations: Locations, munis: Municipalitie
         permanent = int(tokens[1])
         current = int(tokens[5])
 
-        town_code = locations.find_code(town_name, dist_abbrev, mun_abbrev)
-        if not town_code:
-            if strict:
-                no_code.add((dist_name, mun_name, town_name))
+        s_index = session.query(Settlement.index).filter_by(name=town_name).filter_by(municipality_index=m_index[0]).first()
+        if not s_index:
+            print(f'{file_name}:{num:4} ÕÂ Ì‡ÏË‡Ï ÒÂÎË˘Â {town_name} ‚ Ó·Î‡ÒÚ {dist_name} Ë Ó·˘ËÌ‡ {mun_name}')
             continue
 
-        census = Census(town_code, mun_abbrev, date_str, permanent, current)
+        census = Census(settlement_index=s_index[0], municipality_index=m_index[0],
+                        date_index=time_index, permanent=permanent, current=current)
 
         population.append(census)
         pass
 
-    for no in no_code:
-        print(f'{no[0]} {no[1]} {no[2]}')
-
     return population
 
 
-def _load():
-
-    if path.isfile(CENSUS):
-        try:
-            with open(CENSUS, 'r', encoding='utf-8') as file:
-                return json.load(file)
-        except Exception:
-            pass
+def _load(session: Session) -> list:
 
     dir_name = DATA_DIR
 
-    ek_dist = Districts()
-    ek_units = Locations()
-    ek_mun = Municipalities()
-
     population = []
 
-    file_names = [name for name in glob.iglob(f'{dir_name}/tadr*')]
+    file_names = [name for name in glob.iglob(f'{dir_name}/tadr*20*')]
     file_names.sort(reverse=True)
 
     strict = True
     for file_name in file_names:
-        one = _process_one_year(file_name, ek_units, ek_mun, ek_dist, strict)
+        one = _process_one_year(file_name, session, strict)
         strict = False
         population.extend(one)
 
     return population
 
 
-class Censuses():
-    def __init__(self):
-        self.nodes = _load()
-
-    def __iter__(self):
-        for node in self.nodes:
-            yield node
-
-    def toJSON(self):
-        with open(CENSUS, 'w', encoding='utf-8') as file:
-            file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
-
-
 if __name__ == "__main__":
-    nodes = Censuses()
-    nodes.toJSON()
+
+    engine = create_engine('sqlite:///models.sqlite')
+
+    Census.__table__.drop(engine)
+    Census.__table__.create(engine)
+
+    with Session(engine) as session:
+
+        rows = _load(session)
+        if not rows:
+            sys.exit(0)
+
+        session.add_all(rows)
+        session.commit()
 
 

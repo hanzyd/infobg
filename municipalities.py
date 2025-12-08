@@ -3,120 +3,74 @@
 import json
 import glob
 from os import path
+import sys
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from models import Municipality
+from models import District
 
 # https://www.nsi.bg/nrnm/ekatte/archive
 
 DATA_DIR = 'data/nsi.bg'
-OUT_FILE = 'json/municipalities.json'
 
 
-class Municipality():
-    """
-      name      Char 25  - Наименование на общината
-      abbrev    Char 5   - Идентификационен код на общината (3 букви + 2 цифри;
-                           първите 3 букви са идентификационния код на областта;
-                           следващите 2 цифри са пореден номер на общината в
-                           областта).
-    """
+"""
+  name      Char 25  - Наименование на общината
+  abbrev    Char 5   - Идентификационен код на общината (3 букви + 2 цифри;
+                       първите 3 букви са идентификационния код на областта;
+                       следващите 2 цифри са пореден номер на общината в
+                       областта).
+"""
 
-    def __init__(self, name: str, abbrev: str):
-        self.name = str(name)
-        self.abbrev = str(abbrev)
-
-    def __str__(self):
-        return f'{self.name:25}'
-
-    def __repr__(self):
-        return f'Община <{self.name:25} {self.abbrev:5}>'
-
-    def __hash__(self):
-        return hash(self.abbrev)
-
-    def __eq__(self, other):
-        if isinstance(other, Municipality):
-            equal = self.abbrev == other.abbrev
-
-            if equal and self.name != other.name:
-                print(
-                    f'Внимание: {self.abbrev}: {self.name} != {other.name}')
-
-            return equal
-
-        return NotImplemented
-
-
-class Encoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-
-        return {
-            'name': obj.name,
-            'abbrev': obj.abbrev,
-        }
-
-
-def _process_one_year(dir):
+def _process_one_year(dir: str, unique_set: set, session: Session) -> list:
 
     a_json = None
-    a_list = list()
-    a_set = set()
+    table_rows = list()
 
     file_path = path.join(dir, 'ek_obst.json')
     with open(file_path, 'r', encoding='utf-8') as file:
         a_json = json.load(file)
 
     if not a_json:
-        return a_set
+        return table_rows
 
     for m in a_json[:-1]:
-        new_unit = Municipality(m['name'], m['obshtina'])
-        a_list.append(new_unit)
-        a_set.add(new_unit)
+        m_abbrev = m['obshtina']
+        if m_abbrev in unique_set:
+            continue
+        unique_set.add(m_abbrev)
 
-    if len(a_set) != len(a_list):
-        print(f'Има повтарящи се общини във входния файл {file_path}')
+        m_name = m['name'].lower().capitalize()
+        d_abbrev = m_abbrev[:3]
+        d_index = session.query(District.index).filter_by(abbrev=d_abbrev).one()[0]
+        new_unit = Municipality(name=m_name,abbrev=m_abbrev, district_index=d_index)
+        table_rows.append(new_unit)
 
-    return a_set
+    return table_rows
 
 
-def _load() -> set:
+def _load(dir_name: str, session: Session) -> None:
 
-    if path.isfile(OUT_FILE):
-        try:
-            with open(OUT_FILE, 'r', encoding='utf-8') as file:
-                return json.load(file)
-        except Exception:
-            pass
+    unique_set = set()
+    rows = list()
 
-    dir_name = DATA_DIR
-    municipalities = set()
     for dir in glob.iglob(f'{dir_name}/*'):
-        one = _process_one_year(dir)
-        municipalities.update(one)
+        one = _process_one_year(dir, unique_set, session)
+        rows.extend(one)
 
-    return municipalities
-
-
-class Municipalities():
-    def __init__(self):
-        self.nodes = _load()
-
-    def __iter__(self):
-        for node in self.nodes:
-            yield node
-
-    def find_abbrev(self, name: str) -> str:
-        for m in self.nodes:
-            if m.name.lower() == name.lower():
-                return m.abbrev
-        return None
-
-    def toJSON(self):
-        with open(OUT_FILE, 'w', encoding='utf-8') as file:
-            file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
-
+    return rows
 
 if __name__ == "__main__":
-    nodes = Municipalities()
-    nodes.toJSON()
+    engine = create_engine('sqlite:///models.sqlite')
+    Municipality.__table__.drop(engine)
+    Municipality.__table__.create(engine)
+    with Session(engine) as session:
+        rows = _load(DATA_DIR, session)
+        if not rows:
+            sys.exit(0)
+        session.add_all(rows)
+        session.commit()
+        row = session.query(Municipality).filter_by(abbrev='BGS01').first()
+        print(row)

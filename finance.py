@@ -1,70 +1,31 @@
 #!/usr/bin/env python3
 
 import json
-import sys
 from os import path
+import sys
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from models import InstitutionFinancing
 
 DATA_DIR = 'data/mon.bg'
 
 IN_FILE = 'financialSchoolType.json'
-OUT_FILE = 'json/finances.json'
 
 # https://nvoresults.com/matura_schools.json
 
 
-class Finance():
-    def __init__(self, code: int, label: str):
-        self.code = int(code)
-        self.label = str(label)
+def _load() -> list:
 
-    def __str__(self):
-        return f'{self.code} {self.label}'
+    table_rows = list()
 
-    def __repr__(self):
-        return f'Финансиране <{self.code} {self.label}>'
-
-    def __hash__(self):
-        return hash(self.code)
-
-    def __eq__(self, other):
-        if isinstance(other, Finance):
-            equal = self.code == other.code
-
-            if equal and self.label != other.label:
-                print(f'Внимание: {self.code}: {self.label} != {other.label}')
-
-            return equal
-
-        return NotImplemented
-
-
-class Encoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-
-        return {
-            'code': obj.code,
-            'label': obj.label,
-        }
-
-
-def _load():
-
-    if path.isfile(OUT_FILE):
-        try:
-            with open(OUT_FILE, 'r', encoding='utf-8') as file:
-                return json.load(file)
-        except Exception:
-            pass
-
-    i_set = set()
     file_path = path.join(DATA_DIR, IN_FILE)
     with open(file_path, 'r', encoding='UTF-8') as file:
 
         finance_types = json.load(file)['data']
 
-        i_set = set()
+        unique_filter = set()
 
         for node in finance_types:
 
@@ -73,40 +34,37 @@ def _load():
                 continue
 
             code = int(node['code'])
+            if code in unique_filter:
+                continue
+
+            unique_filter.add(code)
             label = str(node['label'])
 
-            new_unit = Finance(code, label)
-            i_set.add(new_unit)
+            new_unit = InstitutionFinancing(code=code, label=label)
+            table_rows.append(new_unit)
 
-    return i_set
+    return table_rows
 
 
-class Finances():
-    def __init__(self):
-        self.nodes = _load()
-
-    def __iter__(self):
-        for node in self.nodes:
-            yield node
-
-    @staticmethod
-    def find_code(school_name: str) -> int:
-        name = school_name.lower()
-        if 'частн' in name:
-            return 3
-        return 1
-
-    def find_label(self, code: int) -> str:
-        for n in self.nodes:
-            if n.code == code:
-                return n.label
-        return None
-
-    def toJSON(self):
-        with open(OUT_FILE, 'w', encoding='utf-8') as file:
-            file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
+def guess_institution_financing(school_name: str) -> int:
+    name = school_name.lower()
+    if 'частн' in name:
+        return 3
+    return 1    # Държавно
 
 
 if __name__ == "__main__":
-    nodes = Finances()
-    nodes.toJSON()
+    engine = create_engine('sqlite:///models.sqlite')
+
+    InstitutionFinancing.__table__.drop(engine)
+    InstitutionFinancing.__table__.create(engine)
+
+    with Session(engine) as session:
+        rows = _load()
+        if not rows:
+            sys.exit(0)
+        session.add_all(rows)
+        session.commit()
+
+        e = session.query(InstitutionFinancing).filter_by(label='Частно').first()
+        print(e)

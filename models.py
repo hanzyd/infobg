@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import create_engine, Column, Integer, String, Date, Numeric, ForeignKey, Table
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.orm import sessionmaker, declarative_base
-from datetime import date
+from sqlalchemy import create_engine
 
-from locations import Locations
-from municipalities import Municipalities
-from districts import Districts
-from finance import Finances
-from details import SchoolTypes
-from subjects import Subjects
-from scores import Scores
-from transform import Transforms
-from institutions import Institutions
-from census import Censuses
+from sqlalchemy import Column, Integer, String, Date, Numeric, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base
+
+# from locations import Locations
+# from finance import Finances
+# from details import SchoolTypes
+# from subjects import Subjects
+# from scores import Scores
+# from transform import Transforms
+# from institutions import Institutions
+# from census import Censuses
 
 Base = declarative_base()
 
@@ -84,6 +83,9 @@ class Municipality(Base):
     district = relationship('District', back_populates='municipality')
     settlement = relationship('Settlement', back_populates='municipality', uselist=True)
     census = relationship('Census', back_populates='municipality', uselist=True)
+    mother_tongue = relationship('MotherTongue', back_populates='municipality', uselist=True)
+    ethnicity = relationship('Ethnicity', back_populates='municipality', uselist=True)
+    religion = relationship('Religion', back_populates='municipality', uselist=True)
 
     def __repr__(self) -> str:
         return f"Municipality<{self.abbrev}, {self.name}>"
@@ -93,7 +95,7 @@ class District(Base):
     __tablename__ = "district"
     index = Column(Integer, primary_key=True, autoincrement=True)
     abbrev = Column(String(3), unique=True)
-    name = Column(String, nullable=False)
+    name = Column(String(25), nullable=False, unique=True)
 
     municipality = relationship('Municipality', back_populates='district', uselist=True)
 
@@ -181,7 +183,7 @@ class Examination(Base):
     moment = relationship('Moment', back_populates='examination')
 
     def __repr__(self) -> str:
-        return f"Examination<{self.institution_index}, {self.date_index} {self.score}>"
+        return f"Examination<{self.institution_index:5}, {self.date_index:3} {self.score:5.4}>"
 
 class Moment(Base):
     __tablename__ = "moment"
@@ -190,6 +192,9 @@ class Moment(Base):
 
     census = relationship('Census', back_populates='moment', uselist=True)
     examination = relationship('Examination', back_populates='moment', uselist=True)
+    mother_tongue = relationship('MotherTongue', back_populates='moment', uselist=True)
+    ethnicity = relationship('Ethnicity', back_populates='moment', uselist=True)
+    religion = relationship('Religion', back_populates='moment', uselist=True)
 
     def __repr__(self) -> str:
         return f"Moment<{self.date}>"
@@ -212,197 +217,121 @@ class Census(Base):
         return f"Census<{self.settlement_index}, {self.date_index}>"
 
 
+class MotherTongue(Base):
+    __tablename__ = "mother_tongue"
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    municipality_index = Column(Integer, ForeignKey("municipality.index"))
+    date_index = Column(Integer, ForeignKey("moment.index"))
+    bulgarians = Column(Integer)
+    turks = Column(Integer)
+    roma = Column(Integer)
+    other = Column(Integer)
+    cant_decide = Column(Integer)
+    dont_answer = Column(Integer)
+    not_shown = Column(Integer)
+
+    municipality = relationship('Municipality', back_populates='mother_tongue')
+    moment = relationship('Moment', back_populates='mother_tongue')
+
+    def __init__(self, m_index: int, d_index: int, total: int, bulgarians:int,
+                 turks: int, roma: int, other: int, cant_decide: int,
+                 dont_answer: int, not_shown: int):
+
+        x = bulgarians + turks + roma + other + cant_decide + dont_answer + not_shown
+        if x != total:
+            print('общия брой се различва {total} != {x}')
+
+        self.municipality_index = m_index
+        self.date_index = d_index
+        self.bulgarians = round(float(bulgarians) * 100.0 / float(x))
+        self.turks = round(float(turks) * 100.0 / float(x))
+        self.roma = round(float(roma)  * 100.0/ float(x))
+        self.other = round(float(other) * 100.0  / float(x))
+        self.cant_decide = round(float(cant_decide)  * 100.0/ float(x))
+        self.dont_answer = round(float(dont_answer)  * 100.0/ float(x))
+        self.not_shown = round(float(not_shown) * 100.0 / float(x))
+
+    def __repr__(self):
+        return f'Език<{self.municipality_index:3} български: {self.bulgarians:2}% турски: {self.turks:2}% ромски: {self.roma:2}%>'
+
+
+class Ethnicity(Base):
+    __tablename__ = "ethnicity"
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    municipality_index = Column(Integer, ForeignKey("municipality.index"))
+    date_index = Column(Integer, ForeignKey("moment.index"))
+    bulgarians = Column(Integer)
+    turks = Column(Integer)
+    roma = Column(Integer)
+    other = Column(Integer)
+    cant_decide = Column(Integer)
+    dont_answer = Column(Integer)
+    not_shown = Column(Integer)
+
+    municipality = relationship('Municipality', back_populates='ethnicity')
+    moment = relationship('Moment', back_populates='ethnicity')
+
+    def __init__(self, m_index: int, d_index: int, total: int, bulgarians:int,
+                 turks: int, roma: int, other: int, cant_decide: int,
+                 dont_answer: int, not_shown: int):
+
+        x = bulgarians + turks + roma + other + cant_decide + dont_answer + not_shown
+        if x != total:
+            print('общия брой се различва {total} != {x}')
+
+        self.municipality_index = m_index
+        self.date_index = d_index
+        self.bulgarians = round(float(bulgarians) * 100.0 / float(x))
+        self.turks = round(float(turks) * 100.0 / float(x))
+        self.roma = round(float(roma)  * 100.0/ float(x))
+        self.other = round(float(other) * 100.0  / float(x))
+        self.cant_decide = round(float(cant_decide)  * 100.0/ float(x))
+        self.dont_answer = round(float(dont_answer)  * 100.0/ float(x))
+        self.not_shown = round(float(not_shown) * 100.0 / float(x))
+
+    def __repr__(self):
+        return f'Етнос<{self.municipality_index:3} българи: {self.bulgarians:2}% турци: {self.turks:2}% роми: {self.roma:2}%>'
+
+
+class Religion(Base):
+    __tablename__ = "religion"
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    municipality_index = Column(Integer, ForeignKey("municipality.index"))
+    date_index = Column(Integer, ForeignKey("moment.index"))
+    orthodox = Column(Integer)
+    muslims = Column(Integer)
+    judean = Column(Integer)
+    other = Column(Integer)
+    none = Column(Integer)
+    dont_answer = Column(Integer)
+    not_shown = Column(Integer)
+
+    municipality = relationship('Municipality', back_populates='religion')
+    moment = relationship('Moment', back_populates='religion')
+
+    def __init__(self, m_index: int, d_index: int, total: int, orthodox:int,
+                 muslims: int, judean: int, other: int, none: int,
+                 dont_answer: int, not_shown: int):
+
+        x = orthodox + muslims + judean + other + none + dont_answer + not_shown
+        if x != total:
+            print('общия брой се различва {total} != {x}')
+
+        self.municipality_index = m_index
+        self.date_index = d_index
+        self.orthodox = round(float(orthodox) * 100.0 / float(x))
+        self.muslims = round(float(muslims) * 100.0 / float(x))
+        self.judean = round(float(judean)  * 100.0/ float(x))
+        self.other = round(float(other) * 100.0  / float(x))
+        self.none = round(float(none)  * 100.0/ float(x))
+        self.dont_answer = round(float(dont_answer)  * 100.0/ float(x))
+        self.not_shown = round(float(not_shown) * 100.0 / float(x))
+
+    def __repr__(self):
+        return f'Религия<{self.municipality_index:3} християни: {self.orthodox:2}% мюслмани: {self.muslims:2}% юдеи: {self.judean:2}%>'
+
 if __name__ == "__main__":
     engine = create_engine('sqlite:///models.sqlite')
 
     # Create all tables in the engine
     Base.metadata.create_all(engine)
-
-    # Create a session
-    Session = sessionmaker(bind=engine)
-    session = Session()
-
-    meta = Base.metadata
-    for table in reversed(meta.sorted_tables):
-        session.execute(table.delete())
-    session.commit()
-
-    e = [
-        SettlementAltitude(code=1, label='до 49 вкл.'),
-        SettlementAltitude(code=2, label='50 - 99 вкл.'),
-        SettlementAltitude(code=3, label='100 - 199 вкл.'),
-        SettlementAltitude(code=4, label='200 - 299 вкл.'),
-        SettlementAltitude(code=5, label='300 - 499 вкл.'),
-        SettlementAltitude(code=6, label='500 - 699 вкл.'),
-        SettlementAltitude(code=7, label='700 - 999 вкл.'),
-        SettlementAltitude(code=8, label='1000 и повече'),
-
-        SettlementType(code=1, label='гр.'),
-        SettlementType(code=3, label='с.'),
-        SettlementType(code=7, label='ман.'),
-    ]
-
-    session.add_all(e)
-    session.commit()
-
-    e = session.query(SettlementAltitude).filter_by(code=2).first()
-    print(e)
-
-    e = session.query(SettlementType).filter_by(label='с.').first()
-    print(e)
-
-    rows = []
-    nodes = Districts()
-    for i, n in enumerate(nodes):
-        rows.append(District(abbrev=n.abbrev, name=n.name))
-
-    session.add_all(rows)
-    session.commit()
-
-    e = session.query(District).filter_by(abbrev='SHU').first()
-    print(e)
-
-    rows.clear()
-    nodes = Municipalities()
-    for n in nodes:
-        index = session.query(District.index).filter_by(abbrev=n.abbrev[:3]).one()[0]
-        new_row = Municipality(abbrev=n.abbrev, name=n.name, district_index=index)
-        rows.append(new_row)
-
-    session.add_all(rows)
-    session.commit()
-
-    e = session.query(Municipality).filter_by(abbrev='BGS01').first()
-    print(e)
-
-
-    rows.clear()
-    nodes = Locations()
-    for n in nodes:
-        m_index = session.query(Municipality.index).filter_by(abbrev=n.municipality).one()[0]
-        rows.append(Settlement(code=n.code, name=n.name,
-                               municipality_index=m_index,
-                               kind_code=n.kind, altitude_code=n.altitude))
-    session.add_all(rows)
-    session.commit()
-
-    e = session.query(Settlement).filter_by(code='29129').first()
-    print(e)
-
-    e = session.query(Settlement).filter_by(
-        name='\u0422\u0443\u0442\u0440\u0430\u043a\u0430\u043d').first()
-    print(e)
-
-    rows.clear()
-    nodes = Finances()
-    for n in nodes:
-        rows.append(InstitutionFinancing(code=n.code, label=n.label))
-
-    session.add_all(rows)
-    session.commit()
-
-    e = session.query(InstitutionFinancing).filter_by(label='Частно').first()
-    print(e)
-
-    rows.clear()
-    nodes = Transforms()
-    for n in nodes:
-        rows.append(InstitutionStatus(code=n.code, label=n.label))
-
-    session.add_all(rows)
-    session.commit()
-
-    e = session.query(InstitutionStatus).filter_by(code=3).first()
-    print(e)
-
-    rows.clear()
-    nodes = Institutions()
-    for n in nodes:
-        s_index = session.query(Settlement.index).filter_by(code=n.location).one()[0]
-        rows.append(Institution(code=n.id, name=n.name, settlement_index=s_index,
-                                details_code=n.details, financing_code=n.finance,
-                                status_code=n.status))
-    session.add_all(rows)
-    session.commit()
-
-    rows = session.query(Institution).filter_by(code='103503').all()
-    for r in rows:
-        print(r)
-
-    rows.clear()
-    nodes = SchoolTypes()
-    for n in nodes:
-        rows.append(InstitutionDetails(code=n.code, label=n.label))
-
-    session.add_all(rows)
-    session.commit()
-
-    e = session.query(InstitutionDetails).filter_by(label='обединено').first()
-    print(e)
-
-    rows.clear()
-    nodes = Subjects()
-    for n in nodes:
-        rows.append(ExaminationSubject(code=n.code, subject=n.title))
-
-    session.add_all(rows)
-    session.commit()
-
-    e = session.query(ExaminationSubject).filter_by(subject='Математика').first()
-    print(e)
-
-    date_set = set()
-    nodes = Scores()
-    for n in nodes:
-        a_date = date.strptime(n.date, '%d.%m.%Y')
-        date_set.add(a_date)
-
-    censuses = nodes = Censuses()
-    for n in nodes:
-        a_date = date.strptime(n.date, '%d.%m.%Y')
-        date_set.add(a_date)
-
-    rows.clear()
-    for d in date_set:
-        m = Moment(date=d)
-        rows.append(m)
-
-    session.add_all(rows)
-    session.commit()
-
-    rows.clear()
-    nodes = Scores()
-    for n in nodes:
-        a_date = date.strptime(n.date, '%d.%m.%Y')
-        index = session.query(Moment.index).filter_by(date=a_date).one()[0]
-        rows.append(Examination(institution_index=n.id, date_index=index, grade=n.grade,
-                                subject_code=n.subject, score=n.score,
-                                students=n.students))
-
-    session.add_all(rows)
-    session.commit()
-
-    rows = session.query(Examination).filter_by(institution_index='103503').all()
-    for r in rows:
-        print(r)
-
-    rows.clear()
-    nodes = censuses
-    for n in nodes:
-        a_date = date.strptime(n.date, '%d.%m.%Y')
-        d_index = session.query(Moment.index).filter_by(date=a_date).one()[0]
-        m_index = session.query(Municipality.index).filter_by(abbrev=n.municipality).one()[0]
-        s_index = session.query(Settlement.index).filter_by(code=n.code).one()[0]
-        rows.append(Census(settlement_index=s_index, municipality_index=m_index,
-                           date_index=d_index, permanent=n.permanent,
-                           current=n.current))
-
-    session.add_all(rows)
-    session.commit()
-
-    rows = session.query(Census).filter_by(settlement_index='12259').all()
-    for r in rows:
-        print(r)
-
-    # Close the session
-    session.close()

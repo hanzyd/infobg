@@ -2,51 +2,39 @@
 
 from os import path
 import csv
+import sys
+from datetime import date
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from models import Municipality, Moment, Ethnicity
+
 
 DATA_DIR = 'data/infostat.nsi.bg'
 
 IN_FILE = 'ЕТНИЧЕСКА ПРИНАДЛЕЖНОСТ.csv'
 
 
-class Ethnicity():
-    def __init__(self, abbrev: str, name: str, total: int, bul: int, tur: int,
-                 roma: int, other: int, cant_decide: int, dont_answer: int,
-                 not_shown: int):
-        self.abbrev = str(abbrev)
-        self.name = str(name)
-        self.total = int(total)
-        self.bul = int(bul)
-        self.tur = int(tur)
-        self.roma = int(roma)
-        self.other = int(other)
-        self.cant_decide = int(cant_decide)
-        self.dont_answer = int(dont_answer)
-        self.not_shown = int(not_shown)
+def _find_date_index(session: Session, census_date: date) -> int:
 
-    def __str__(self):
-        return f'{self.abbrev:5} {self.total:7} {self.name}'
+    d_index = session.query(Moment.index).filter_by(date=census_date).first()
+    if not d_index:
+        m = Moment(date=census_date)
+        session.add(m)
+        session.commit()
+        d_index = session.query(Moment.index).filter_by(date=census_date).first()
 
-    def __repr__(self):
-        return f'Етнос <{self.abbrev:5} {self.total:7} {self.name}>'
-
-    def __hash__(self):
-        return hash(self.abbrev)
-
-    def __eq__(self, other):
-        if isinstance(other, Ethnicity):
-            equal = self.abbrev == other.abbrev
-
-            if equal and self.name != other.name:
-                print(f'Внимание: {self.abbrev}: {self.name} != {other.name}')
-
-            return equal
-
-        return NotImplemented
+    return d_index[0]
 
 
-def _load():
+def _load(session: Session):
 
-    a_set = set()
+    rows = list()
+
+    census_date = date(2021, 1, 1)
+
+    d_index = _find_date_index(session, census_date)
 
     file_path = path.join(DATA_DIR, IN_FILE)
     with open(file_path, newline='') as csv_file:
@@ -60,7 +48,19 @@ def _load():
             abbrev_and_name = row[0].split(' ', 1)
 
             abbrev = str(abbrev_and_name[0])
-            name = str(abbrev_and_name[1])
+            if len(abbrev) != 5:
+                continue
+
+            name = str(abbrev_and_name[1]).lower().capitalize()
+
+            municipality = session.query(Municipality).filter_by(abbrev=abbrev).first()
+            if not municipality:
+                print(f'Не намирам община {name} с абреатура {abbrev}')
+                continue
+
+            if municipality.name != name:
+                print(f'Името на общината {name} не съвпада {municipality.name}')
+                continue
 
             total = int(row[1])
 
@@ -99,25 +99,31 @@ def _load():
             except ValueError:
                 not_shown = 0
 
-            new_node = Ethnicity(abbrev, name, total, bul, tur,
+            new_node = Ethnicity(municipality.index, d_index, total, bul, tur,
                                  roma, other, cant_decide, dont_answer,
                                  not_shown)
+            rows.append(new_node)
 
-            a_set.add(new_node)
-
-    return a_set
-
-
-class Ethnicities():
-    def __init__(self):
-        self.nodes = _load()
-
-    def __iter__(self):
-        for node in self.nodes:
-            yield node
+    return rows
 
 
 if __name__ == "__main__":
-    nodes = Ethnicities()
-    for n in nodes:
-        print(n)
+
+    engine = create_engine('sqlite:///models.sqlite')
+
+    Ethnicity.__table__.drop(engine)
+    Ethnicity.__table__.create(engine)
+
+    with Session(engine) as session:
+
+        rows = _load(session)
+        if not rows:
+            sys.exit(0)
+
+        session.add_all(rows)
+        session.commit()
+
+        rows = session.query(Ethnicity).all()
+        for r in rows:
+            name = session.query(Municipality.name).filter_by(index=r.municipality_index).first()
+            print(f'Община {name[0]:25} {r}')

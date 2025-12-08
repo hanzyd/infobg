@@ -3,117 +3,68 @@
 import json
 import glob
 from os import path
+import sys
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from models import District
 
 # https://www.nsi.bg/nrnm/ekatte/archive
 
 DATA_DIR = 'data/nsi.bg'
-OUT_FILE = 'json/districts.json'
+
+"""
+  name      Char 25  - Наименование на областта
+  abbrev    Char 3   - Идентификационен код на областта (3 букви).
+"""
 
 
-class District():
-    """
-      name      Char 25  - Наименование на областта
-      abbrev    Char 3   - Идентификационен код на областта (3 букви).
-    """
-
-    def __init__(self, name: str, abbrev: str):
-        self.name = str(name)
-        self.abbrev = str(abbrev)
-
-    def __str__(self):
-        return f'{self.name:25}'
-
-    def __repr__(self):
-        return f'Област <{self.name:25} {self.abbrev:3}>'
-
-    def __hash__(self):
-        return hash(self.abbrev)
-
-    def __eq__(self, other):
-        if isinstance(other, District):
-            equal = self.abbrev == other.abbrev
-
-            if equal and self.name != other.name:
-                print(f'Внимание: {self.abbrev}: {self.name} != {other.name}')
-
-            return equal
-
-        return NotImplemented
-
-
-class Encoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-
-        return {
-            'name': obj.name,
-            'abbrev': obj.abbrev,
-        }
-
-
-def _process_one_year(dir):
+def _process_one_year(dir: str, unique_filter: set) -> list:
 
     a_json = None
-    a_list = list()
-    a_set = set()
+    table_rows = list()
 
     file_path = path.join(dir, 'ek_obl.json')
     with open(file_path, 'r', encoding='utf-8') as file:
         a_json = json.load(file)
 
     if not a_json:
-        return a_set
+        return table_rows
 
     for m in a_json[:-1]:
-        new_unit = District(m['name'], m['oblast'])
-        a_list.append(new_unit)
-        a_set.add(new_unit)
+        abbrev = m['oblast']
+        if abbrev in unique_filter:
+            continue
+        unique_filter.add(abbrev)
+        d_name = m['name'].lower().capitalize()
+        new_unit = District(name=d_name, abbrev=abbrev)
+        table_rows.append(new_unit)
 
-    if len(a_set) != len(a_list):
-        print(f'Има повтарящи се области във входния файл {file_path}')
-
-    return a_set
+    return table_rows
 
 
-def _load() -> set:
+def _load(dir_name):
 
-    if path.isfile(OUT_FILE):
-        try:
-            with open(OUT_FILE, 'r', encoding='utf-8') as file:
-                return json.load(file)
-        except Exception:
-            pass
-
-    dir_name = DATA_DIR
-    districts = set()
+    unique_filter = set()
+    rows = list()
     for dir in glob.iglob(f'{dir_name}/*'):
-        one = _process_one_year(dir)
-        districts.update(one)
+        one = _process_one_year(dir, unique_filter)
+        rows.extend(one)
 
-    return districts
-
-
-class Districts():
-    def __init__(self):
-        self.nodes = _load()
-
-    def __iter__(self):
-        for node in self.nodes:
-            yield node
-
-    def find_abbrev(self, name: str) -> str:
-
-        for m in self.nodes:
-            if m.name.lower() == name.lower():
-                return m.abbrev
-        return None
-
-    def toJSON(self):
-        with open(OUT_FILE, 'w', encoding='utf-8') as file:
-            file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
-
+    return rows
 
 if __name__ == "__main__":
-    nodes = Districts()
-    nodes.toJSON()
+    rows = _load(DATA_DIR)
+    if not rows:
+        sys.exit(0)
+
+    engine = create_engine('sqlite:///models.sqlite')
+    District.__table__.drop(engine)
+    District.__table__.create(engine)
+    with Session(engine) as session:
+        session.add_all(rows)
+        session.commit()
+
+        row = session.query(District).filter_by(abbrev='SHU').first()
+        print(row)

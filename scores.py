@@ -4,15 +4,16 @@ import json
 import sys
 from os import path
 from datetime import date
-
-from locations import Locations
-from municipalities import Municipalities
-from subjects import Subjects
-from institutions import Institutions, Institution
-from details import SchoolTypes
-from finance import Finances
-
 from decimal import Decimal
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+from models import Examination
+from models import ExaminationSubject
+from models import Institution
+from models import Moment
+
 
 # https://nvoresults.com/matura_results.json
 # https://nvoresults.com/matura_schools.json
@@ -23,64 +24,22 @@ DATA_DIR = 'data/nvoresults.com'
 INTERNAL = 'matura_results.json'
 EXTERNAL = 'results.json'
 
-OUT_FILE = 'json/scores.json'
 
-class Score():
+def _find_date_index(exam_date: date, session: Session) -> int:
 
-    def __init__(self, school_id: str, date_str: str, grade: int, subject: int, score: Decimal, students: int):
-        self.id = school_id
-        self.date = date_str
-        self.grade = grade
-        self.subject = subject
-        self.score = score
-        self.students = students
+    d_index = session.query(Moment.index).filter_by(date=exam_date).first()
+    if not d_index:
+        m = Moment(date=exam_date)
+        session.add(m)
+        session.commit()
+        d_index = session.query(Moment.index).filter_by(date=exam_date).first()
 
-    def __str__(self):
-        return f'{self.name}'
-
-    def __repr__(self):
-        return f'Резултат <{self.id} {self.date} {self.grade} {self.subject}>'
-
-    def __hash__(self):
-        return hash((self.id, self.date, self.grade, self.subject))
-
-    def __eq__(self, other):
-        if isinstance(other, Score):
-
-            equal = self.id == other.id and \
-                self.date == other.date and \
-                self.grade == other.grade and \
-                self.subject == other.subject
-
-            if equal and self.score != other.score:
-                print(f'Внимание: {self.id}: {self.score} != {other.score}')
-
-            if equal and self.students != other.students:
-                print(f'Внимание: {self.id}: {self.students} != {other.students}')
-
-            return equal
-
-        return NotImplemented
+    return d_index[0]
 
 
-class Encoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
+def _process_internal_results(session: Session) -> list:
 
-        return {
-            'id': obj.id,
-            'date': obj.date,
-            'grade': obj.grade,
-            'subject': obj.subject,
-            'score': obj.score,
-            'students': obj.students
-        }
-
-
-def _process_internal_results(schools: Institutions, subjects: Subjects) -> list:
-
-    a_list = []
+    rows = []
 
     file_name = path.join(DATA_DIR, INTERNAL)
     with open(file_name, 'r', encoding='utf-8') as file:
@@ -88,8 +47,11 @@ def _process_internal_results(schools: Institutions, subjects: Subjects) -> list
 
         for school_id in results:
 
-            if not schools.is_valid(school_id):
-                print(f'Невалиден код на училище "{school_id}"')
+            i_code = str(school_id)
+            i_index = session.query(
+                Institution.index).filter_by(code=i_code).first()
+            if not i_index:
+                print(f'Невалиден код на училище: {i_code}')
                 continue
 
             for date_str in results[school_id]:
@@ -97,8 +59,13 @@ def _process_internal_results(schools: Institutions, subjects: Subjects) -> list
                 tokens = date_str.replace('.', '_').split('_')
                 exam_date = date(int(tokens[0]), int(tokens[1]), 1)
 
+                d_index = _find_date_index(exam_date, session)
+                if not d_index:
+                    continue
+
                 for subj_str in results[school_id][date_str]:
-                    subj_code = subjects.find_code(subj_str)
+                    subj_code = session.query(ExaminationSubject.code).filter_by(
+                        subject=subj_str).first()
                     if not subj_code:
                         print(f'Невалиден код на тема "{subj_str}" в училище "{school_id}"')
                         continue
@@ -106,94 +73,98 @@ def _process_internal_results(schools: Institutions, subjects: Subjects) -> list
                     score = results[school_id][date_str][subj_str]['score']
                     students = results[school_id][date_str][subj_str]['numberOfStudents']
 
-                    exam = Score(school_id,  exam_date.strftime('%d.%m.%Y'),
-                                 12, subj_code, score, students)
+                    exam = Examination(institution_index=i_index[0],
+                                       date_index=d_index, grade=12,
+                                       subject_code=subj_code[0], score=score,
+                                       students=students)
 
-                    a_list.append(exam)
+                    rows.append(exam)
+    return rows
 
-    return a_list
 
+def _process_external_results(session: Session) -> list:
 
-def _process_external_results(schools: Institutions, subjects: Subjects) -> list:
+    rows = []
 
-    a_list = []
-
-    math_code = subjects.find_code('Математика')
-    lang_code = subjects.find_code('Български език и литература')
+    math_code = session.query(ExaminationSubject.code).filter_by(subject='Математика').first()[0]
+    lang_code = session.query(ExaminationSubject.code).filter_by(subject='Български език и литература').first()[0]
 
     file_name = path.join(DATA_DIR, EXTERNAL)
     with open(file_name, 'r', encoding='utf-8') as file:
         results = json.load(file)
 
-        for school_id in results:
+        for res in results:
 
-            if not schools.is_valid(school_id):
-                school_name = results[school_id]['name']
-                city_name = results[school_id]['city']
-                print(f'Невалиден код на училище "{school_id}" "{school_name}" "{city_name}"')
+            school_code = str(res)
+            school_name = results[school_code]['name']
+            city_name = results[school_code]['city']
+
+            i_index = session.query(Institution.index).filter_by(
+                code=school_code).first()
+            if not i_index:
+                print(f'Невалиден код на училище "{school_code}" "{school_name}" "{city_name}"')
                 continue
 
-            for date_str in results[school_id]['exam_results']:
+            for date_str in results[school_code]['exam_results']:
 
                 tokens = date_str.split('_')
                 exam_date = date(2000 + int(tokens[2]), 5, 1)
-                grade = int(results[school_id]['exam_results'][date_str]['grade'])
-                score = results[school_id]['exam_results'][date_str]['bel_score']
-                students = results[school_id]['exam_results'][date_str]['bel_students']
 
-                exam = Score(school_id,  exam_date.strftime('%d.%m.%Y'),
-                             grade, lang_code, score, students)
+                d_index = _find_date_index(exam_date, session)
+                if not d_index:
+                    continue
 
-                a_list.append(exam)
+                grade = int(results[school_code]
+                            ['exam_results'][date_str]['grade'])
 
-                score = results[school_id]['exam_results'][date_str]['math_score']
-                students = results[school_id]['exam_results'][date_str]['math_students']
+                score = results[school_code]['exam_results'][date_str]['bel_score']
+                students = results[school_code]['exam_results'][date_str]['bel_students']
 
-                exam = Score(school_id,  exam_date.strftime('%d.%m.%Y'),
-                             grade, math_code, score, students)
+                exam = Examination(institution_index=i_index[0],
+                                   date_index=d_index, grade=grade,
+                                   subject_code=lang_code, score=score,
+                                   students=students)
 
-                a_list.append(exam)
+                rows.append(exam)
 
-    return a_list
+                score = results[school_code]['exam_results'][date_str]['math_score']
+                students = results[school_code]['exam_results'][date_str]['math_students']
+
+                exam = Examination(institution_index=i_index[0],
+                                   date_index=d_index, grade=grade,
+                                   subject_code=math_code, score=score,
+                                   students=students)
+
+                rows.append(exam)
+
+    return rows
 
 
-def _load():
+def _load(session: Session) -> list:
 
-    if path.isfile(OUT_FILE):
-        try:
-            with open(OUT_FILE, 'r', encoding='utf-8') as file:
-                return json.load(file)
-        except Exception:
-            pass
-
-    subjects = Subjects()
-    if not subjects:
-        return
-
-    schools = Institutions()
-    if not schools:
-        return
-
-    external = _process_external_results(schools, subjects)
-    internal = _process_internal_results(schools, subjects)
+    external = _process_external_results(session)
+    internal = _process_internal_results(session)
     internal.extend(external)
 
     return internal
 
 
-class Scores():
-    def __init__(self):
-        self.nodes = _load()
-
-    def __iter__(self):
-        for node in self.nodes:
-            yield node
-
-    def toJSON(self):
-        with open(OUT_FILE, 'w', encoding='utf-8') as file:
-            file.write(json.dumps(self.nodes, indent=4, cls=Encoder))
-
-
 if __name__ == "__main__":
-    nodes = Scores()
-    nodes.toJSON()
+
+    engine = create_engine('sqlite:///models.sqlite')
+
+    Examination.__table__.drop(engine)
+    Examination.__table__.create(engine)
+
+    with Session(engine) as session:
+
+        rows = _load(session)
+        if not rows:
+            sys.exit(0)
+
+        session.add_all(rows)
+        session.commit()
+
+        rows = session.query(Examination).filter_by(institution_index=512).all()
+        for r in rows:
+            print(r)
