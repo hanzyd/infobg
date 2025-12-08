@@ -4,7 +4,6 @@ import json
 import sys
 from os import path
 from datetime import date
-from decimal import Decimal
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session

@@ -2,10 +2,8 @@
 
 # grao.bg
 
-import json
 import glob
 import sys
-from os import path
 from datetime import date
 
 from sqlalchemy import create_engine

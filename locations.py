@@ -12,7 +12,6 @@ from models import Municipality
 from models import SettlementAltitude
 from models import SettlementType
 from models import Settlement
-from models import MotherTongue
 
 
 # https://www.nsi.bg/nrnm/ekatte/archive
