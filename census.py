@@ -122,7 +122,9 @@ def _process_one_year(file_name: str, session: Session, strict=False) -> list:
     lines = _cleanup_lines(file_name)
 
     population = []
-
+    dist_name = None
+    mun_name = None
+    census_date = None
     for num, line in enumerate(lines):
 
         line = line.lower().strip()
