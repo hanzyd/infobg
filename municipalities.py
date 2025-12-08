@@ -51,7 +51,7 @@ def _process_one_year(dir: str, unique_set: set, session: Session) -> list:
     return table_rows
 
 
-def _load(dir_name: str, session: Session) -> None:
+def _load(dir_name: str, session: Session):
 
     unique_set = set()
     rows = list()
