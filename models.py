@@ -239,7 +239,7 @@ class MotherTongue(Base):
 
         x = bulgarians + turks + roma + other + cant_decide + dont_answer + not_shown
         if x != total:
-            print('общия брой се различва {total} != {x}')
+            print('език: общия брой се различва {total} != {x}')
 
         self.municipality_index = m_index
         self.date_index = d_index
@@ -277,7 +277,7 @@ class Ethnicity(Base):
 
         x = bulgarians + turks + roma + other + cant_decide + dont_answer + not_shown
         if x != total:
-            print('общия брой се различва {total} != {x}')
+            print('етност: общия брой се различва {total} != {x}')
 
         self.municipality_index = m_index
         self.date_index = d_index
@@ -316,7 +316,7 @@ class Religion(Base):
 
         x = orthodox + muslims + judean + other + none + cant_decide + dont_answer + not_shown
         if x != total:
-            print('общия брой се различва {total} != {x}')
+            print('религия: общия брой се различва {total} != {x}')
 
         self.municipality_index = m_index
         self.date_index = d_index
