@@ -63,9 +63,8 @@ def _load(dir_name: str, session: Session) -> None:
     return rows
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///models.sqlite')
-    Municipality.__table__.drop(engine)
-    Municipality.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
+
     with Session(engine) as session:
         rows = _load(DATA_DIR, session)
         if not rows:

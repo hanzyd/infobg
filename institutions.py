@@ -192,10 +192,7 @@ def _load_nvo(unique_set: set, session: Session) -> list:
 
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///models.sqlite')
-
-    Institution.__table__.drop(engine)
-    Institution.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
 
     with Session(engine) as session:
 

@@ -54,10 +54,7 @@ def guess_institution_financing(school_name: str) -> int:
 
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///models.sqlite')
-
-    InstitutionFinancing.__table__.drop(engine)
-    InstitutionFinancing.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
 
     with Session(engine) as session:
         rows = _load()

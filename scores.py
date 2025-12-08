@@ -151,10 +151,7 @@ def _load(session: Session) -> list:
 
 if __name__ == "__main__":
 
-    engine = create_engine('sqlite:///models.sqlite')
-
-    Examination.__table__.drop(engine)
-    Examination.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
 
     with Session(engine) as session:
 

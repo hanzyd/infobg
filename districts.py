@@ -59,9 +59,7 @@ if __name__ == "__main__":
     if not rows:
         sys.exit(0)
 
-    engine = create_engine('sqlite:///models.sqlite')
-    District.__table__.drop(engine)
-    District.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
     with Session(engine) as session:
         session.add_all(rows)
         session.commit()

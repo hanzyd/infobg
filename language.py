@@ -109,10 +109,7 @@ def _load(session: Session):
 
 if __name__ == "__main__":
 
-    engine = create_engine('sqlite:///models.sqlite')
-
-    MotherTongue.__table__.drop(engine)
-    MotherTongue.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
 
     with Session(engine) as session:
 

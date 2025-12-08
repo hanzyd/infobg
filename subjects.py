@@ -38,10 +38,7 @@ def _load():
 
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///models.sqlite')
-
-    ExaminationSubject.__table__.drop(engine)
-    ExaminationSubject.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
 
     with Session(engine) as session:
         rows = _load()

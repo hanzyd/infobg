@@ -94,7 +94,7 @@ def _process_one_year(dir: str, unique_filter: set, session: Session) -> list:
     return table_rows
 
 
-def _load(dir_name: str, session: Session) -> None:
+def _load(dir_name: str, session: Session):
 
     unique_filter = set()
     rows = list()
@@ -106,14 +106,7 @@ def _load(dir_name: str, session: Session) -> None:
     return rows
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///models.sqlite')
-
-    SettlementAltitude.__table__.drop(engine)
-    SettlementAltitude.__table__.create(engine)
-    SettlementType.__table__.drop(engine)
-    SettlementType.__table__.create(engine)
-    Settlement.__table__.drop(engine)
-    Settlement.__table__.create(engine)
+    engine = create_engine("postgresql://localhost/infobg")
 
     with Session(engine) as session:
 

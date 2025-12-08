@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
+from sqlalchemy_utils import database_exists, create_database
 from sqlalchemy import create_engine
 
 from sqlalchemy import Column, Integer, String, Date, Numeric, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Session
 from sqlalchemy.orm import declarative_base
 
 # from locations import Locations
@@ -333,7 +334,25 @@ class Religion(Base):
         return f'Религия<{self.municipality_index:3} християни: {self.orthodox:2}% мюслмани: {self.muslims:2}% юдеи: {self.judean:2}%>'
 
 if __name__ == "__main__":
-    engine = create_engine('sqlite:///models.sqlite')
+
+    engine = create_engine("postgresql://localhost/infobg")
+    if not database_exists(engine.url):
+        create_database(engine.url)
 
     # Create all tables in the engine
     Base.metadata.create_all(engine)
+
+    classes = [
+        Census, MotherTongue, Religion, Ethnicity,
+        Examination, ExaminationSubject,
+        Institution, InstitutionStatus, InstitutionDetails, InstitutionFinancing,
+        Settlement, SettlementAltitude, SettlementType, Moment,
+        Municipality, District
+    ]
+
+    with Session(engine) as session:
+        for cls in classes:
+            session.query(cls).delete()
+            session.commit()
+
+    pass
