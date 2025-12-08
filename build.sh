@@ -15,3 +15,4 @@
 ./religion.py
 ./language.py
 ./ethnicity.py
+./census.py
