@@ -303,6 +303,7 @@ class Religion(Base):
     judean = Column(Integer)
     other = Column(Integer)
     none = Column(Integer)
+    cant_decide = Column(Integer)
     dont_answer = Column(Integer)
     not_shown = Column(Integer)
 
@@ -311,9 +312,9 @@ class Religion(Base):
 
     def __init__(self, m_index: int, d_index: int, total: int, orthodox:int,
                  muslims: int, judean: int, other: int, none: int,
-                 dont_answer: int, not_shown: int):
+                 cant_decide: int, dont_answer: int, not_shown: int):
 
-        x = orthodox + muslims + judean + other + none + dont_answer + not_shown
+        x = orthodox + muslims + judean + other + none + cant_decide + dont_answer + not_shown
         if x != total:
             print('общия брой се различва {total} != {x}')
 
@@ -324,6 +325,7 @@ class Religion(Base):
         self.judean = round(float(judean)  * 100.0/ float(x))
         self.other = round(float(other) * 100.0  / float(x))
         self.none = round(float(none)  * 100.0/ float(x))
+        self.cant_decide = round(float(cant_decide)  * 100.0/ float(x))
         self.dont_answer = round(float(dont_answer)  * 100.0/ float(x))
         self.not_shown = round(float(not_shown) * 100.0 / float(x))
 

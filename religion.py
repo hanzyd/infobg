@@ -103,8 +103,8 @@ def _load(session: Session):
                 not_shown = 0
 
             new_node = Religion(municipality.index, d_index, total, orthodox,
-                                muslims, judean, other, none, dont_answer,
-                                not_shown)
+                                muslims, judean, other, none, cant_decide,
+                                dont_answer, not_shown)
             rows.append(new_node)
 
     return rows
