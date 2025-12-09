@@ -34,7 +34,6 @@ Some of these are available only in bulgarian.
 
 ## Results
 
-- Not fully ready.
 - Information about _all_ Bulgarian schools with their scores during recent years cleaned and organised into SQL tables
 - Information about _all_ Bulgarian villages, cities, municipalities and districts cleaned and organised into SQL tables
 - Information about _all_ Bulgarian villages and cities census since beginning of this century  cleaned and organised into SQL tables.
@@ -42,8 +41,6 @@ Some of these are available only in bulgarian.
 - Data successfully loaded to locally running Ollama with help to Vanna.AI
 
 ## TODO
-- Seems that tables columns have to have better description to allow LLM to do its magic
-- Add comments to column names. This will require switch from SQLite to ... PostgreSQL which supports COMMENTS
 - Add more statistical information about municipalities and ....
 
 ## HOWTO
@@ -60,3 +57,14 @@ Some of these are available only in bulgarian.
  $ ./vannaai.py
 ```
 - Open http://localhost:8000
+
+## Time for questions
+
+For better results use queries in Bulgarian language like:
+
+- Колко общини има в България?
+- Коя е най-малката от тях през 2005 година?
+- Коя учебна институция има най-добър резултат от изпитите по математика през 2024 година?
+- В кое населено място се намира?
+- Колко е голямо?
+
