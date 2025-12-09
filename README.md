@@ -50,7 +50,8 @@ Some of these are available only in bulgarian.
 
 - Install [ollama](https://ollama.com) and gpt-oss model
 - Install requirements
-- Fill in SQLite tables
+- Install PostgreSQL database and execute initial configuration
+- Fill in database tables
 ```console
  $ bash build.sh
 ```
