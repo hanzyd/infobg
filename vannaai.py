@@ -8,7 +8,7 @@ from vanna.tools import RunSqlTool, VisualizeDataTool
 from vanna.tools.agent_memory import SaveQuestionToolArgsTool, SearchSavedCorrectToolUsesTool, SaveTextMemoryTool
 from vanna.servers.fastapi import VannaFastAPIServer
 from vanna.integrations.ollama import OllamaLlmService
-from vanna.integrations.sqlite import SqliteRunner
+from vanna.integrations.postgres import PostgresRunner
 from vanna.integrations.local.agent_memory import DemoAgentMemory
 
 # Configure your LLM
@@ -19,7 +19,7 @@ llm = OllamaLlmService(
 
 # Configure your database
 db_tool = RunSqlTool(
-    sql_runner=SqliteRunner(database_path="./models.sqlite")
+    sql_runner=PostgresRunner(connection_string="postgresql://localhost/infobg")
 )
 
 # Configure your agent memory
