@@ -32,17 +32,21 @@ def _load(session: Session):
 
     rows = list()
 
-    census_date = date(2021, 1, 1)
-
-    d_index = _find_date_index(session, census_date)
-
     file_path = path.join(DATA_DIR, IN_FILE)
     with open(file_path, newline='') as csv_file:
         spam = csv.reader(csv_file, delimiter=';')
 
         next(spam)
+        tokens = next(spam)
         next(spam)
-        next(spam)
+
+        census_date = date(2021, 1, 1)
+        for t in tokens:
+            if t:
+                census_date = date(int(t), 1, 1)
+                break
+
+        d_index = _find_date_index(session, census_date)
 
         for row in spam:
             abbrev_and_name = row[0].split(' ', 1)
