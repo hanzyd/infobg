@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # All imports at the top
-from vanna import Agent
+from vanna import Agent, AgentConfig
 from vanna.core.registry import ToolRegistry
 from vanna.core.user import UserResolver, User, RequestContext
 from vanna.tools import RunSqlTool, VisualizeDataTool
@@ -42,11 +42,20 @@ tools.register_local_tool(SearchSavedCorrectToolUsesTool(), access_groups=['admi
 tools.register_local_tool(SaveTextMemoryTool(), access_groups=['admin', 'user'])
 tools.register_local_tool(VisualizeDataTool(), access_groups=['admin', 'user'])
 
+config = AgentConfig(
+    max_tokens=2000,
+    # Default is likely a low number (e.g., 2 or 3).
+    # THIS IS THE LINE TO CHANGE:
+    max_tool_iterations=100,
+    temperature=0.6,
+)
+
 agent = Agent(
     llm_service=llm,
     tool_registry=tools,
     user_resolver=user_resolver,
-    agent_memory=agent_memory
+    agent_memory=agent_memory,
+    config=config
 )
 
 # Run the server
