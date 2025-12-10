@@ -370,6 +370,21 @@ class Moment(Base):
     def __repr__(self) -> str:
         return f"Moment<{self.date}>"
 
+    @staticmethod
+    def insert_date(moment: date, session: Session) -> int:
+
+        d_index = session.query(Moment.id).filter_by(date=moment).first()
+        if not d_index:
+            m = Moment(date=moment)
+            session.add(m)
+            session.commit()
+            d_index = session.query(Moment.id).filter_by(date=moment).first()
+
+        if d_index:
+            return d_index[0]
+        else:
+            return -1
+
 
 class Census(Base):
     __tablename__ = "census"

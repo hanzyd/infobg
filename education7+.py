@@ -16,19 +16,6 @@ DATA_DIR = 'data/infostat.nsi.bg'
 IN_FILE = 'ОБРАЗОВАНИЕ 7+.csv'
 
 
-def _find_date_index(session: Session, census_date: date) -> int:
-
-    d_index = session.query(Moment.index).filter_by(date=census_date).first()
-    if not d_index:
-        m = Moment(date=census_date)
-        session.add(m)
-        session.commit()
-        d_index = session.query(Moment.index).filter_by(
-            date=census_date).first()
-
-    return d_index[0]
-
-
 def _load(session: Session):
 
     rows = list()
@@ -45,7 +32,7 @@ def _load(session: Session):
         for t in tokens:
             if t:
                 c_date = date(int(t), 1, 1)
-                d_index = _find_date_index(session, c_date)
+                d_index = Moment.insert_date(c_date, session)
             else:
                 d_index = None
 

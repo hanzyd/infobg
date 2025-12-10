@@ -103,18 +103,6 @@ def _cleanup_lines(file_name: str):
     return new_lines
 
 
-def _find_date_index(exam_date: date, session: Session) -> int:
-
-    d_index = session.query(Moment.index).filter_by(date=exam_date).first()
-    if not d_index:
-        m = Moment(date=exam_date)
-        session.add(m)
-        session.commit()
-        d_index = session.query(Moment.index).filter_by(date=exam_date).first()
-
-    return d_index[0]
-
-
 def _process_one_year(file_name: str, session: Session, strict=False) -> list:
 
     lines = _cleanup_lines(file_name)
@@ -188,7 +176,7 @@ def _process_one_year(file_name: str, session: Session, strict=False) -> list:
             print(f'{file_name}:{num} липсва дата')
             continue
 
-        time_index = _find_date_index(census_date, session)
+        time_index = Moment.insert_date(census_date, session)
 
         tokens = [t.strip() for t in tokens]
         town_name = tokens[0].removeprefix('с.').removeprefix('гр.').strip()

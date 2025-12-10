@@ -24,18 +24,6 @@ INTERNAL = 'matura_results.json'
 EXTERNAL = 'results.json'
 
 
-def _find_date_index(exam_date: date, session: Session) -> int:
-
-    d_index = session.query(Moment.index).filter_by(date=exam_date).first()
-    if not d_index:
-        m = Moment(date=exam_date)
-        session.add(m)
-        session.commit()
-        d_index = session.query(Moment.index).filter_by(date=exam_date).first()
-
-    return d_index[0]
-
-
 def _process_internal_results(session: Session) -> list:
 
     rows = []
@@ -58,7 +46,7 @@ def _process_internal_results(session: Session) -> list:
                 tokens = date_str.replace('.', '_').split('_')
                 exam_date = date(int(tokens[0]), int(tokens[1]), 1)
 
-                d_index = _find_date_index(exam_date, session)
+                d_index = Moment.insert_date(exam_date, session)
                 if not d_index:
                     continue
 
@@ -109,7 +97,7 @@ def _process_external_results(session: Session) -> list:
                 tokens = date_str.split('_')
                 exam_date = date(2000 + int(tokens[2]), 5, 1)
 
-                d_index = _find_date_index(exam_date, session)
+                d_index = Moment.insert_date(exam_date, session)
                 if not d_index:
                     continue
 

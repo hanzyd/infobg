@@ -16,17 +16,6 @@ DATA_DIR = 'data/infostat.nsi.bg'
 IN_FILE = 'МАЙЧИН ЕЗИК.csv'
 
 
-def _find_date_index(session: Session, census_date: date) -> int:
-
-    d_index = session.query(Moment.index).filter_by(date=census_date).first()
-    if not d_index:
-        m = Moment(date=census_date)
-        session.add(m)
-        session.commit()
-        d_index = session.query(Moment.index).filter_by(date=census_date).first()
-
-    return d_index[0]
-
 
 def _load(session: Session):
 
@@ -46,7 +35,7 @@ def _load(session: Session):
                 census_date = date(int(t), 1, 1)
                 break
 
-        d_index = _find_date_index(session, census_date)
+        d_index = Moment.insert_date(census_date, session)
 
         for row in spam:
             abbrev_and_name = row[0].split(' ', 1)
