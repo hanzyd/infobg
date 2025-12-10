@@ -65,7 +65,7 @@ def _load(session: Session):
                 except ValueError:
                     illiterate = 0
 
-                new_node = Literacy(municipality.index, d_index, total,
+                new_node = Literacy(municipality.id, d_index, total,
                                     literate, illiterate)
                 rows.append(new_node)
 
@@ -86,6 +86,8 @@ if __name__ == "__main__":
         session.commit()
 
         rows = session.query(Literacy).all()
-        for r in rows:
-            name = session.query(Municipality.name).filter_by(index=r.municipality_index).first()
+        for cnt, r in enumerate(rows):
+            name = session.query(Municipality.name).filter_by(id=r.municipality_id).first()
             print(f'Община {name[0]:25} {r}')
+            if cnt > 5:
+                break

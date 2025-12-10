@@ -56,32 +56,32 @@ def _load_mon(unique_set: set, session: Session) -> list:
 
         name = node['name']
         s_code = str(node['town']).zfill(5)
-        s_index = session.query(Settlement.index).filter_by(code=s_code).first()
+        s_index = session.query(Settlement.id).filter_by(id=s_code).first()
         if not s_index:
             print(f'Невалидно селище {s_code}: {name}')
             continue
 
         f_code = int(node['financialSchoolType'])
-        f_index = session.query(InstitutionFinancing.code).filter_by(code=f_code).first()
+        f_index = session.query(InstitutionFinancing.id).filter_by(id=f_code).first()
         if not f_index:
             print(f'Невалиден финасов код {f_code}: {name}')
             continue
 
         d_code = int(node['detailedSchoolType'])
-        d_index = session.query(InstitutionDetails.code).filter_by(code=d_code).first()
+        d_index = session.query(InstitutionDetails.id).filter_by(id=d_code).first()
         if not d_index:
             print(f'Невалиден детайлен код {d_code}: {name}')
             continue
 
         t_code = int(node['transformType'])
-        t_index = session.query(InstitutionStatus.code).filter_by(code=t_code).first()
+        t_index = session.query(InstitutionStatus.id).filter_by(id=t_code).first()
         if not t_index:
             print(f'Невалиден код на състоянието {t_code}: {name}')
             continue
 
-        new_unit = Institution(code=school_code, name=name, settlement_index=s_index[0],
-                               financing_code=f_code, details_code=d_code,
-                               status_code=t_code)
+        new_unit = Institution(code=school_code, name=name, settlement_id=s_index[0],
+                               financing_id=f_code, details_id=d_code,
+                               status_id=t_code)
 
         rows.append(new_unit)
         unique_set.add(school_code)
@@ -122,17 +122,17 @@ def _load_nvo(unique_set: set, session: Session) -> list:
             m_name = _strip_location(datum[school_code]['data']['obshtina'])
             d_name = _strip_location(datum[school_code]['data']['oblast'])
 
-            d_index = session.query(District.index).filter_by(name=d_name).first()
+            d_index = session.query(District.id).filter_by(name=d_name).first()
             if not d_index:
                 print(f'Невалидна област: {d_name}')
                 continue
 
-            m_index = session.query(Municipality.index).filter_by(name=m_name).first()
+            m_index = session.query(Municipality.id).filter_by(name=m_name).first()
             if not m_index:
                 print(f'Невалидна община в област {d_name}: {m_name}')
                 continue
 
-            s_index = session.query(Settlement.index).filter_by(name=s_name).filter_by(municipality_index=m_index[0]).first()
+            s_index = session.query(Settlement.id).filter_by(name=s_name).filter_by(municipality_id=m_index[0]).first()
             if not s_index:
                 print(f'Невалидна селище в област {d_name}, община {d_name}: {m_name}')
                 continue
@@ -141,9 +141,9 @@ def _load_nvo(unique_set: set, session: Session) -> list:
             d_code = guess_institution_details(school_name)
             s_code = guess_institution_status(school_name)
 
-            new_unit = Institution(code=school_code, name=school_name, settlement_index=s_index[0],
-                                   financing_code=f_code, details_code=d_code,
-                                   status_code=s_code)
+            new_unit = Institution(code=school_code, name=school_name, settlement_id=s_index[0],
+                                   financing_id=f_code, details_id=d_code,
+                                   status_id=s_code)
 
             rows.append(new_unit)
             unique_set.add(school_code)
@@ -162,17 +162,17 @@ def _load_nvo(unique_set: set, session: Session) -> list:
             m_name = _strip_location(datum[school_code]['municipality'])
             d_name = _strip_location(datum[school_code]['region'])
 
-            d_index = session.query(District.index).filter_by(name=d_name).first()
+            d_index = session.query(District.id).filter_by(name=d_name).first()
             if not d_index:
                 print(f'Невалидна област: {d_name}')
                 continue
 
-            m_index = session.query(Municipality.index).filter_by(name=m_name).first()
+            m_index = session.query(Municipality.id).filter_by(name=m_name).first()
             if not m_index:
                 print(f'Невалидна община в област {d_name}: {m_name}')
                 continue
 
-            s_index = session.query(Settlement.index).filter_by(name=s_name, municipality_index=m_index[0]).first()
+            s_index = session.query(Settlement.id).filter_by(name=s_name, municipality_id=m_index[0]).first()
             if not s_index:
                 print(f'Невалидна селище в област {d_name}, община {d_name}: {m_name}')
                 continue
@@ -181,9 +181,9 @@ def _load_nvo(unique_set: set, session: Session) -> list:
             d_code = guess_institution_details(school_name)
             s_code = guess_institution_status(school_name)
 
-            new_unit = Institution(code=school_code, name=school_name, settlement_index=s_index[0],
-                                   financing_code=f_code, details_code=d_code,
-                                   status_code=s_code)
+            new_unit = Institution(code=school_code, name=school_name, settlement_id=s_index[0],
+                                   financing_id=f_code, details_id=d_code,
+                                   status_id=s_code)
 
             rows.append(new_unit)
             unique_set.add(school_code)

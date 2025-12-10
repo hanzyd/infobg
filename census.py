@@ -205,12 +205,12 @@ def _process_one_year(file_name: str, session: Session, strict=False) -> list:
             mun_name = 'Ардино'
             dist_name = 'Кърджали'
 
-        d_index = session.query(District.index).filter_by(name=dist_name).first()
+        d_index = session.query(District.id).filter_by(name=dist_name).first()
         if not d_index:
             print(f'{file_name}:{num} Не намирам област {dist_name} община {mun_name} град {town_name}')
             continue
 
-        m_index = session.query(Municipality.index).filter_by(district_index=d_index[0]).filter_by(name=mun_name).first()
+        m_index = session.query(Municipality.id).filter_by(district_id=d_index[0]).filter_by(name=mun_name).first()
         if not m_index:
             print(f'{file_name}:{num} Не намирам община {mun_name} в област {dist_name}')
             continue
@@ -222,13 +222,13 @@ def _process_one_year(file_name: str, session: Session, strict=False) -> list:
         permanent = int(tokens[1])
         current = int(tokens[5])
 
-        s_index = session.query(Settlement.index).filter_by(name=town_name).filter_by(municipality_index=m_index[0]).first()
+        s_index = session.query(Settlement.id).filter_by(name=town_name).filter_by(municipality_id=m_index[0]).first()
         if not s_index:
             print(f'{file_name}:{num:4} Не намирам селище {town_name} в област {dist_name} в община {mun_name}')
             continue
 
-        census = Census(settlement_index=s_index[0], municipality_index=m_index[0],
-                        date_index=time_index, permanent=permanent, current=current)
+        census = Census(settlement_id=s_index[0], municipality_id=m_index[0],
+                        date_id=time_index, permanent=permanent, current=current)
 
         population.append(census)
         pass

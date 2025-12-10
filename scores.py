@@ -35,8 +35,7 @@ def _process_internal_results(session: Session) -> list:
         for school_id in results:
 
             i_code = str(school_id)
-            i_index = session.query(
-                Institution.index).filter_by(code=i_code).first()
+            i_index = session.query(Institution.id).filter_by(code=i_code).first()
             if not i_index:
                 print(f'Невалиден код на училище: {i_code}')
                 continue
@@ -51,7 +50,7 @@ def _process_internal_results(session: Session) -> list:
                     continue
 
                 for subj_str in results[school_id][date_str]:
-                    subj_code = session.query(ExaminationSubject.code).filter_by(
+                    subj_code = session.query(ExaminationSubject.id).filter_by(
                         subject=subj_str).first()
                     if not subj_code:
                         print(f'Невалиден код на тема "{subj_str}" в училище "{school_id}"')
@@ -60,9 +59,9 @@ def _process_internal_results(session: Session) -> list:
                     score = results[school_id][date_str][subj_str]['score']
                     students = results[school_id][date_str][subj_str]['numberOfStudents']
 
-                    exam = Examination(institution_index=i_index[0],
-                                       date_index=d_index, grade=12,
-                                       subject_code=subj_code[0], score=score,
+                    exam = Examination(institution_id=i_index[0],
+                                       date_id=d_index, grade=12,
+                                       subject_id=subj_code[0], score=score,
                                        students=students)
 
                     rows.append(exam)
@@ -73,8 +72,8 @@ def _process_external_results(session: Session) -> list:
 
     rows = []
 
-    math_code = session.query(ExaminationSubject.code).filter_by(subject='Математика').first()[0]
-    lang_code = session.query(ExaminationSubject.code).filter_by(subject='Български език и литература').first()[0]
+    math_code = session.query(ExaminationSubject.id).filter_by(subject='Математика').first()[0]
+    lang_code = session.query(ExaminationSubject.id).filter_by(subject='Български език и литература').first()[0]
 
     file_name = path.join(DATA_DIR, EXTERNAL)
     with open(file_name, 'r', encoding='utf-8') as file:
@@ -86,7 +85,7 @@ def _process_external_results(session: Session) -> list:
             school_name = results[school_code]['name']
             city_name = results[school_code]['city']
 
-            i_index = session.query(Institution.index).filter_by(
+            i_index = session.query(Institution.id).filter_by(
                 code=school_code).first()
             if not i_index:
                 print(f'Невалиден код на училище "{school_code}" "{school_name}" "{city_name}"')
@@ -107,9 +106,9 @@ def _process_external_results(session: Session) -> list:
                 score = results[school_code]['exam_results'][date_str]['bel_score']
                 students = results[school_code]['exam_results'][date_str]['bel_students']
 
-                exam = Examination(institution_index=i_index[0],
-                                   date_index=d_index, grade=grade,
-                                   subject_code=lang_code, score=score,
+                exam = Examination(institution_id=i_index[0],
+                                   date_id=d_index, grade=grade,
+                                   subject_id=lang_code, score=score,
                                    students=students)
 
                 rows.append(exam)
@@ -117,9 +116,9 @@ def _process_external_results(session: Session) -> list:
                 score = results[school_code]['exam_results'][date_str]['math_score']
                 students = results[school_code]['exam_results'][date_str]['math_students']
 
-                exam = Examination(institution_index=i_index[0],
-                                   date_index=d_index, grade=grade,
-                                   subject_code=math_code, score=score,
+                exam = Examination(institution_id=i_index[0],
+                                   date_id=d_index, grade=grade,
+                                   subject_id=math_code, score=score,
                                    students=students)
 
                 rows.append(exam)
@@ -149,6 +148,6 @@ if __name__ == "__main__":
         session.add_all(rows)
         session.commit()
 
-        rows = session.query(Examination).filter_by(institution_index=512).all()
+        rows = session.query(Examination).filter_by(institution_id=512).all()
         for r in rows:
             print(r)

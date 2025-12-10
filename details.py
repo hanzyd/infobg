@@ -40,7 +40,7 @@ def _load():
             unique_filter.add(code)
             label = str(node['label'])
 
-            new_unit = InstitutionDetails(code=code, label=label)
+            new_unit = InstitutionDetails(id=code, label=label)
             rows.append(new_unit)
 
     return rows

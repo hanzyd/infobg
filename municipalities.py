@@ -44,8 +44,8 @@ def _process_one_year(dir: str, unique_set: set, session: Session) -> list:
 
         m_name = m['name'].lower().capitalize()
         d_abbrev = m_abbrev[:3]
-        d_index = session.query(District.index).filter_by(abbrev=d_abbrev).one()[0]
-        new_unit = Municipality(name=m_name,abbrev=m_abbrev, district_index=d_index)
+        d_index = session.query(District.id).filter_by(abbrev=d_abbrev).one()[0]
+        new_unit = Municipality(name=m_name,abbrev=m_abbrev, district_id=d_index)
         table_rows.append(new_unit)
 
     return table_rows

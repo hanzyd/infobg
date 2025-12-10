@@ -40,7 +40,7 @@ def _load() -> list:
             unique_filter.add(code)
             label = str(node['label'])
 
-            new_unit = InstitutionFinancing(code=code, label=label)
+            new_unit = InstitutionFinancing(id=code, label=label)
             table_rows.append(new_unit)
 
     return table_rows

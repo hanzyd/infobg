@@ -83,11 +83,11 @@ def _process_one_year(dir: str, unique_filter: set, session: Session) -> list:
         s_altitude = int(node['altitude'])
         m_abbrev = str(node['obshtina'])
 
-        m_index = session.query(Municipality.index).filter_by(abbrev=m_abbrev).one()[0]
+        m_index = session.query(Municipality.id).filter_by(abbrev=m_abbrev).one()[0]
 
-        new_node = Settlement(code=s_code, name=s_name,
-                               municipality_index=m_index,
-                               kind_code=s_kind, altitude_code=s_altitude)
+        new_node = Settlement(id=s_code, name=s_name,
+                               municipality_id=m_index,
+                               type_id=s_kind, altitude_id=s_altitude)
         table_rows.append(new_node)
 
     return table_rows
@@ -110,18 +110,18 @@ if __name__ == "__main__":
     with Session(engine) as session:
 
         e = [
-            SettlementAltitude(code=1, label='до 49 вкл.'),
-            SettlementAltitude(code=2, label='50 - 99 вкл.'),
-            SettlementAltitude(code=3, label='100 - 199 вкл.'),
-            SettlementAltitude(code=4, label='200 - 299 вкл.'),
-            SettlementAltitude(code=5, label='300 - 499 вкл.'),
-            SettlementAltitude(code=6, label='500 - 699 вкл.'),
-            SettlementAltitude(code=7, label='700 - 999 вкл.'),
-            SettlementAltitude(code=8, label='1000 и повече'),
+            SettlementAltitude(id=1, label='до 49 вкл.'),
+            SettlementAltitude(id=2, label='50 - 99 вкл.'),
+            SettlementAltitude(id=3, label='100 - 199 вкл.'),
+            SettlementAltitude(id=4, label='200 - 299 вкл.'),
+            SettlementAltitude(id=5, label='300 - 499 вкл.'),
+            SettlementAltitude(id=6, label='500 - 699 вкл.'),
+            SettlementAltitude(id=7, label='700 - 999 вкл.'),
+            SettlementAltitude(id=8, label='1000 и повече'),
 
-            SettlementType(code=1, label='гр.'),
-            SettlementType(code=3, label='с.'),
-            SettlementType(code=7, label='ман.'),
+            SettlementType(id=1, label='гр.'),
+            SettlementType(id=3, label='с.'),
+            SettlementType(id=7, label='ман.'),
         ]
 
         session.add_all(e)
@@ -134,13 +134,13 @@ if __name__ == "__main__":
         session.add_all(rows)
         session.commit()
 
-        e = session.query(SettlementAltitude).filter_by(code=2).first()
+        e = session.query(SettlementAltitude).filter_by(id=2).first()
         print(e)
 
         e = session.query(SettlementType).filter_by(label='с.').first()
         print(e)
 
-        e = session.query(Settlement).filter_by(code='29129').first()
+        e = session.query(Settlement).filter_by(id='29129').first()
         print(e)
 
         e = session.query(Settlement).filter_by(

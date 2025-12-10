@@ -42,7 +42,7 @@ def _load():
             unique_filter.add(code)
             label = str(node['label'])
 
-            new_unit = InstitutionStatus(code=code, label=label)
+            new_unit = InstitutionStatus(id=code, label=label)
             table_rows.append(new_unit)
 
     return table_rows
@@ -63,5 +63,5 @@ if __name__ == "__main__":
         session.add_all(rows)
         session.commit()
 
-        e = session.query(InstitutionStatus).filter_by(code=3).first()
+        e = session.query(InstitutionStatus).filter_by(id=3).first()
         print(e)

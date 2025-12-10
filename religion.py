@@ -95,7 +95,7 @@ def _load(session: Session):
             except ValueError:
                 not_shown = 0
 
-            new_node = Religion(municipality.index, d_index, total, orthodox,
+            new_node = Religion(municipality.id, d_index, total, orthodox,
                                 muslims, judean, other, none, cant_decide,
                                 dont_answer, not_shown)
             rows.append(new_node)
@@ -117,6 +117,8 @@ if __name__ == "__main__":
         session.commit()
 
         rows = session.query(Religion).all()
-        for r in rows:
-            name = session.query(Municipality.name).filter_by(index=r.municipality_index).first()
+        for cnt, r in enumerate(rows):
+            name = session.query(Municipality.name).filter_by(id=r.municipality_id).first()
             print(f'Община {name[0]:25} {r}')
+            if cnt > 5:
+                break
