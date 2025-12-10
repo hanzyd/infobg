@@ -230,7 +230,7 @@ class Institution(Base):
     }
 
     index = Column(Integer, primary_key=True, autoincrement=True)
-    code = Column(String(6), unique=True, comment=
+    code = Column(String(7), unique=True, comment=
     """
      Уникален шестцифрен код на учебното институция.
 
