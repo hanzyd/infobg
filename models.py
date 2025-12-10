@@ -7,14 +7,6 @@ from sqlalchemy import Column, Integer, String, Date, Numeric, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import DeclarativeBase
 
-# from details import SchoolTypes
-# from subjects import Subjects
-# from scores import Scores
-# from transform import Transforms
-# from institutions import Institutions
-# from census import Censuses
-
-# Base = declarative_base()
 
 # https://github.com/sqlalchemy/alembic/discussions/1559
 class Base(DeclarativeBase):
