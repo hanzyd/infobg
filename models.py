@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
-from sqlalchemy_utils import database_exists, create_database
-from sqlalchemy import create_engine
+from sqlalchemy_utils import database_exists, create_database, drop_database
+from sqlalchemy import create_engine, MetaData
 
 from sqlalchemy import Column, Integer, String, Date, Numeric, ForeignKey
-from sqlalchemy.orm import relationship, Session
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import DeclarativeBase
 
-# from locations import Locations
-# from finance import Finances
 # from details import SchoolTypes
 # from subjects import Subjects
 # from scores import Scores
@@ -16,7 +14,17 @@ from sqlalchemy.orm import declarative_base
 # from institutions import Institutions
 # from census import Censuses
 
-Base = declarative_base()
+# Base = declarative_base()
+
+# https://github.com/sqlalchemy/alembic/discussions/1559
+class Base(DeclarativeBase):
+    metadata = MetaData(naming_convention={
+        "ix": "ix_%(column_0_label)s",
+        "uq": "uq_%(table_name)s_%(column_0_name)s",
+        "ck": "ck_%(table_name)s_`%(constraint_name)s`",
+        "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+        "pk": "pk_%(table_name)s"
+    })
 
 # - Код на типа на териториалната единица:
 #   1  "гр. "  -  град
@@ -549,21 +557,10 @@ if __name__ == "__main__":
     engine = create_engine("postgresql://localhost/infobg")
     if not database_exists(engine.url):
         create_database(engine.url)
+    else:
+        drop_database(engine.url)
+        create_database(engine.url)
 
     # Create all tables in the engine
     Base.metadata.create_all(engine)
-
-    classes = [
-        Census, MotherTongue, Religion, Ethnicity,
-        Examination, ExaminationSubject,
-        Institution, InstitutionStatus, InstitutionDetails, InstitutionFinancing,
-        Settlement, SettlementAltitude, SettlementType, Moment,
-        Municipality, District
-    ]
-
-    with Session(engine) as session:
-        for cls in classes:
-            session.query(cls).delete()
-            session.commit()
-
     pass
