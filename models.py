@@ -131,6 +131,8 @@ class Municipality(Base):
     mother_tongue = relationship('MotherTongue', back_populates='municipality', uselist=True)
     ethnicity = relationship('Ethnicity', back_populates='municipality', uselist=True)
     religion = relationship('Religion', back_populates='municipality', uselist=True)
+    education = relationship('Education', back_populates='municipality', uselist=True)
+    literacy = relationship('Literacy', back_populates='municipality', uselist=True)
 
     def __repr__(self) -> str:
         return f"Municipality<{self.abbrev}, {self.name}>"
@@ -362,6 +364,8 @@ class Moment(Base):
     mother_tongue = relationship('MotherTongue', back_populates='moment', uselist=True)
     ethnicity = relationship('Ethnicity', back_populates='moment', uselist=True)
     religion = relationship('Religion', back_populates='moment', uselist=True)
+    education = relationship('Education', back_populates='moment', uselist=True)
+    literacy = relationship('Literacy', back_populates='moment', uselist=True)
 
     def __repr__(self) -> str:
         return f"Moment<{self.date}>"
@@ -543,6 +547,92 @@ class Religion(Base):
 
     def __repr__(self):
         return f'Религия<{self.municipality_index:3} християни: {self.orthodox:2}% мюслмани: {self.muslims:2}% юдеи: {self.judean:2}%>'
+
+
+class Education(Base):
+    __tablename__ = "education"
+    __table_args__ = {
+        'comment':
+        """
+        Таблица, съдържаща разпределението на образователна структура на
+        населението на 7 и повече години по степен на образование,
+        община и дата. Данните в колоните са в проценти.
+        """
+    }
+
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    municipality_index = Column(Integer, ForeignKey("municipality.index", comment='Улазател към таблицата на общините'))
+    date_index = Column(Integer, ForeignKey("moment.index", comment='Указател към таблицата с датите на проведените преборявания'))
+    university = Column(Integer, comment='Висше образование, в проценти')
+    secondary = Column(Integer, comment='Средно образование, в проценти')
+    primary = Column(Integer, comment='Основно образование, в проценти')
+    elementary = Column(Integer, comment='Начално и по-ниско образование, в проценти')
+    no_school = Column(Integer, comment='Дете до 7 години включително, което още не посещава училище, в проценти')
+
+    municipality = relationship('Municipality', back_populates='education')
+    moment = relationship('Moment', back_populates='education')
+
+    def __init__(self, m_index: int, d_index: int, total: int, university:int,
+                 secondary: int, primary: int, elementary: int, none: int):
+
+        x = university + secondary + primary + elementary + none
+        if x != total:
+            print(f'образование: общия брой се различва {total} != {x}')
+
+        self.municipality_index = m_index
+        self.date_index = d_index
+        self.university = round(float(university) * 100.0 / float(x))
+        self.secondary = round(float(secondary) * 100.0 / float(x))
+        self.primary = round(float(primary)  * 100.0/ float(x))
+        self.elementary = round(float(elementary) * 100.0  / float(x))
+        self.no_school = round(float(none)  * 100.0/ float(x))
+
+        x = self.university + self.secondary + self.primary + self.elementary + self.no_school
+        if x != 100:
+            print(f'образование: общия процент {x} != 100')
+
+    def __repr__(self):
+        return f'Образование<{self.municipality_index:3} Висше: {self.university:2}% Средно: {self.secondary:2}% Основно: {self.primary:2}%>'
+
+
+class Literacy(Base):
+    __tablename__ = "literacy"
+    __table_args__ = {
+        'comment':
+        """
+        Таблица, съдържаща разпределението на грамотните и неграмотните по
+        община и дата. Данните в колоните са в проценти.
+        """
+    }
+
+    index = Column(Integer, primary_key=True, autoincrement=True)
+    municipality_index = Column(Integer, ForeignKey("municipality.index", comment='Улазател към таблицата на общините'))
+    date_index = Column(Integer, ForeignKey("moment.index", comment='Указател към таблицата с датите на проведените преборявания'))
+    literate = Column(Integer, comment='Грамотни, в проценти')
+    illiterate = Column(Integer, comment='Неграмотни, в проценти')
+
+    municipality = relationship('Municipality', back_populates='literacy')
+    moment = relationship('Moment', back_populates='literacy')
+
+    def __init__(self, m_index: int, d_index: int, total: int, literate: int,
+                 iletarate: int):
+
+        x = literate + iletarate
+        if x != total:
+            print(f'грамотност: общия брой се различва {total} != {x}')
+
+        self.municipality_index = m_index
+        self.date_index = d_index
+        self.literate = round(float(literate) * 100.0 / float(x))
+        self.illiterate = round(float(iletarate) * 100.0 / float(x))
+
+        x = self.literate + self.illiterate
+        if x != 100:
+            print(f'грамотност: общия процент {x} != 100')
+
+    def __repr__(self):
+        return f'Грамотност<{self.municipality_index:3} грамотни: {self.literate:2}% неграмотни: {self.illiterate:2}%>'
+
 
 if __name__ == "__main__":
 

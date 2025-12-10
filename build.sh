@@ -16,3 +16,5 @@
 ./language.py
 ./ethnicity.py
 ./census.py
+./education7+.py
+./literacy.py
